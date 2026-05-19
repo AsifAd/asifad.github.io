@@ -49,8 +49,10 @@ test.describe("site improvements", () => {
     const jsonLd = await page.locator('script[type="application/ld+json"]').textContent();
     expect(jsonLd).toBeTruthy();
     const data = JSON.parse(jsonLd!);
-    expect(data["@type"]).toBe("Person");
-    expect(data.sameAs).toEqual(
+    const graph = data["@graph"] ?? [data];
+    const person = graph.find((node: { "@type"?: string }) => node["@type"] === "Person");
+    expect(person).toBeTruthy();
+    expect(person!.sameAs).toEqual(
       expect.arrayContaining([
         "https://github.com/AsifAd",
         "https://www.linkedin.com/in/asifdraxi/",
@@ -59,9 +61,10 @@ test.describe("site improvements", () => {
     );
   });
 
-  test("meta description mentions open source", async ({ page }) => {
+  test("meta description mentions open source and full name", async ({ page }) => {
     await page.goto("/");
     const desc = await page.locator('meta[name="description"]').getAttribute("content");
     expect(desc?.toLowerCase()).toContain("open source");
+    expect(desc).toMatch(/Asif Draxi/);
   });
 });
