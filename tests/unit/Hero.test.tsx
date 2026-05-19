@@ -40,8 +40,8 @@ describe("Hero section", () => {
 
   it("mentions open source in the tagline", () => {
     render(<Hero />);
-    expect(screen.getByText(/contribute upstream to/i)).toBeInTheDocument();
-    expect(screen.getByText(/open source/i)).toBeInTheDocument();
+    const tagline = screen.getByText(/contribute upstream to/i).closest("p");
+    expect(tagline?.textContent).toMatch(/open source/i);
   });
 
   it("renders all four focus areas (SRE / DevOps / Cloud / AI)", () => {

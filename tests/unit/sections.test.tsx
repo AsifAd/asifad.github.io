@@ -77,11 +77,13 @@ describe("Projects", () => {
 });
 
 describe("OpenSource", () => {
-  it("renders every open source stack from data", () => {
+  it("renders every open source stack from data with hub links", () => {
     render(<OpenSource />);
     for (const stack of openSourceStacks) {
       expect(screen.getByText(stack.name)).toBeInTheDocument();
       expect(screen.getByText(stack.focus)).toBeInTheDocument();
+      const link = screen.getByTestId(`oss-stack-${stack.tech}`);
+      expect(link).toHaveAttribute("href", stack.hubLink);
     }
   });
 

@@ -49,23 +49,18 @@ test.describe("open source section", () => {
     expect(inView).toBe(true);
   });
 
-  test("nav external links use inline icons without broken layout", async ({ page }) => {
+  test("desktop github link uses inline icon without broken layout", async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 800 });
     await page.goto("/");
 
-    const ossLink = page
-      .locator('a[href*="opensource-contributions"]')
-      .filter({ has: page.locator("svg") })
-      .first();
-    await expect(ossLink).toBeVisible();
+    const ghLink = page.locator('nav a[href="https://github.com/AsifAd"]').first();
+    await expect(ghLink).toBeVisible();
 
-    const box = await ossLink.boundingBox();
+    const box = await ghLink.boundingBox();
     expect(box).not.toBeNull();
     expect(box!.height).toBeLessThan(40);
-    expect(box!.width).toBeGreaterThan(30);
 
-    const text = await ossLink.innerText();
-    expect(text.toLowerCase()).toContain("oss");
-    expect(text).not.toMatch(/\n/);
+    await expect(ghLink.locator("span").first()).toHaveText("github");
+    await expect(ghLink.locator("svg")).toBeVisible();
   });
 });

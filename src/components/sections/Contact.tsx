@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowUpRight, Mail, MapPin } from "lucide-react";
+import { ArrowUpRight, Download, Mail, MapPin } from "lucide-react";
 import Reveal from "../ui/Reveal";
 import { GitHubIcon, LinkedInIcon } from "../ui/BrandIcons";
 import { profile } from "../../data/resume";
@@ -8,6 +8,13 @@ const links = [
   { label: "Email", value: "asifdraxi@gmail.com", href: profile.links.email, icon: Mail },
   { label: "LinkedIn", value: "linkedin.com/in/asifdraxi", href: profile.links.linkedin, icon: LinkedInIcon },
   { label: "GitHub", value: "github.com/AsifAd", href: profile.links.github, icon: GitHubIcon },
+  {
+    label: "Résumé",
+    value: "PDF download",
+    href: "/asif-draxi-resume.pdf",
+    download: true,
+    icon: Download,
+  },
   { label: "Location", value: profile.location, icon: MapPin },
 ];
 
@@ -45,8 +52,9 @@ export default function Contact() {
               <Reveal key={l.label} delay={i * 0.05}>
                 <Tag
                   href={l.href}
+                  download={"download" in l && l.download ? true : undefined}
                   target={l.href?.startsWith("http") ? "_blank" : undefined}
-                  rel="noopener"
+                  rel={l.href?.startsWith("http") ? "noopener noreferrer" : undefined}
                   whileHover={l.href ? { y: -2 } : undefined}
                   className="panel group flex items-center justify-between gap-4 rounded-xl p-5 transition-colors hover:bg-[var(--color-accent-soft)]"
                 >

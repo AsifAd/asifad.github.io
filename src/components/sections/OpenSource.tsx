@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ExternalLink } from "lucide-react";
 import Reveal from "../ui/Reveal";
 import { openSourceStacks, profile } from "../../data/resume";
 
@@ -45,7 +45,7 @@ export default function OpenSource() {
 
         <Reveal delay={0.08}>
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-[var(--color-fg-muted)]">
-            PRs, roadmaps, and repro notes for each stack — all tracked on the live dashboard below.
+            PRs, roadmaps, and repro notes for each stack — synced from the live dashboard below.
           </p>
         </Reveal>
 
@@ -53,7 +53,7 @@ export default function OpenSource() {
           <motion.a
             href={profile.links.ossHub}
             target="_blank"
-            rel="noopener"
+            rel="noopener noreferrer"
             data-testid="oss-hub-cta"
             whileHover={{ y: -2 }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
@@ -94,18 +94,23 @@ export default function OpenSource() {
               data-testid="opensource-stacks"
             >
               {openSourceStacks.map((stack, i) => (
-                <motion.div
-                  key={stack.name}
+                <motion.a
+                  key={stack.tech}
+                  href={stack.hubLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-stack={stack.name}
+                  data-testid={`oss-stack-${stack.tech}`}
                   initial={{ opacity: 0, y: 8 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.04, duration: 0.4 }}
-                  className="panel rounded-xl p-4"
-                  data-stack={stack.name}
+                  whileHover={{ y: -3 }}
+                  className="panel group block rounded-xl p-4 transition-colors hover:bg-[var(--color-accent-soft)]/20"
                 >
                   <div className="flex items-center justify-between gap-2">
                     <span
-                      className="font-semibold text-[var(--color-fg)]"
+                      className="font-semibold text-[var(--color-fg)] transition-colors group-hover:text-[var(--color-accent)]"
                       style={{ fontFamily: "var(--font-display)" }}
                     >
                       {stack.name}
@@ -114,12 +119,18 @@ export default function OpenSource() {
                       className={`shrink-0 rounded-full border px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider ${statusStyles[stack.status]}`}
                     >
                       {stack.statusLabel}
+                      {stack.openPRs > 0 ? ` · ${stack.openPRs} PR` : ""}
                     </span>
                   </div>
                   <p className="mt-2 text-sm leading-relaxed text-[var(--color-fg-muted)]">
                     {stack.focus}
                   </p>
-                </motion.div>
+                  <span className="mt-3 inline-flex items-center gap-1 font-mono text-[11px] text-[var(--color-accent)]">
+                    View on hub
+                    <ExternalLink className="h-3 w-3" />
+                    <span className="sr-only"> (opens in new tab)</span>
+                  </span>
+                </motion.a>
               ))}
             </div>
           </div>

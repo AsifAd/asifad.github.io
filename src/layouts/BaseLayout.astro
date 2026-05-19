@@ -2,6 +2,7 @@
 import "../styles/global.css";
 import Nav from "../components/Nav.astro";
 import Background from "../components/Background.tsx";
+import { profile } from "../data/resume";
 
 interface Props {
   title?: string;
@@ -10,8 +11,24 @@ interface Props {
 
 const {
   title = "Asif Draxi — Site Reliability Engineer",
-  description = "Site Reliability Engineer specializing in SRE, DevOps, Cloud (GCP/AWS/Azure), Kubernetes, and AI-assisted automation. 5+ years building reliable platforms.",
+  description = "Site Reliability Engineer — SRE, DevOps, and open source on GCP, AWS, and Azure. Kubernetes, IaC, observability, and upstream contributions to Ansible, Argo CD, and Jenkins.",
 } = Astro.props;
+
+const siteUrl = "https://asifad.github.io";
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: profile.name,
+  jobTitle: profile.title,
+  url: siteUrl,
+  email: profile.email,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Bengaluru",
+    addressCountry: "IN",
+  },
+  sameAs: [profile.links.github, profile.links.linkedin, profile.links.ossHub],
+};
 ---
 
 <!doctype html>
@@ -20,9 +37,8 @@ const {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
+    <link rel="canonical" href={siteUrl} />
 
-    {/* Set theme before paint to avoid flash. Defaults to dark unless
-        the user previously chose light. */}
     <script is:inline>
       (function () {
         try {
@@ -38,31 +54,39 @@ const {
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content="https://asifad.github.io" />
-    <meta property="og:image" content="https://asifad.github.io/og.png" />
+    <meta property="og:url" content={siteUrl} />
+    <meta property="og:image" content={`${siteUrl}/og.png`} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content="https://asifad.github.io/og.png" />
+    <meta name="twitter:image" content={`${siteUrl}/og.png`} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="alternate icon" href="/favicon.ico" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap"
       rel="stylesheet"
     />
 
     <title>{title}</title>
   </head>
   <body class="relative min-h-screen">
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-[var(--color-fg)] focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-[var(--color-bg)]"
+    >
+      Skip to content
+    </a>
     <Background client:load />
     <Nav />
-    <main class="relative z-10">
+    <main id="main-content" class="relative z-10">
       <slot />
     </main>
   </body>

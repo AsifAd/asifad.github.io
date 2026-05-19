@@ -34,7 +34,7 @@ export default function Hero() {
             <span className="relative inline-flex h-2 w-2 rounded-full bg-[var(--color-accent)]" />
           </span>
           <span className="font-mono text-xs uppercase tracking-wider text-[var(--color-fg-muted)]">
-            On-call ready · Open to collaboration
+            Open to SRE & platform roles · Bengaluru / remote
           </span>
         </motion.div>
 
@@ -98,11 +98,20 @@ export default function Hero() {
           className="mt-10 flex flex-wrap items-center gap-3"
         >
           <a
-            href="#experience"
+            href="#projects"
+            data-testid="hero-cta-projects"
             className="group inline-flex items-center gap-2 rounded-full bg-[var(--color-fg)] px-5 py-2.5 text-sm font-medium text-[var(--color-bg)] transition-all hover:scale-[1.02]"
           >
-            See my work
+            Production work
             <ArrowDown className="h-4 w-4 transition-transform group-hover:translate-y-0.5" />
+          </a>
+          <a
+            href="#opensource"
+            data-testid="hero-cta-opensource"
+            className="inline-flex items-center gap-2 rounded-full border border-[var(--color-accent)]/40 bg-[var(--color-accent-soft)] px-5 py-2.5 text-sm font-medium text-[var(--color-fg)] transition-colors hover:bg-[var(--color-accent-soft)]"
+          >
+            Open source
+            <ArrowDown className="h-4 w-4" />
           </a>
           <a
             href={profile.links.github}

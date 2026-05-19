@@ -20,8 +20,10 @@ describe("resume data", () => {
     expect(profile.links.email).toMatch(/^mailto:/);
   });
 
-  it("summary is non-empty prose", () => {
+  it("summary is non-empty prose with consistent uptime stat", () => {
     expect(summary.length).toBeGreaterThan(100);
+    expect(summary).toMatch(/99\.9%/);
+    expect(summary).not.toMatch(/99\.99%/);
   });
 
   it("every skill group has items", () => {
@@ -45,13 +47,16 @@ describe("resume data", () => {
     expect(experience[0].company).toBe("BlackLine");
   });
 
-  it("open source stacks include active upstream technologies", () => {
+  it("open source stacks include active upstream technologies with hub links", () => {
     const labels = openSourceStacks.map((s) => s.name);
     expect(labels).toContain("Ansible");
     expect(labels).toContain("Argo CD");
     expect(labels).toContain("Jenkins");
     const active = openSourceStacks.filter((s) => s.status === "active");
     expect(active.length).toBeGreaterThanOrEqual(3);
+    for (const s of openSourceStacks) {
+      expect(s.hubLink).toMatch(/opensource-contributions\/#roadmap-/);
+    }
   });
 
   it("projects are production work, not upstream OSS cards", () => {

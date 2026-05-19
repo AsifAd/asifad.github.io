@@ -14,7 +14,9 @@ export const profile = {
   },
 };
 
-export const summary = `Site Reliability Engineer with 5+ years architecting and automating cloud platforms across GCP, AWS, and Azure. I specialize in Kubernetes, Infrastructure as Code, and the observability + automation loops that turn 2 AM pages into self-healing systems. Track record of 99.99% uptime SLAs, $250K+ quarterly cost optimization, and CI/CD pipelines that ship safely.`;
+export const summary = `Site Reliability Engineer with 5+ years architecting and automating cloud platforms across GCP, AWS, and Azure. I specialize in Kubernetes, Infrastructure as Code, and the observability + automation loops that turn 2 AM pages into self-healing systems. Track record of 99.9% uptime SLAs, $250K+ quarterly cost optimization, and CI/CD pipelines that ship safely.`;
+
+export const aboutNote = `The work I care most about lives at the boundary: where infrastructure becomes a product for engineers, where alerts become actions, and where upstream open source fixes make the next on-call shift quieter.`;
 
 export type SkillGroup = { label: string; items: string[]; accent: "cyan" | "violet" | "emerald" };
 
@@ -32,7 +34,7 @@ export const skills: SkillGroup[] = [
   {
     label: "Infrastructure as Code",
     accent: "emerald",
-    items: ["Terraform", "Ansible", "Chef", "GitOps"],
+    items: ["Terraform", "Ansible", "GitOps"],
   },
   {
     label: "CI/CD & Automation",
@@ -47,7 +49,7 @@ export const skills: SkillGroup[] = [
   {
     label: "Languages",
     accent: "emerald",
-    items: ["Python", "Bash", "JavaScript", "PL/SQL"],
+    items: ["Python", "Bash", "JavaScript"],
   },
 ];
 
@@ -112,72 +114,15 @@ export type Project = {
   highlight?: boolean;
 };
 
-export type OpenSourceStackStatus = "active" | "planned" | "exploring";
-
-export type OpenSourceStack = {
-  name: string;
-  status: OpenSourceStackStatus;
-  statusLabel: string;
-  focus: string;
-};
-
-/** Sync with opensource-contributions roadmap — active stacks first. */
-export const openSourceStacks: OpenSourceStack[] = [
-  {
-    name: "Ansible",
-    status: "active",
-    statusLabel: "Active",
-    focus: "community.general — ini_file comment fix, nmcli bond idempotency",
-  },
-  {
-    name: "Argo CD",
-    status: "active",
-    statusLabel: "Active",
-    focus: "ApplicationSet UI — namespaced views & Refresh button",
-  },
-  {
-    name: "Jenkins",
-    status: "active",
-    statusLabel: "Active",
-    focus: "kubernetes-plugin — multi-container agent pod cleanup",
-  },
-  {
-    name: "Apache NiFi",
-    status: "planned",
-    statusLabel: "Planned",
-    focus: "Provenance repo corruption after OOM on NiFi 1.27",
-  },
-  {
-    name: "Vault / OpenBao",
-    status: "planned",
-    statusLabel: "Planned",
-    focus: "community.hashi_vault docs & good-first issues",
-  },
-  {
-    name: "Kubernetes",
-    status: "exploring",
-    statusLabel: "Exploring",
-    focus: "kubernetes/website docs or kubernetes.core",
-  },
-  {
-    name: "Docker",
-    status: "exploring",
-    statusLabel: "Exploring",
-    focus: "community.docker check-mode permanent diff",
-  },
-  {
-    name: "Terraform",
-    status: "exploring",
-    statusLabel: "Exploring",
-    focus: "Provider bugs & registry contributions",
-  },
-];
+export { openSourceStacks } from "./oss-stacks.generated";
+export type { GeneratedOpenSourceStack as OpenSourceStack } from "./oss-stacks.generated";
 
 export const projects: Project[] = [
   {
     name: "Auto-healing remediation loop",
     blurb:
       "Production system at BlackLine: New Relic alerts trigger PagerDuty events, which fire GitHub Actions workflows running Ansible playbooks against known failure states. Cuts MTTR on common incidents to near-zero.",
+    link: "#opensource",
     tags: ["New Relic", "PagerDuty", "GitHub Actions", "Ansible"],
     highlight: true,
   },
@@ -185,26 +130,37 @@ export const projects: Project[] = [
     name: "NiFi multi-region orchestration",
     blurb:
       "Migrated Apache NiFi clusters from Chef-based config to Ansible roles, then orchestrated zero-downtime multi-region deployments with consistent configuration drift detection.",
+    link: "https://asifad.github.io/opensource-contributions/#roadmap-nifi",
     tags: ["Ansible", "Apache NiFi", "GCP", "Migration"],
   },
   {
     name: "Enterprise K8s Automation Lab",
     blurb:
       "Cloud-hybrid testing environment defined entirely in IaC. Terraform bootstraps the VPC and instances; Ansible configures a working Kubernetes cluster for microservice experimentation.",
+    link: "https://github.com/AsifAd",
     tags: ["Terraform", "Ansible", "Kubernetes", "GitOps"],
   },
   {
     name: "Serverless cloud alerting engine",
     blurb:
       "Python + AWS Lambda alert engine. Pulls log errors from S3/CloudWatch, categorizes by severity, dispatches via webhook. Reduced false-positive alert bloat.",
+    link: "https://github.com/AsifAd",
     tags: ["Python", "AWS Lambda", "Observability"],
   },
 ];
 
 export const certifications = [
   { name: "HashiCorp Terraform Associate (003)", issuer: "HashiCorp", link: "https://www.credly.com/earner/earned/badge/59987b27-67e8-4638-ad2a-8b7feeb76faf" },
-  { name: "Google Professional Cloud Architect", issuer: "Google Cloud" },
-  { name: "Azure DevOps Engineer Expert (AZ-400)", issuer: "Microsoft" },
+  {
+    name: "Google Professional Cloud Architect",
+    issuer: "Google Cloud",
+    link: "https://cloud.google.com/certification/cloud-architect",
+  },
+  {
+    name: "Azure DevOps Engineer Expert (AZ-400)",
+    issuer: "Microsoft",
+    link: "https://learn.microsoft.com/en-us/credentials/certifications/devops-engineer/",
+  },
   { name: "AWS Solutions Architect Associate", issuer: "AWS", link: "https://www.youracclaim.com/badges/305c90a5-8131-4b3c-8783-f6fa106cdf93/public_url" },
   { name: "AWS Cloud Practitioner", issuer: "AWS", link: "https://www.youracclaim.com/badges/1c31f0af-faae-4f11-be3c-c7de8e50ff4c/public_url" },
 ];

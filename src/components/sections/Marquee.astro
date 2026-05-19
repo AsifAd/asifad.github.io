@@ -1,0 +1,42 @@
+---
+const items = [
+  "SRE",
+  "Kubernetes",
+  "Terraform",
+  "Ansible",
+  "GitHub Actions",
+  "New Relic",
+  "GCP",
+  "AWS",
+  "Azure",
+  "Observability",
+  "Auto-remediation",
+  "GitOps",
+  "Python",
+  "AI-assisted ops",
+];
+const doubled = [...items, ...items];
+---
+
+<section
+  class="relative w-full overflow-hidden border-y border-[var(--color-rule)] py-6"
+  data-testid="marquee"
+  aria-hidden="true"
+>
+  <div class="pointer-events-none absolute inset-y-0 left-0 z-10 w-32 bg-gradient-to-r from-[var(--color-bg)] to-transparent"></div>
+  <div class="pointer-events-none absolute inset-y-0 right-0 z-10 w-32 bg-gradient-to-l from-[var(--color-bg)] to-transparent"></div>
+
+  <div class="flex" style="animation: ticker 50s linear infinite">
+    {
+      doubled.map((item) => (
+        <div
+          class="flex flex-shrink-0 items-center gap-8 px-6 text-2xl font-medium text-[var(--color-fg-muted)]"
+          style="font-family: var(--font-display)"
+        >
+          {item}
+          <span class="text-[var(--color-fg-subtle)]">◆</span>
+        </div>
+      ))
+    }
+  </div>
+</section>

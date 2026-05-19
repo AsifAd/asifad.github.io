@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Activity, Cloud, GitBranch, Zap } from "lucide-react";
 import Reveal from "../ui/Reveal";
-import { summary } from "../../data/resume";
+import { aboutNote, summary } from "../../data/resume";
 
 const stats = [
   { label: "Years in SRE", value: "5+", icon: Activity },
@@ -33,9 +33,7 @@ export default function About() {
               {summary}
             </p>
             <p className="mt-4 text-balance text-lg leading-relaxed text-[var(--color-fg-muted)]">
-              The work I care most about lives at the boundary: where infrastructure becomes a
-              product for engineers, where alerts become actions, and where a runbook becomes a
-              workflow that runs itself.
+              {aboutNote}
             </p>
           </Reveal>
 

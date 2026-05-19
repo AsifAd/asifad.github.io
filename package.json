@@ -7,6 +7,8 @@
   },
   "scripts": {
     "dev": "astro dev",
+    "sync:oss": "node scripts/sync-oss-data.mjs",
+    "prebuild": "node scripts/sync-oss-data.mjs",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",

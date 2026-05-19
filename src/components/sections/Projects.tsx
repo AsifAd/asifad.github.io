@@ -3,6 +3,10 @@ import { ExternalLink, Star } from "lucide-react";
 import Reveal from "../ui/Reveal";
 import { projects } from "../../data/resume";
 
+function isExternal(link: string) {
+  return link.startsWith("http");
+}
+
 export default function Projects() {
   return (
     <section id="projects" data-testid="section-projects" className="relative w-full px-6 py-32">
@@ -24,18 +28,12 @@ export default function Projects() {
         </Reveal>
 
         <div className="mt-12 grid gap-5 md:grid-cols-2" data-testid="projects-grid">
-          {projects.map((p, i) => (
-            <Reveal key={p.name} delay={i * 0.05}>
-              <motion.a
-                href={p.link || "#"}
-                target={p.link ? "_blank" : undefined}
-                rel="noopener"
-                whileHover={{ y: -4 }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                className={`panel group relative block h-full overflow-hidden rounded-2xl p-6 ${
-                  p.highlight ? "md:col-span-2" : ""
-                }`}
-              >
+          {projects.map((p, i) => {
+            const cardClass = `panel group relative block h-full overflow-hidden rounded-2xl p-6 ${
+              p.highlight ? "md:col-span-2" : ""
+            }`;
+            const inner = (
+              <>
                 {p.highlight && (
                   <div className="mb-4 inline-flex items-center gap-1.5 rounded-full border border-[var(--color-accent)]/30 bg-[var(--color-accent-soft)] px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-[var(--color-accent)]">
                     <Star className="h-3 w-3" /> Featured
@@ -54,9 +52,7 @@ export default function Projects() {
                   )}
                 </div>
 
-                <p className="mt-3 text-sm leading-relaxed text-[var(--color-fg-muted)]">
-                  {p.blurb}
-                </p>
+                <p className="mt-3 text-sm leading-relaxed text-[var(--color-fg-muted)]">{p.blurb}</p>
 
                 <div className="mt-5 flex flex-wrap gap-1.5">
                   {p.tags.map((t) => (
@@ -68,9 +64,34 @@ export default function Projects() {
                     </span>
                   ))}
                 </div>
-              </motion.a>
-            </Reveal>
-          ))}
+              </>
+            );
+
+            return (
+              <Reveal key={p.name} delay={i * 0.05}>
+                {p.link ? (
+                  <motion.a
+                    href={p.link}
+                    target={isExternal(p.link) ? "_blank" : undefined}
+                    rel={isExternal(p.link) ? "noopener noreferrer" : undefined}
+                    whileHover={{ y: -4 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                    className={cardClass}
+                  >
+                    {inner}
+                  </motion.a>
+                ) : (
+                  <motion.article
+                    whileHover={{ y: -4 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                    className={cardClass}
+                  >
+                    {inner}
+                  </motion.article>
+                )}
+              </Reveal>
+            );
+          })}
         </div>
       </div>
     </section>

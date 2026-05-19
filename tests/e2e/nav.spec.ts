@@ -14,10 +14,7 @@ test.describe("navigation", () => {
     ];
 
     for (const it of items) {
-      // The nav contains a desktop and mobile variant; .first() picks the visible one.
-      const link = page.getByRole("link", { name: it.label, exact: true }).first();
-
-      // Mobile viewport hides the nav links — skip those gracefully.
+      const link = page.locator(`[data-nav-link="${it.id}"]`).first();
       if (!(await link.isVisible())) continue;
 
       await link.click();
