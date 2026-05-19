@@ -112,15 +112,9 @@ export type Project = {
   highlight?: boolean;
 };
 
-export const projects: Project[] = [
-  {
-    name: "OSS Contributions Hub",
-    blurb:
-      "Live dashboard tracking upstream open source work across Ansible, Argo CD, NiFi, Vault, Kubernetes, Docker, and Terraform — animated GitHub Pages site with PR cards, roadmap filters, and contribution timeline.",
-    link: "https://asifad.github.io/opensource-contributions/",
-    tags: ["Open Source", "GitHub Pages", "Ansible", "DevOps"],
-    highlight: true,
-  },
+export type OpenSourceContribution = Project;
+
+export const openSourceContributions: OpenSourceContribution[] = [
   {
     name: "community.general — ini_file bugfix",
     blurb:
@@ -129,6 +123,9 @@ export const projects: Project[] = [
     tags: ["Ansible", "Python", "Open Source", "Bugfix"],
     highlight: true,
   },
+];
+
+export const projects: Project[] = [
   {
     name: "Auto-healing remediation loop",
     blurb:

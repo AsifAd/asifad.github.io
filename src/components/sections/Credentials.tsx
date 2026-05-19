@@ -9,7 +9,7 @@ export default function Credentials() {
         <Reveal>
           <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-[var(--color-accent)]">
             <span className="h-px w-8 bg-[var(--color-accent)]" />
-            05 · Credentials
+            06 · Credentials
           </div>
         </Reveal>
 

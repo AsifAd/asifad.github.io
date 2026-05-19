@@ -4,11 +4,13 @@ import About from "../../src/components/sections/About";
 import Skills from "../../src/components/sections/Skills";
 import Experience from "../../src/components/sections/Experience";
 import Projects from "../../src/components/sections/Projects";
+import OpenSource from "../../src/components/sections/OpenSource";
 import Credentials from "../../src/components/sections/Credentials";
 import Contact from "../../src/components/sections/Contact";
 import {
   experience,
   projects,
+  openSourceContributions,
   skills,
   certifications,
 } from "../../src/data/resume";
@@ -59,15 +61,6 @@ describe("Experience", () => {
 });
 
 describe("Projects", () => {
-  it("renders the community.general PR with a real GitHub link", () => {
-    render(<Projects />);
-    const linkEl = screen
-      .getAllByRole("link")
-      .find((a) => a.getAttribute("href")?.includes("community.general/pull"));
-    expect(linkEl).toBeDefined();
-    expect(linkEl).toHaveAttribute("target", "_blank");
-  });
-
   it("renders every project from data", () => {
     render(<Projects />);
     for (const p of projects) {
@@ -80,6 +73,30 @@ describe("Projects", () => {
     const featured = projects.filter((p) => p.highlight);
     expect(featured.length).toBeGreaterThan(0);
     expect(screen.getAllByText(/Featured/i).length).toBe(featured.length);
+  });
+});
+
+describe("OpenSource", () => {
+  it("renders the community.general PR with a real GitHub link", () => {
+    render(<OpenSource />);
+    const linkEl = screen
+      .getAllByRole("link")
+      .find((a) => a.getAttribute("href")?.includes("community.general/pull"));
+    expect(linkEl).toBeDefined();
+    expect(linkEl).toHaveAttribute("target", "_blank");
+  });
+
+  it("renders every open source contribution from data", () => {
+    render(<OpenSource />);
+    for (const c of openSourceContributions) {
+      expect(screen.getByText(c.name)).toBeInTheDocument();
+    }
+  });
+
+  it("links the OSS hub CTA to the live dashboard", () => {
+    render(<OpenSource />);
+    const hub = screen.getByTestId("oss-hub-cta");
+    expect(hub).toHaveAttribute("href", "https://asifad.github.io/opensource-contributions/");
   });
 });
 

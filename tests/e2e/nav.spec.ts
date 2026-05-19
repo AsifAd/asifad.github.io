@@ -9,6 +9,7 @@ test.describe("navigation", () => {
       { label: "Skills", id: "skills" },
       { label: "Experience", id: "experience" },
       { label: "Projects", id: "projects" },
+      { label: "Open Source", id: "opensource" },
       { label: "Contact", id: "contact" },
     ];
 

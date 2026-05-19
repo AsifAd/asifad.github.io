@@ -5,6 +5,7 @@ import {
   skills,
   experience,
   projects,
+  openSourceContributions,
   certifications,
   education,
   focusAreas,
@@ -44,11 +45,18 @@ describe("resume data", () => {
     expect(experience[0].company).toBe("BlackLine");
   });
 
-  it("projects include the community.general PR with a real link", () => {
-    const pr = projects.find((p) => p.name.includes("community.general"));
+  it("open source contributions include the community.general PR with a real link", () => {
+    const pr = openSourceContributions.find((p) => p.name.includes("community.general"));
     expect(pr).toBeDefined();
     expect(pr?.link).toMatch(/pull\/12083$/);
     expect(pr?.highlight).toBe(true);
+  });
+
+  it("projects are production work, not upstream OSS cards", () => {
+    for (const p of projects) {
+      expect(p.name).not.toMatch(/community\.general/i);
+      expect(p.name).not.toMatch(/OSS Contributions Hub/i);
+    }
   });
 
   it("featured projects have links or are clearly real work", () => {

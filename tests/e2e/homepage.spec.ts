@@ -24,6 +24,7 @@ test.describe("homepage", () => {
       "section-skills",
       "section-experience",
       "section-projects",
+      "section-opensource",
       "section-contact",
     ]) {
       const section = page.getByTestId(id);
@@ -44,9 +45,11 @@ test.describe("homepage", () => {
     expect(ogDesc?.length || 0).toBeGreaterThan(40);
   });
 
-  test("featured project links to the community.general PR", async ({ page }) => {
+  test("open source section links to the community.general PR", async ({ page }) => {
     await page.goto("/");
-    const prLink = page.locator('a[href*="community.general/pull/12083"]').first();
+    const oss = page.getByTestId("section-opensource");
+    await oss.scrollIntoViewIfNeeded();
+    const prLink = oss.locator('a[href*="community.general/pull/12083"]');
     await expect(prLink).toBeVisible();
     await expect(prLink).toHaveAttribute("target", "_blank");
   });
