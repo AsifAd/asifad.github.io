@@ -4,25 +4,21 @@ import Hero from "../../src/components/sections/Hero";
 import { profile } from "../../src/data/resume";
 
 describe("Hero section", () => {
-  it("renders the name as the eyebrow", () => {
+  it("renders the name prominently", () => {
     render(<Hero />);
-    expect(screen.getByTestId("hero-eyebrow").textContent).toMatch(/ASIF DRAXI/i);
+    const name = screen.getByTestId("hero-name");
+    expect(name.textContent).toMatch(/ASIF/);
+    expect(name.textContent).toMatch(/DRAXI/);
+    expect(name).toHaveAttribute("aria-label", profile.name);
   });
 
-  it("renders the role in the title", () => {
+  it("renders the role below the name", () => {
     render(<Hero />);
     const title = screen.getByTestId("hero-title");
     expect(title.textContent).toMatch(/Site/);
     expect(title.textContent).toMatch(/Reliability/);
     expect(title.textContent).toMatch(/Engineer/);
-  });
-
-  it("uses an aria-label so screen readers get the role as one phrase", () => {
-    render(<Hero />);
-    expect(screen.getByTestId("hero-title")).toHaveAttribute(
-      "aria-label",
-      "Site Reliability Engineer",
-    );
+    expect(title).toHaveAttribute("aria-label", "Site Reliability Engineer");
   });
 
   it("links to GitHub, LinkedIn, and email with the right destinations", () => {

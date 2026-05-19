@@ -9,7 +9,8 @@ test.use({ reducedMotion: "reduce" });
 
 test("renders cleanly with prefers-reduced-motion: reduce", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByTestId("hero-eyebrow")).toContainText("ASIF DRAXI");
+  await expect(page.getByTestId("hero-name")).toContainText("ASIF");
+  await expect(page.getByTestId("hero-name")).toContainText("DRAXI");
   await expect(page.getByTestId("hero-title")).toBeVisible();
   await expect(page.getByTestId("section-projects")).toBeVisible();
 });

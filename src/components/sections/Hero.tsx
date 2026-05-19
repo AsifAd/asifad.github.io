@@ -3,18 +3,29 @@ import { ArrowDown, Download, Mail } from "lucide-react";
 import { GitHubIcon, LinkedInIcon } from "../ui/BrandIcons";
 import { profile, focusAreas } from "../../data/resume";
 
-const word = {
+const wordReveal = {
+  hidden: { y: "110%", opacity: 0 },
+  visible: (i: number) => ({
+    y: 0,
+    opacity: 1,
+    transition: { delay: 0.15 + i * 0.1, duration: 0.75, ease: [0.21, 0.47, 0.32, 0.98] },
+  }),
+};
+
+const roleReveal = {
   hidden: { y: "100%", opacity: 0 },
   visible: (i: number) => ({
     y: 0,
     opacity: 1,
-    transition: { delay: 0.1 + i * 0.08, duration: 0.8, ease: [0.21, 0.47, 0.32, 0.98] },
+    transition: { delay: 0.45 + i * 0.07, duration: 0.7, ease: [0.21, 0.47, 0.32, 0.98] },
   }),
 };
 
+const nameParts = profile.name.toUpperCase().split(" ");
+
 export default function Hero() {
   const reduce = useReducedMotion();
-  const titleParts = ["Site", "Reliability", "Engineer."];
+  const roleParts = ["Site", "Reliability", "Engineer."];
 
   return (
     <section
@@ -22,64 +33,77 @@ export default function Hero() {
       className="relative flex min-h-screen w-full items-center justify-center px-6 pt-32 pb-20"
     >
       <div className="relative mx-auto w-full max-w-6xl">
-        {/* status pill */}
         <motion.div
+          data-testid="hero-status"
           initial={{ opacity: 0, y: -12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="mb-8 inline-flex items-center gap-2.5 rounded-full border border-[var(--color-panel-border)] bg-[var(--color-panel)] px-3 py-1.5 backdrop-blur"
+          className="mb-6 inline-flex items-center gap-2.5 rounded-full border border-[var(--color-panel-border)] bg-[var(--color-panel)] px-3 py-1.5 backdrop-blur"
         >
           <span className="relative flex h-2 w-2">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--color-accent)] opacity-50" />
             <span className="relative inline-flex h-2 w-2 rounded-full bg-[var(--color-accent)]" />
           </span>
           <span className="font-mono text-xs uppercase tracking-wider text-[var(--color-fg-muted)]">
-            Open to SRE & platform roles · Bengaluru / remote
+            Open to SRE & platform roles · {profile.location}
           </span>
         </motion.div>
 
-        {/* eyebrow */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.05, duration: 0.6 }}
-          className="font-mono text-sm tracking-widest text-[var(--color-accent)]"
-          data-testid="hero-eyebrow"
-        >
-          ASIF DRAXI
-        </motion.p>
-
-        {/* title */}
-        <h1
-          aria-label="Site Reliability Engineer"
-          data-testid="hero-title"
-          className="mt-3 font-bold leading-[0.95] tracking-[-0.03em] text-[var(--color-fg)] text-[clamp(2.5rem,9vw,7.5rem)]"
+        <p
+          data-testid="hero-name"
+          className="font-bold leading-[0.92] tracking-[-0.04em] text-[var(--color-fg)] text-[clamp(3rem,12vw,6.5rem)]"
           style={{ fontFamily: "var(--font-display)", fontFeatureSettings: "'ss01'" }}
+          aria-label={profile.name}
         >
-          {titleParts.map((w, i) => (
+          {nameParts.map((part, i) => (
+            <span key={part} className="inline-block overflow-hidden align-bottom">
+              <motion.span
+                custom={i}
+                initial={reduce ? { opacity: 0 } : "hidden"}
+                animate={reduce ? { opacity: 1 } : "visible"}
+                variants={wordReveal}
+                className={`inline-block ${i === nameParts.length - 1 ? "pr-0 text-[var(--color-accent)]" : "pr-[0.18em]"}`}
+              >
+                {part}
+                {i < nameParts.length - 1 ? "\u00a0" : ""}
+              </motion.span>
+            </span>
+          ))}
+        </p>
+
+        <motion.div
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ delay: 0.35, duration: 0.8, ease: [0.21, 0.47, 0.32, 0.98] }}
+          className="mt-4 h-px w-24 origin-left bg-gradient-to-r from-[var(--color-accent)] to-transparent"
+          aria-hidden
+        />
+
+        <h1
+          data-testid="hero-title"
+          aria-label="Site Reliability Engineer"
+          className="mt-5 font-semibold leading-[1.05] tracking-[-0.02em] text-[var(--color-fg-muted)] text-[clamp(1.35rem,4.5vw,2.75rem)]"
+          style={{ fontFamily: "var(--font-display)" }}
+        >
+          {roleParts.map((w, i) => (
             <span key={i} className="inline-block overflow-hidden align-bottom">
               <motion.span
                 custom={i}
                 initial={reduce ? { opacity: 0 } : "hidden"}
                 animate={reduce ? { opacity: 1 } : "visible"}
-                variants={word}
-                className="inline-block pr-[0.2em]"
+                variants={roleReveal}
+                className={`inline-block ${i === roleParts.length - 1 ? "italic text-[var(--color-fg)]" : "pr-[0.15em]"}`}
               >
-                {i === titleParts.length - 1 ? (
-                  <span className="italic text-[var(--color-accent)]">{w}</span>
-                ) : (
-                  w
-                )}
+                {w}
               </motion.span>
             </span>
           ))}
         </h1>
 
-        {/* tagline */}
         <motion.p
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.55, duration: 0.7 }}
+          transition={{ delay: 0.65, duration: 0.7 }}
           className="mt-6 max-w-2xl text-balance text-lg text-[var(--color-fg-muted)] sm:text-xl"
         >
           I build the platforms that keep production calm at 2 AM — and contribute upstream to{" "}
@@ -90,11 +114,10 @@ export default function Hero() {
           <span className="text-[var(--color-fg)]">AI-assisted automation</span> on GCP, AWS, and Azure.
         </motion.p>
 
-        {/* CTAs */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7, duration: 0.7 }}
+          transition={{ delay: 0.8, duration: 0.7 }}
           className="mt-10 flex flex-wrap items-center gap-3"
         >
           <a
@@ -116,7 +139,7 @@ export default function Hero() {
           <a
             href={profile.links.github}
             target="_blank"
-            rel="noopener"
+            rel="noopener noreferrer"
             className="inline-flex items-center gap-2 rounded-full border border-[var(--color-panel-border)] bg-[var(--color-panel)] px-5 py-2.5 text-sm text-[var(--color-fg)] backdrop-blur transition-colors hover:bg-[var(--color-accent-soft)]"
           >
             <GitHubIcon className="h-4 w-4" /> GitHub
@@ -124,7 +147,7 @@ export default function Hero() {
           <a
             href={profile.links.linkedin}
             target="_blank"
-            rel="noopener"
+            rel="noopener noreferrer"
             className="inline-flex items-center gap-2 rounded-full border border-[var(--color-panel-border)] bg-[var(--color-panel)] px-5 py-2.5 text-sm text-[var(--color-fg)] backdrop-blur transition-colors hover:bg-[var(--color-accent-soft)]"
           >
             <LinkedInIcon className="h-4 w-4" /> LinkedIn
@@ -145,7 +168,6 @@ export default function Hero() {
           </a>
         </motion.div>
 
-        {/* focus area chips */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -173,7 +195,6 @@ export default function Hero() {
           ))}
         </motion.div>
 
-        {/* scroll cue */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.7 }}

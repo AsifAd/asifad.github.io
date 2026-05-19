@@ -12,7 +12,8 @@ test.describe("homepage", () => {
     await expect(page).toHaveTitle(/Asif Draxi/);
 
     // Hero
-    await expect(page.getByTestId("hero-eyebrow")).toContainText("ASIF DRAXI");
+    await expect(page.getByTestId("hero-name")).toContainText("ASIF");
+    await expect(page.getByTestId("hero-name")).toContainText("DRAXI");
     await expect(page.getByTestId("hero-title")).toHaveAttribute(
       "aria-label",
       "Site Reliability Engineer",
