@@ -5,7 +5,7 @@ import {
   skills,
   experience,
   projects,
-  openSourceContributions,
+  openSourceStacks,
   certifications,
   education,
   focusAreas,
@@ -45,11 +45,13 @@ describe("resume data", () => {
     expect(experience[0].company).toBe("BlackLine");
   });
 
-  it("open source contributions include the community.general PR with a real link", () => {
-    const pr = openSourceContributions.find((p) => p.name.includes("community.general"));
-    expect(pr).toBeDefined();
-    expect(pr?.link).toMatch(/pull\/12083$/);
-    expect(pr?.highlight).toBe(true);
+  it("open source stacks include active upstream technologies", () => {
+    const labels = openSourceStacks.map((s) => s.name);
+    expect(labels).toContain("Ansible");
+    expect(labels).toContain("Argo CD");
+    expect(labels).toContain("Jenkins");
+    const active = openSourceStacks.filter((s) => s.status === "active");
+    expect(active.length).toBeGreaterThanOrEqual(3);
   });
 
   it("projects are production work, not upstream OSS cards", () => {

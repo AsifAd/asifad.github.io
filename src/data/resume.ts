@@ -112,16 +112,64 @@ export type Project = {
   highlight?: boolean;
 };
 
-export type OpenSourceContribution = Project;
+export type OpenSourceStackStatus = "active" | "planned" | "exploring";
 
-export const openSourceContributions: OpenSourceContribution[] = [
+export type OpenSourceStack = {
+  name: string;
+  status: OpenSourceStackStatus;
+  statusLabel: string;
+  focus: string;
+};
+
+/** Sync with opensource-contributions roadmap — active stacks first. */
+export const openSourceStacks: OpenSourceStack[] = [
   {
-    name: "community.general — ini_file bugfix",
-    blurb:
-      "Upstream Ansible contribution: fixed the ini_file module deleting comment-only lines that contained the option name (e.g. '; output_buffering' in php.ini). Added regression tests and changelog fragment.",
-    link: "https://github.com/ansible-collections/community.general/pull/12083",
-    tags: ["Ansible", "Python", "Open Source", "Bugfix"],
-    highlight: true,
+    name: "Ansible",
+    status: "active",
+    statusLabel: "Active",
+    focus: "community.general — ini_file comment fix, nmcli bond idempotency",
+  },
+  {
+    name: "Argo CD",
+    status: "active",
+    statusLabel: "Active",
+    focus: "ApplicationSet UI — namespaced views & Refresh button",
+  },
+  {
+    name: "Jenkins",
+    status: "active",
+    statusLabel: "Active",
+    focus: "kubernetes-plugin — multi-container agent pod cleanup",
+  },
+  {
+    name: "Apache NiFi",
+    status: "planned",
+    statusLabel: "Planned",
+    focus: "Provenance repo corruption after OOM on NiFi 1.27",
+  },
+  {
+    name: "Vault / OpenBao",
+    status: "planned",
+    statusLabel: "Planned",
+    focus: "community.hashi_vault docs & good-first issues",
+  },
+  {
+    name: "Kubernetes",
+    status: "exploring",
+    statusLabel: "Exploring",
+    focus: "kubernetes/website docs or kubernetes.core",
+  },
+  {
+    name: "Docker",
+    status: "exploring",
+    statusLabel: "Exploring",
+    focus: "community.docker check-mode permanent diff",
+  },
+  {
+    name: "Terraform",
+    status: "exploring",
+    statusLabel: "Exploring",
+    focus: "Provider bugs & registry contributions",
   },
 ];
 

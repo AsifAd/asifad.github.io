@@ -1,7 +1,18 @@
 import { motion } from "framer-motion";
-import { ArrowUpRight, ExternalLink, Star } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import Reveal from "../ui/Reveal";
-import { openSourceContributions, profile } from "../../data/resume";
+import { openSourceStacks, profile } from "../../data/resume";
+
+const statusStyles: Record<
+  (typeof openSourceStacks)[number]["status"],
+  string
+> = {
+  active:
+    "border-[var(--color-accent)]/35 bg-[var(--color-accent-soft)] text-[var(--color-accent)]",
+  planned: "border-[var(--color-panel-border)] bg-[var(--color-panel)] text-[var(--color-fg-muted)]",
+  exploring:
+    "border-[var(--color-panel-border)] bg-[var(--color-panel)] text-[var(--color-fg-muted)]",
+};
 
 export default function OpenSource() {
   return (
@@ -34,8 +45,7 @@ export default function OpenSource() {
 
         <Reveal delay={0.08}>
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-[var(--color-fg-muted)]">
-            Ansible, Argo CD, Jenkins, and more — tracked on a live dashboard with PR status,
-            roadmap, and contribution timeline.
+            PRs, roadmaps, and repro notes for each stack — all tracked on the live dashboard below.
           </p>
         </Reveal>
 
@@ -71,55 +81,49 @@ export default function OpenSource() {
           </motion.a>
         </Reveal>
 
-        <div className="mt-10 grid gap-5 md:grid-cols-2" data-testid="opensource-grid">
-          {openSourceContributions.map((c, i) => (
-            <Reveal key={c.name} delay={i * 0.05}>
-              <motion.a
-                href={c.link || "#"}
-                target={c.link ? "_blank" : undefined}
-                rel="noopener"
-                whileHover={{ y: -4 }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                className={`panel group relative block h-full overflow-hidden rounded-2xl p-6 ${
-                  c.highlight ? "md:col-span-2" : ""
-                }`}
-              >
-                {c.highlight && (
-                  <div className="mb-4 inline-flex items-center gap-1.5 rounded-full border border-[var(--color-accent)]/30 bg-[var(--color-accent-soft)] px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-[var(--color-accent)]">
-                    <Star className="h-3 w-3" /> Featured
-                  </div>
-                )}
-
-                <div className="flex items-start justify-between gap-4">
-                  <h3
-                    className="text-xl font-semibold text-[var(--color-fg)] transition-colors group-hover:text-[var(--color-accent)]"
-                    style={{ fontFamily: "var(--font-display)" }}
-                  >
-                    {c.name}
-                  </h3>
-                  {c.link && (
-                    <ExternalLink className="h-4 w-4 flex-shrink-0 text-[var(--color-fg-muted)] transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[var(--color-fg)]" />
-                  )}
-                </div>
-
-                <p className="mt-3 text-sm leading-relaxed text-[var(--color-fg-muted)]">
-                  {c.blurb}
-                </p>
-
-                <div className="mt-5 flex flex-wrap gap-1.5">
-                  {c.tags.map((t) => (
+        <Reveal delay={0.12}>
+          <div className="mt-10">
+            <h3
+              className="text-sm font-semibold uppercase tracking-widest text-[var(--color-fg-muted)]"
+              style={{ fontFamily: "var(--font-display)" }}
+            >
+              Technologies I'm working on
+            </h3>
+            <div
+              className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3"
+              data-testid="opensource-stacks"
+            >
+              {openSourceStacks.map((stack, i) => (
+                <motion.div
+                  key={stack.name}
+                  initial={{ opacity: 0, y: 8 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.04, duration: 0.4 }}
+                  className="panel rounded-xl p-4"
+                  data-stack={stack.name}
+                >
+                  <div className="flex items-center justify-between gap-2">
                     <span
-                      key={t}
-                      className="inline-flex items-center rounded-md border border-[var(--color-panel-border)] bg-[var(--color-panel)] px-2 py-0.5 font-mono text-[11px] text-[var(--color-fg-muted)]"
+                      className="font-semibold text-[var(--color-fg)]"
+                      style={{ fontFamily: "var(--font-display)" }}
                     >
-                      {t}
+                      {stack.name}
                     </span>
-                  ))}
-                </div>
-              </motion.a>
-            </Reveal>
-          ))}
-        </div>
+                    <span
+                      className={`shrink-0 rounded-full border px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider ${statusStyles[stack.status]}`}
+                    >
+                      {stack.statusLabel}
+                    </span>
+                  </div>
+                  <p className="mt-2 text-sm leading-relaxed text-[var(--color-fg-muted)]">
+                    {stack.focus}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </Reveal>
       </div>
     </section>
   );

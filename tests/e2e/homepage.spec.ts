@@ -45,12 +45,19 @@ test.describe("homepage", () => {
     expect(ogDesc?.length || 0).toBeGreaterThan(40);
   });
 
-  test("open source section links to the community.general PR", async ({ page }) => {
+  test("hero tagline mentions open source contributions", async ({ page }) => {
+    await page.goto("/");
+    const tagline = page.locator("#top p").filter({ hasText: /contribute upstream to/i });
+    await expect(tagline).toBeVisible();
+    await expect(tagline).toContainText(/open source/i);
+  });
+
+  test("open source section lists technology stacks", async ({ page }) => {
     await page.goto("/");
     const oss = page.getByTestId("section-opensource");
     await oss.scrollIntoViewIfNeeded();
-    const prLink = oss.locator('a[href*="community.general/pull/12083"]');
-    await expect(prLink).toBeVisible();
-    await expect(prLink).toHaveAttribute("target", "_blank");
+    await expect(oss.getByTestId("opensource-stacks")).toBeVisible();
+    await expect(oss.getByText("Ansible", { exact: true })).toBeVisible();
+    await expect(oss.getByText("Argo CD", { exact: true })).toBeVisible();
   });
 });

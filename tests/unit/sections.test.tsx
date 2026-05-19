@@ -10,7 +10,7 @@ import Contact from "../../src/components/sections/Contact";
 import {
   experience,
   projects,
-  openSourceContributions,
+  openSourceStacks,
   skills,
   certifications,
 } from "../../src/data/resume";
@@ -77,19 +77,11 @@ describe("Projects", () => {
 });
 
 describe("OpenSource", () => {
-  it("renders the community.general PR with a real GitHub link", () => {
+  it("renders every open source stack from data", () => {
     render(<OpenSource />);
-    const linkEl = screen
-      .getAllByRole("link")
-      .find((a) => a.getAttribute("href")?.includes("community.general/pull"));
-    expect(linkEl).toBeDefined();
-    expect(linkEl).toHaveAttribute("target", "_blank");
-  });
-
-  it("renders every open source contribution from data", () => {
-    render(<OpenSource />);
-    for (const c of openSourceContributions) {
-      expect(screen.getByText(c.name)).toBeInTheDocument();
+    for (const stack of openSourceStacks) {
+      expect(screen.getByText(stack.name)).toBeInTheDocument();
+      expect(screen.getByText(stack.focus)).toBeInTheDocument();
     }
   });
 

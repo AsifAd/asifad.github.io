@@ -38,6 +38,12 @@ describe("Hero section", () => {
     expect(li).toHaveAttribute("target", "_blank");
   });
 
+  it("mentions open source in the tagline", () => {
+    render(<Hero />);
+    expect(screen.getByText(/contribute upstream to/i)).toBeInTheDocument();
+    expect(screen.getByText(/open source/i)).toBeInTheDocument();
+  });
+
   it("renders all four focus areas (SRE / DevOps / Cloud / AI)", () => {
     render(<Hero />);
     const focus = screen.getByTestId("hero-focus-areas");

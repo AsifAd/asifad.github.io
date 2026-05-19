@@ -1,7 +1,8 @@
 import { test, expect } from "@playwright/test";
+import { openSourceStacks } from "../../src/data/resume";
 
 test.describe("open source section", () => {
-  test("is separate from projects and links to the OSS hub", async ({ page }) => {
+  test("is separate from projects and shows technology stacks", async ({ page }) => {
     await page.goto("/");
 
     const projects = page.getByTestId("section-projects");
@@ -17,7 +18,11 @@ test.describe("open source section", () => {
     await expect(projects.getByText(/community\.general/)).toHaveCount(0);
 
     await expect(oss.getByText("OSS Contributions Hub")).toBeVisible();
-    await expect(oss.getByText(/community\.general/)).toBeVisible();
+    await expect(oss.getByText("Technologies I'm working on")).toBeVisible();
+
+    for (const stack of openSourceStacks) {
+      await expect(oss.getByText(stack.name, { exact: true })).toBeVisible();
+    }
 
     const hubCta = page.getByTestId("oss-hub-cta");
     await expect(hubCta).toHaveAttribute(
@@ -42,5 +47,25 @@ test.describe("open source section", () => {
     });
 
     expect(inView).toBe(true);
+  });
+
+  test("nav external links use inline icons without broken layout", async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await page.goto("/");
+
+    const ossLink = page
+      .locator('a[href*="opensource-contributions"]')
+      .filter({ has: page.locator("svg") })
+      .first();
+    await expect(ossLink).toBeVisible();
+
+    const box = await ossLink.boundingBox();
+    expect(box).not.toBeNull();
+    expect(box!.height).toBeLessThan(40);
+    expect(box!.width).toBeGreaterThan(30);
+
+    const text = await ossLink.innerText();
+    expect(text.toLowerCase()).toContain("oss");
+    expect(text).not.toMatch(/\n/);
   });
 });

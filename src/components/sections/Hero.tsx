@@ -82,7 +82,8 @@ export default function Hero() {
           transition={{ delay: 0.55, duration: 0.7 }}
           className="mt-6 max-w-2xl text-balance text-lg text-[var(--color-fg-muted)] sm:text-xl"
         >
-          I build the platforms that keep production calm at 2 AM.
+          I build the platforms that keep production calm at 2 AM — and contribute upstream to{" "}
+          <span className="text-[var(--color-fg)]">open source</span> along the way.
           5+ years across <span className="text-[var(--color-fg)]">SRE</span>,{" "}
           <span className="text-[var(--color-fg)]">DevOps</span>,{" "}
           <span className="text-[var(--color-fg)]">Cloud</span>, and{" "}
