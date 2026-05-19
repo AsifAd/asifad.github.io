@@ -1,0 +1,39 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="404 — Asif Draxi" description="Page not found.">
+  <section class="relative flex min-h-screen w-full items-center justify-center px-6">
+    <div class="mx-auto max-w-2xl text-center">
+      <div class="font-mono text-xs uppercase tracking-widest text-[var(--color-accent)]">
+        Error · 404
+      </div>
+
+      <h1
+        class="mt-6 text-[clamp(3rem,12vw,9rem)] font-bold leading-[0.95] tracking-[-0.03em] text-[var(--color-fg)]"
+        style="font-family: var(--font-display); font-feature-settings: 'ss01';"
+      >
+        Page not <span class="italic text-[var(--color-accent)]">found</span>.
+      </h1>
+
+      <p class="mt-8 text-lg text-[var(--color-fg-muted)]">
+        This route isn't in the runbook. Let's get you back to a known-good state.
+      </p>
+
+      <div class="mt-10 flex flex-wrap items-center justify-center gap-3">
+        <a
+          href="/"
+          class="inline-flex items-center gap-2 rounded-full bg-[var(--color-fg)] px-5 py-2.5 text-sm font-medium text-[var(--color-bg)] transition-all hover:scale-[1.02]"
+        >
+          ← Back home
+        </a>
+        <a
+          href="/#contact"
+          class="inline-flex items-center gap-2 rounded-full border border-[var(--color-panel-border)] bg-[var(--color-panel)] px-5 py-2.5 text-sm text-[var(--color-fg)] backdrop-blur transition-colors hover:bg-[var(--color-accent-soft)]"
+        >
+          Contact
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

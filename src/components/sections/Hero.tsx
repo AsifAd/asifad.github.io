@@ -1,5 +1,5 @@
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowDown, Mail } from "lucide-react";
+import { ArrowDown, Download, Mail } from "lucide-react";
 import { GitHubIcon, LinkedInIcon } from "../ui/BrandIcons";
 import { profile, focusAreas } from "../../data/resume";
 
@@ -124,6 +124,14 @@ export default function Hero() {
             className="inline-flex items-center gap-2 rounded-full border border-[var(--color-panel-border)] bg-[var(--color-panel)] px-5 py-2.5 text-sm text-[var(--color-fg)] backdrop-blur transition-colors hover:bg-[var(--color-accent-soft)]"
           >
             <Mail className="h-4 w-4" /> Email
+          </a>
+          <a
+            href="/asif-draxi-resume.pdf"
+            download
+            data-testid="hero-resume-download"
+            className="inline-flex items-center gap-2 rounded-full border border-[var(--color-panel-border)] bg-[var(--color-panel)] px-5 py-2.5 text-sm text-[var(--color-fg)] backdrop-blur transition-colors hover:bg-[var(--color-accent-soft)]"
+          >
+            <Download className="h-4 w-4" /> Résumé
           </a>
         </motion.div>
 
