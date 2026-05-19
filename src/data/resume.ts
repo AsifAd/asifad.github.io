@@ -10,6 +10,7 @@ export const profile = {
     github: "https://github.com/AsifAd",
     linkedin: "https://www.linkedin.com/in/asifdraxi/",
     email: "mailto:asifdraxi@gmail.com",
+    ossHub: "https://asifad.github.io/opensource-contributions/",
   },
 };
 
@@ -112,6 +113,14 @@ export type Project = {
 };
 
 export const projects: Project[] = [
+  {
+    name: "OSS Contributions Hub",
+    blurb:
+      "Live dashboard tracking upstream open source work across Ansible, Argo CD, NiFi, Vault, Kubernetes, Docker, and Terraform — animated GitHub Pages site with PR cards, roadmap filters, and contribution timeline.",
+    link: "https://asifad.github.io/opensource-contributions/",
+    tags: ["Open Source", "GitHub Pages", "Ansible", "DevOps"],
+    highlight: true,
+  },
   {
     name: "community.general — ini_file bugfix",
     blurb:
