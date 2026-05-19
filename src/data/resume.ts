@@ -2,7 +2,7 @@ export const profile = {
   name: "Asif Draxi",
   handle: "AsifAd",
   title: "Site Reliability Engineer",
-  tagline: "Building reliable cloud platforms at scale.",
+  tagline: "SRE · open source contributor · reliable platforms at scale.",
   location: "Bengaluru, IN",
   email: "asifdraxi@gmail.com",
   phone: "812-388-8525",
@@ -14,7 +14,7 @@ export const profile = {
   },
 };
 
-export const summary = `Site Reliability Engineer with 5+ years architecting and automating cloud platforms across GCP, AWS, and Azure. I specialize in Kubernetes, Infrastructure as Code, and the observability + automation loops that turn 2 AM pages into self-healing systems. Track record of 99.9% uptime SLAs, $250K+ quarterly cost optimization, and CI/CD pipelines that ship safely.`;
+export const summary = `Site Reliability Engineer and open source contributor with 5+ years on GCP, AWS, and Azure. I build Kubernetes platforms, Infrastructure as Code (Terraform, Ansible), and observability loops that turn 2 AM pages into self-healing systems — plus upstream PRs to Ansible, Argo CD, and Jenkins. Track record: 99.9% uptime SLAs, $250K+ quarterly GCP savings, and 40% less release toil.`;
 
 export const aboutNote = `The work I care most about lives at the boundary: where infrastructure becomes a product for engineers, where alerts become actions, and where upstream open source fixes make the next on-call shift quieter.`;
 
@@ -178,5 +178,39 @@ export const focusAreas = [
   { label: "SRE", desc: "Reliability, SLOs, on-call, postmortems" },
   { label: "DevOps", desc: "CI/CD, GitOps, release engineering" },
   { label: "Cloud", desc: "GCP · AWS · Azure platform engineering" },
-  { label: "AI", desc: "LLM-assisted ops, automation, runbooks" },
+  { label: "Open Source", desc: "Ansible, Argo CD, Jenkins — upstream PRs" },
 ];
+
+/** Upstream work — mirrored on PDF résumé Open Source section */
+export const openSourceContributions = [
+  {
+    stack: "Ansible",
+    title: "ini_file comment-line idempotency",
+    pr: "community.general#12083",
+    link: "https://github.com/ansible-collections/community.general/pull/12083",
+  },
+  {
+    stack: "Ansible",
+    title: "nmcli bond ARP check-mode fix",
+    pr: "community.general#12085",
+    link: "https://github.com/ansible-collections/community.general/pull/12085",
+  },
+  {
+    stack: "Argo CD",
+    title: "AppSet UI in non-default namespaces",
+    pr: "argo-cd#27931",
+    link: "https://github.com/argoproj/argo-cd/pull/27931",
+  },
+  {
+    stack: "Argo CD",
+    title: "ApplicationSet Refresh button",
+    pr: "argo-cd#27932",
+    link: "https://github.com/argoproj/argo-cd/pull/27932",
+  },
+  {
+    stack: "Jenkins",
+    title: "kubernetes-plugin multi-container pod cleanup",
+    pr: "#2809 in progress",
+    link: "https://github.com/jenkinsci/kubernetes-plugin/issues/2809",
+  },
+] as const;

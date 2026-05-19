@@ -10,7 +10,7 @@ test.describe("content integrity", () => {
 
   test("renders the four focus areas", async ({ page }) => {
     await page.goto("/");
-    for (const label of ["SRE", "DevOps", "Cloud", "AI"]) {
+    for (const label of ["SRE", "DevOps", "Cloud", "Open Source"]) {
       await expect(
         page.locator(`[data-focus-label="${label}"]`),
       ).toBeVisible();

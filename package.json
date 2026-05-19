@@ -10,6 +10,7 @@
     "sync:oss": "node scripts/sync-oss-data.mjs",
     "prebuild": "node scripts/sync-oss-data.mjs",
     "build": "astro build",
+    "build:resume": "cd resume && tectonic -X compile resume.tex --outdir . && cp resume.pdf ../public/asif-draxi-resume.pdf",
     "preview": "astro preview",
     "astro": "astro",
     "test": "vitest run",

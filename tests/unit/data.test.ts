@@ -9,6 +9,7 @@ import {
   certifications,
   education,
   focusAreas,
+  openSourceContributions,
 } from "../../src/data/resume";
 
 describe("resume data", () => {
@@ -86,11 +87,16 @@ describe("resume data", () => {
     expect(education[0].institution).toMatch(/Reva/);
   });
 
-  it("focus areas cover SRE / DevOps / Cloud / AI", () => {
+  it("focus areas cover SRE / DevOps / Cloud / Open Source", () => {
     const labels = focusAreas.map((f) => f.label);
     expect(labels).toContain("SRE");
     expect(labels).toContain("DevOps");
     expect(labels).toContain("Cloud");
-    expect(labels).toContain("AI");
+    expect(labels).toContain("Open Source");
+  });
+
+  it("open source contributions list matches upstream PRs", () => {
+    expect(openSourceContributions.length).toBe(5);
+    expect(openSourceContributions[0].stack).toBe("Ansible");
   });
 });

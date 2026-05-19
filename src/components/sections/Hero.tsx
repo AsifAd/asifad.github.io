@@ -111,7 +111,7 @@ export default function Hero() {
           5+ years across <span className="text-[var(--color-fg)]">SRE</span>,{" "}
           <span className="text-[var(--color-fg)]">DevOps</span>,{" "}
           <span className="text-[var(--color-fg)]">Cloud</span>, and{" "}
-          <span className="text-[var(--color-fg)]">AI-assisted automation</span> on GCP, AWS, and Azure.
+          <span className="text-[var(--color-fg)]">open source</span> on GCP, AWS, and Azure.
         </motion.p>
 
         <motion.div

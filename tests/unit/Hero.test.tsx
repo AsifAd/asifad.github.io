@@ -40,13 +40,13 @@ describe("Hero section", () => {
     expect(tagline?.textContent).toMatch(/open source/i);
   });
 
-  it("renders all four focus areas (SRE / DevOps / Cloud / AI)", () => {
+  it("renders all four focus areas (SRE / DevOps / Cloud / Open Source)", () => {
     render(<Hero />);
     const focus = screen.getByTestId("hero-focus-areas");
     // Match via the dedicated focus-area heading nodes, not concatenated textContent.
     expect(focus.querySelector('[data-focus-label="SRE"]')).toBeTruthy();
     expect(focus.querySelector('[data-focus-label="DevOps"]')).toBeTruthy();
     expect(focus.querySelector('[data-focus-label="Cloud"]')).toBeTruthy();
-    expect(focus.querySelector('[data-focus-label="AI"]')).toBeTruthy();
+    expect(focus.querySelector('[data-focus-label="Open Source"]')).toBeTruthy();
   });
 });

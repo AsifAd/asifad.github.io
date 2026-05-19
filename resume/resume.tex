@@ -1,0 +1,153 @@
+%-------------------------
+% Asif Draxi — ATS-friendly resume (single column)
+% Build: npm run build:resume
+%-------------------------
+
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+\newcommand{\resumeItemPlain}[1]{
+  \item\small{#1 \vspace{-2pt}}
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-1pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-5pt}
+}
+
+\newcommand{\resumeSubItem}[2]{
+  \item\small{\textbf{#1}: #2 \vspace{-2pt}}
+}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=*]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+\begin{document}
+
+\begin{center}
+    \textbf{\Huge \scshape Asif Draxi} \\ \vspace{5pt}
+    \small
+    Bengaluru, India $|$ 812-388-8525 $|$
+    \href{mailto:asifdraxi@gmail.com}{asifdraxi@gmail.com} $|$
+    \href{https://www.linkedin.com/in/asifdraxi/}{linkedin.com/in/asifdraxi} \\
+    \href{https://github.com/AsifAd}{github.com/AsifAd} $|$
+    \href{https://asifad.github.io}{asifad.github.io}
+\end{center}
+
+\section{Professional Summary}
+\vspace{2pt}
+\small{
+Site Reliability Engineer with 5+ years building and operating production platforms on GCP, AWS, and Azure. Active \textbf{open source contributor} to Ansible, Argo CD, and Jenkins with open upstream pull requests. Strengths: Kubernetes (GKE), Terraform, Ansible, CI/CD (GitHub Actions, Jenkins), and observability-driven automation. Delivered 99.9\% uptime SLAs, \$250K+ quarterly GCP savings, 40\% less release toil, and auto-healing incident response (New Relic, PagerDuty, Ansible).
+}
+
+\section{Technical Skills}
+\resumeSubHeadingListStart
+  \resumeSubItem{Cloud}{Google Cloud Platform (GCP), Amazon Web Services (AWS), Microsoft Azure, VPC, IAM, load balancing}
+  \resumeSubItem{Containers \& orchestration}{Kubernetes (GKE/EKS), Docker, Helm, Apache NiFi}
+  \resumeSubItem{Infrastructure as Code}{Terraform, Ansible, GitOps, Chef (migration)}
+  \resumeSubItem{CI/CD \& automation}{GitHub Actions, Jenkins, Azure DevOps, Git}
+  \resumeSubItem{Observability \& incident response}{New Relic, Dynatrace, Pingdom, PagerDuty, Opsgenie}
+  \resumeSubItem{Platforms \& tools}{Argo CD, Linux, Nginx, DNS, TCP/IP}
+  \resumeSubItem{Languages}{Python, Bash, JavaScript}
+\resumeSubHeadingListEnd
+
+\section{Professional Experience}
+\resumeSubHeadingListStart
+
+  \resumeSubheading{BlackLine}{Bengaluru, India}{Site Reliability Engineer}{Jun 2024 -- Present}
+  \resumeItemListStart
+    \resumeItemPlain{Operate high-availability production infrastructure with 99.9\%+ uptime SLAs; on-call incident management and post-incident follow-up.}
+    \resumeItemPlain{Led GCP cost optimization (right-sizing, audits, database upgrades), saving \$250K+ in one quarter.}
+    \resumeItemPlain{Migrated release pipelines to GitHub Actions, cutting manual release intervention by 40\%.}
+    \resumeItemPlain{Built auto-healing: New Relic alerts $\rightarrow$ PagerDuty $\rightarrow$ GitHub Actions $\rightarrow$ Ansible runbooks for known failure classes.}
+    \resumeItemPlain{Migrated Apache NiFi clusters from Chef to Ansible; orchestrated zero-downtime multi-region deployments.}
+  \resumeItemListEnd
+
+  \resumeSubheading{Liferay}{Bengaluru, India}{Associate Site Reliability Engineer}{Dec 2022 -- Jun 2024}
+  \resumeItemListStart
+    \resumeItemPlain{Scaled GKE clusters for mission-critical portals (capacity, security, fault tolerance).}
+    \resumeItemPlain{Deployed Dynatrace and Pingdom with proactive thresholds; reduced customer-impacting incidents.}
+    \resumeItemPlain{Restructured Jenkins CI/CD pipelines; removed build bottlenecks on daily release trains.}
+    \resumeItemPlain{Tuned node pools and autoscaling for a sustained 20\% compute cost reduction.}
+    \resumeItemPlain{Authored runbooks and Python/Bash automation, saving 10+ engineer-hours per week.}
+  \resumeItemListEnd
+
+  \resumeSubheading{Capgemini}{Mumbai, India}{Senior Software Engineer}{Jun 2019 -- Aug 2021}
+  \resumeItemListStart
+    \resumeItemPlain{Provisioned AWS and Azure infrastructure (VPC, EC2/VMs, autoscaling) for enterprise clients.}
+    \resumeItemPlain{Resolved load balancer, DNS, and TCP/IP issues in hybrid cloud environments.}
+    \resumeItemPlain{Introduced IaC with Git-managed ARM templates and scripting.}
+    \resumeItemPlain{Built Angular front-ends; integrated Azure DevOps CI/CD for Agile delivery teams.}
+  \resumeItemListEnd
+
+\resumeSubHeadingListEnd
+
+\section{Open Source Contributions}
+\small{Tracker: \href{https://asifad.github.io/opensource-contributions/}{asifad.github.io/opensource-contributions}}
+\resumeSubHeadingListStart
+  \resumeItemPlain{\textbf{Ansible} (community.general): PR \#12083 --- ini\_file idempotency fix for comment lines matching option names (issue \#11919).}
+  \resumeItemPlain{\textbf{Ansible} (community.general): PR \#12085 --- nmcli bond ARP check-mode and diff idempotency (issue \#11588).}
+  \resumeItemPlain{\textbf{Argo CD}: PR \#27931 --- ApplicationSet UI fixes for non-default namespaces (issue \#27928).}
+  \resumeItemPlain{\textbf{Argo CD}: PR \#27932 --- ApplicationSet Refresh button and RPC wiring (issue \#27798).}
+  \resumeItemPlain{\textbf{Jenkins} (kubernetes-plugin): Issue \#2809 --- multi-container agent pod cleanup after build (in progress).}
+\resumeSubHeadingListEnd
+
+\section{Key Technical Projects}
+\resumeSubHeadingListStart
+  \resumeSubItem{Auto-healing remediation loop (BlackLine)}{New Relic $\rightarrow$ PagerDuty $\rightarrow$ GitHub Actions $\rightarrow$ Ansible; near-zero MTTR on recurring incidents.}
+  \resumeSubItem{NiFi multi-region orchestration}{Chef-to-Ansible migration with drift-aware, zero-downtime regional rollouts.}
+  \resumeSubItem{Enterprise K8s automation lab}{Terraform plus Ansible IaC for a reproducible Kubernetes test environment.}
+  \resumeSubItem{Serverless alerting engine (Python, AWS)}{Lambda pipeline from CloudWatch/S3 logs to severity-based webhooks; reduced alert noise.}
+\resumeSubHeadingListEnd
+
+\section{Certifications}
+\resumeSubHeadingListStart
+  \resumeItemPlain{\href{https://www.credly.com/earner/earned/badge/59987b27-67e8-4638-ad2a-8b7feeb76faf}{\textbf{HashiCorp Terraform Associate (003)}}}
+  \resumeItemPlain{\textbf{Google Professional Cloud Architect}}
+  \resumeItemPlain{\textbf{Microsoft Azure DevOps Engineer Expert (AZ-400)}}
+  \resumeItemPlain{\href{https://www.youracclaim.com/badges/305c90a5-8131-4b3c-8783-f6fa106cdf93/public_url}{\textbf{AWS Solutions Architect Associate}}}
+  \resumeItemPlain{\href{https://www.youracclaim.com/badges/1c31f0af-faae-4f11-be3c-c7de8e50ff4c/public_url}{\textbf{AWS Cloud Practitioner}}}
+\resumeSubHeadingListEnd
+
+\section{Education}
+\resumeSubHeadingListStart
+  \resumeSubheading{Reva Institute of Technology and Management}{Bengaluru, India}{Bachelor of Engineering}{Jun 2018}
+\resumeSubHeadingListEnd
+
+\end{document}
