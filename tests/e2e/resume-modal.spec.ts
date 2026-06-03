@@ -44,7 +44,7 @@ test.describe("interactive resume modal", () => {
 
   test("opens from CMD+K palette (search Resume → Enter)", async ({ page }) => {
     await page.keyboard.press(process.platform === "darwin" ? "Meta+k" : "Control+k");
-    const paletteInput = page.getByPlaceholder("Type a command or search...");
+    const paletteInput = page.getByPlaceholder("Search");
     await paletteInput.fill("Resume");
     await page.getByText("View/Download Resume").click();
     await expectResumeModalOpen(page);

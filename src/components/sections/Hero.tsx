@@ -1,5 +1,6 @@
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowDown, Download, Mail } from "lucide-react";
+import { ArrowDown, Download, Mail, Search } from "lucide-react";
+import { openCommandPalette } from "../ui/CommandTrigger";
 import { GitHubIcon, LinkedInIcon } from "../ui/BrandIcons";
 import { profile, focusAreas } from "../../data/resume";
 
@@ -63,7 +64,21 @@ export default function Hero() {
             </span>
             <span className="text-[var(--color-fg)]">99.99%</span>
           </div>
-          <div className="flex items-center gap-2 rounded-md border border-[var(--color-panel-border)] bg-[var(--color-panel)]/50 px-3 py-1.5 backdrop-blur">
+          <button
+            type="button"
+            data-testid="hero-search-trigger"
+            onClick={openCommandPalette}
+            aria-label="Search site"
+            className="flex cursor-pointer items-center gap-2 rounded-md border border-[var(--color-panel-border)] bg-[var(--color-panel)]/50 px-3 py-1.5 backdrop-blur transition-colors hover:border-[var(--color-accent)]/30 hover:bg-[var(--color-accent-soft)] md:hidden"
+          >
+            <Search className="h-3.5 w-3.5 text-[var(--color-accent)]" aria-hidden />
+            <span className="text-[var(--color-fg)]">Search</span>
+          </button>
+          <div
+            data-testid="hero-cmd-hint"
+            className="hidden items-center gap-2 rounded-md border border-[var(--color-panel-border)] bg-[var(--color-panel)]/50 px-3 py-1.5 backdrop-blur md:flex"
+            aria-hidden
+          >
             <span className="text-zinc-500">CMD:</span>
             <span className="rounded bg-zinc-800/50 px-1.5 py-0.5 text-[var(--color-fg)]">⌘K</span>
           </div>
@@ -126,7 +141,7 @@ export default function Hero() {
           transition={{ delay: 0.65, duration: 0.7 }}
           className="mt-8 max-w-2xl text-balance text-xl font-light leading-relaxed text-[var(--color-fg-muted)] sm:text-2xl"
         >
-          I build the platforms that keep production calm at 2 AM — and contribute upstream to{" "}
+          I build the platforms that keep production calm at 2 AM, and contribute upstream to{" "}
           <span className="text-[var(--color-fg)]">open source</span> along the way.
           5+ years across <span className="text-[var(--color-fg)]">SRE</span>,{" "}
           <span className="text-[var(--color-fg)]">DevOps</span>,{" "}

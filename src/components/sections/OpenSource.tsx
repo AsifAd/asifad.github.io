@@ -47,7 +47,7 @@ export default function OpenSource() {
 
         <Reveal delay={0.08}>
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-[var(--color-fg-muted)]">
-            PRs, roadmaps, and repro notes for each stack — synced from the live dashboard below.
+            PRs, roadmaps, and repro notes for each stack, synced from the live dashboard below.
           </p>
         </Reveal>
 
@@ -72,7 +72,7 @@ export default function OpenSource() {
                 OSS Contributions Hub
               </div>
               <p className="mt-2 max-w-xl text-sm text-[var(--color-fg-muted)]">
-                Full tracker with animated PR cards, roadmap filters, and per-stack notes — updated
+                Full tracker with animated PR cards, roadmap filters, and per-stack notes, updated
                 as work lands upstream.
               </p>
             </div>

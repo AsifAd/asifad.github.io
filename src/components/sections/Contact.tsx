@@ -40,7 +40,7 @@ export default function Contact() {
 
         <Reveal delay={0.1}>
           <p className="mt-6 max-w-2xl text-lg text-[var(--color-fg-muted)]">
-            I'm open to SRE, platform, and OSS collaboration. Drop a line — the fastest path is
+            I'm open to SRE, platform, and OSS collaboration. Drop a line. The fastest path is
             email or LinkedIn.
           </p>
         </Reveal>

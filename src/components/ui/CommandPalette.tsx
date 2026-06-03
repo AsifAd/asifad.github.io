@@ -1,24 +1,80 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Command } from "cmdk";
-import { Search, Monitor, Code, FileText, Moon, Sun, Mail } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { Search } from "lucide-react";
+import {
+  buildPortfolioSearchIndex,
+  searchValue,
+  type SearchAction,
+  type SearchEntry,
+} from "../../lib/search-index";
+
+const panelMotion = {
+  initial: { opacity: 0, scale: 0.86, y: 8 },
+  animate: { opacity: 1, scale: 1, y: 0 },
+  exit: { opacity: 0, scale: 0.94, y: 4 },
+  transition: { duration: 0.22, ease: [0.16, 1, 0.3, 1] as const },
+};
+
+const backdropMotion = {
+  initial: { opacity: 0 },
+  animate: { opacity: 1 },
+  exit: { opacity: 0 },
+  transition: { duration: 0.18 },
+};
+
+function runAction(action: SearchAction, onTheme: () => void, onClose: () => void) {
+  switch (action.type) {
+    case "navigate":
+      window.location.hash = action.hash;
+      onClose();
+      break;
+    case "external":
+      window.open(action.url, "_blank", "noopener,noreferrer");
+      onClose();
+      break;
+    case "resume":
+      window.dispatchEvent(new CustomEvent("open-resume-modal"));
+      onClose();
+      break;
+    case "email":
+      window.location.href = "mailto:asifdraxi@gmail.com";
+      onClose();
+      break;
+    case "theme":
+      onTheme();
+      break;
+  }
+}
 
 export default function CommandPalette() {
   const [open, setOpen] = useState(false);
   const [theme, setTheme] = useState("dark");
+  const entries = useMemo(() => buildPortfolioSearchIndex(), []);
+
+  const grouped = useMemo(() => {
+    const map = new Map<string, SearchEntry[]>();
+    for (const e of entries) {
+      const list = map.get(e.group) ?? [];
+      list.push(e);
+      map.set(e.group, list);
+    }
+    return [...map.entries()];
+  }, [entries]);
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
       if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
         e.preventDefault();
-        setOpen((open) => !open);
+        setOpen((v) => !v);
       }
+      if (e.key === "Escape" && open) setOpen(false);
     };
 
     const handleOpen = () => setOpen(true);
-
     document.addEventListener("keydown", down);
     window.addEventListener("open-command-palette", handleOpen);
-    
+
     const storedTheme = document.documentElement.getAttribute("data-theme");
     if (storedTheme) setTheme(storedTheme);
 
@@ -26,102 +82,115 @@ export default function CommandPalette() {
       document.removeEventListener("keydown", down);
       window.removeEventListener("open-command-palette", handleOpen);
     };
-  }, []);
+  }, [open]);
+
+  useEffect(() => {
+    if (!open) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [open]);
 
   const toggleTheme = () => {
-    const newTheme = theme === "dark" ? "light" : "dark";
-    document.documentElement.setAttribute("data-theme", newTheme);
-    localStorage.setItem("theme", newTheme);
-    setTheme(newTheme);
+    const next = theme === "dark" ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", next);
+    localStorage.setItem("theme", next);
+    setTheme(next);
     setOpen(false);
   };
 
-  const navigate = (hash: string) => {
-    window.location.hash = hash;
-    setOpen(false);
-  };
-
-  if (!open) return null;
+  const close = () => setOpen(false);
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-start justify-center pt-[15vh] px-4">
-      {/* Backdrop */}
-      <div 
-        className="fixed inset-0 bg-black/40 backdrop-blur-sm" 
-        onClick={() => setOpen(false)}
-      />
-      
-      {/* Command Modal */}
-      <div className="relative w-full max-w-xl overflow-hidden rounded-xl border border-[var(--color-panel-border)] bg-[var(--color-panel)] shadow-2xl backdrop-blur-md">
-        <Command
-          className="flex h-full w-full flex-col"
-          loop
+    <AnimatePresence>
+      {open && (
+        <div
+          className="spotlight-overlay"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Spotlight Search"
         >
-          <div className="flex items-center border-b border-[var(--color-panel-border)] px-3">
-            <Search className="mr-2 h-4 w-4 shrink-0 text-[var(--color-fg-muted)]" />
-            <Command.Input 
-              autoFocus
-              placeholder="Type a command or search..." 
-              className="flex h-12 w-full bg-transparent py-3 text-sm text-[var(--color-fg)] outline-none placeholder:text-[var(--color-fg-muted)] disabled:cursor-not-allowed disabled:opacity-50"
-            />
-          </div>
+          <motion.button
+            type="button"
+            aria-label="Close search"
+            className="spotlight-backdrop"
+            {...backdropMotion}
+            onClick={close}
+          />
 
-          <Command.List className="max-h-[300px] overflow-y-auto overflow-x-hidden p-2 text-sm text-[var(--color-fg)]">
-            <Command.Empty className="py-6 text-center text-sm text-[var(--color-fg-muted)]">
-              No results found.
-            </Command.Empty>
+          <motion.div
+            data-testid="spotlight-panel"
+            className="spotlight-panel"
+            {...panelMotion}
+          >
+            <Command className="flex h-full min-h-0 flex-col" loop shouldFilter>
+              <div className="spotlight-search-row">
+                <Search className="spotlight-search-icon h-5 w-5" strokeWidth={2} aria-hidden />
+                <Command.Input
+                  autoFocus
+                  data-testid="spotlight-input"
+                  placeholder="Search"
+                  className="spotlight-input"
+                />
+              </div>
 
-            <Command.Group heading={<div className="px-2 py-1.5 text-xs font-medium text-[var(--color-fg-muted)]">Navigation</div>}>
-              <Command.Item 
-                onSelect={() => navigate("#experience")}
-                className="flex cursor-pointer items-center rounded-md px-2 py-2.5 aria-selected:bg-[var(--color-accent-soft)] aria-selected:text-[var(--color-accent)]"
-              >
-                <Monitor className="mr-2 h-4 w-4" /> Go to Experience
-              </Command.Item>
-              <Command.Item 
-                onSelect={() => navigate("#opensource")}
-                className="flex cursor-pointer items-center rounded-md px-2 py-2.5 aria-selected:bg-[var(--color-accent-soft)] aria-selected:text-[var(--color-accent)]"
-              >
-                <Code className="mr-2 h-4 w-4" /> View Open Source PRs
-              </Command.Item>
-              <Command.Item 
-                onSelect={() => navigate("#projects")}
-                className="flex cursor-pointer items-center rounded-md px-2 py-2.5 aria-selected:bg-[var(--color-accent-soft)] aria-selected:text-[var(--color-accent)]"
-              >
-                <FileText className="mr-2 h-4 w-4" /> View Projects
-              </Command.Item>
-            </Command.Group>
+              <div className="spotlight-divider" aria-hidden />
 
-            <Command.Group heading={<div className="px-2 py-1.5 text-xs font-medium text-[var(--color-fg-muted)] mt-2">Actions</div>}>
-              <Command.Item 
-                onSelect={toggleTheme}
-                className="flex cursor-pointer items-center rounded-md px-2 py-2.5 aria-selected:bg-[var(--color-accent-soft)] aria-selected:text-[var(--color-accent)]"
-              >
-                {theme === "dark" ? <Sun className="mr-2 h-4 w-4" /> : <Moon className="mr-2 h-4 w-4" />}
-                Toggle {theme === "dark" ? "Light" : "Dark"} Mode
-              </Command.Item>
-              <Command.Item 
-                onSelect={() => {
-                  window.dispatchEvent(new CustomEvent('open-resume-modal'));
-                  setOpen(false);
-                }}
-                className="flex cursor-pointer items-center rounded-md px-2 py-2.5 aria-selected:bg-[var(--color-accent-soft)] aria-selected:text-[var(--color-accent)]"
-              >
-                <FileText className="mr-2 h-4 w-4" /> View/Download Resume
-              </Command.Item>
-              <Command.Item 
-                onSelect={() => {
-                  window.location.href = 'mailto:asifdraxi@gmail.com';
-                  setOpen(false);
-                }}
-                className="flex cursor-pointer items-center rounded-md px-2 py-2.5 aria-selected:bg-[var(--color-accent-soft)] aria-selected:text-[var(--color-accent)]"
-              >
-                <Mail className="mr-2 h-4 w-4" /> Send Email
-              </Command.Item>
-            </Command.Group>
-          </Command.List>
-        </Command>
-      </div>
-    </div>
+              <Command.List className="spotlight-list">
+                <Command.Empty className="spotlight-empty">
+                  <p className="font-medium text-[var(--color-fg)]">No results</p>
+                  <p className="mt-1 text-sm opacity-80">
+                    Try Ansible, BlackLine, Terraform, or résumé
+                  </p>
+                </Command.Empty>
+
+                {grouped.map(([group, groupEntries]) => (
+                  <Command.Group
+                    key={group}
+                    heading={<div className="spotlight-group-label">{group}</div>}
+                  >
+                    {groupEntries.map((entry) => {
+                      const Icon = entry.icon;
+                      return (
+                        <Command.Item
+                          key={entry.id}
+                          value={searchValue(entry)}
+                          onSelect={() => runAction(entry.action, toggleTheme, close)}
+                          className="spotlight-row"
+                        >
+                          <span className="spotlight-row-icon">
+                            <Icon className="h-4 w-4" aria-hidden />
+                          </span>
+                          <span className="min-w-0 flex-1">
+                            <span className="spotlight-row-title">{entry.title}</span>
+                            {entry.subtitle && (
+                              <span className="spotlight-row-sub">{entry.subtitle}</span>
+                            )}
+                          </span>
+                        </Command.Item>
+                      );
+                    })}
+                  </Command.Group>
+                ))}
+              </Command.List>
+
+              <div className="spotlight-footer">
+                <span>{entries.length} items</span>
+                <div className="spotlight-shortcuts">
+                  <span className="spotlight-kbd">↑</span>
+                  <span className="spotlight-kbd">↓</span>
+                  <span>navigate</span>
+                  <span className="spotlight-kbd">↵</span>
+                  <span>open</span>
+                  <span className="spotlight-kbd">esc</span>
+                </div>
+              </div>
+            </Command>
+          </motion.div>
+        </div>
+      )}
+    </AnimatePresence>
   );
 }

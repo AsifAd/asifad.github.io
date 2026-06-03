@@ -14,7 +14,7 @@ export const profile = {
   },
 };
 
-export const summary = `Site Reliability Engineer and open source contributor with 5+ years on GCP, AWS, and Azure. I build Kubernetes platforms, Infrastructure as Code (Terraform, Ansible), and observability loops that turn 2 AM pages into self-healing systems — plus upstream PRs to Ansible, Argo CD, and Jenkins. Track record: 99.9% uptime SLAs, $250K+ quarterly GCP savings, and 40% less release toil.`;
+export const summary = `Site Reliability Engineer and open source contributor with 5+ years on GCP, AWS, and Azure. I build Kubernetes platforms, Infrastructure as Code (Terraform, Ansible), and observability loops that turn 2 AM pages into self-healing systems, plus upstream PRs to Ansible, Argo CD, and Jenkins. Track record: 99.9% uptime SLAs, $250K+ quarterly GCP savings, and 40% less release toil.`;
 
 export const aboutNote = `The work I care most about lives at the boundary: where infrastructure becomes a product for engineers, where alerts become actions, and where upstream open source fixes make the next on-call shift quieter.`;
 
@@ -67,11 +67,11 @@ export const experience: Experience[] = [
     company: "BlackLine",
     role: "Site Reliability Engineer",
     location: "Bengaluru, KA",
-    period: "Jun 2024 — Present",
+    period: "Jun 2024 to Present",
     stack: ["GCP", "Kubernetes", "Ansible", "GitHub Actions", "New Relic", "PagerDuty"],
     highlights: [
       "Operating high-availability production infrastructure with 99.9%+ uptime SLAs and on-call incident management.",
-      "Led GCP cost optimization across right-sizing, resource auditing, and database upgrades — $250K+ saved in a single quarter.",
+      "Led GCP cost optimization across right-sizing, resource auditing, and database upgrades ($250K+ saved in a single quarter).",
       "Migrated legacy release pipelines to GitHub Actions, reducing manual release intervention by 40%.",
       "Built an auto-healing system wiring New Relic telemetry → PagerDuty → GitHub Actions → Ansible runbooks for instant remediation of known failures.",
       "Led zero-downtime migration of Apache NiFi clusters from Chef to Ansible, then orchestrated automated multi-region deployments.",
@@ -81,10 +81,10 @@ export const experience: Experience[] = [
     company: "Liferay",
     role: "Associate Site Reliability Engineer",
     location: "Bengaluru, KA",
-    period: "Dec 2022 — Jun 2024",
+    period: "Dec 2022 to Jun 2024",
     stack: ["GKE", "Dynatrace", "Jenkins", "Python", "Bash"],
     highlights: [
-      "Scaled GKE clusters for mission-critical portals — resource allocation, security compliance, fault tolerance.",
+      "Scaled GKE clusters for mission-critical portals: resource allocation, security compliance, fault tolerance.",
       "Deployed Dynatrace + Pingdom with proactive thresholds, catching degradation before customer impact.",
       "Restructured Jenkins pipelines, removing build-stage bottlenecks to stabilize daily release trains.",
       "Node-pooling + auto-scaling strategy delivered a sustainable 20% compute footprint reduction.",
@@ -95,11 +95,11 @@ export const experience: Experience[] = [
     company: "Capgemini",
     role: "Senior Software Engineer",
     location: "Mumbai, MH",
-    period: "Jun 2019 — Aug 2021",
+    period: "Jun 2019 to Aug 2021",
     stack: ["AWS", "Azure", "Angular", "Azure DevOps", "ARM"],
     highlights: [
-      "Provisioned and secured enterprise AWS/Azure infrastructure — VPCs, EC2/VMs, auto-scaling groups for global clients.",
-      "Troubleshot complex network and routing issues — Load Balancer algorithms, DNS resolution, TCP/IP bottlenecks.",
+      "Provisioned and secured enterprise AWS/Azure infrastructure: VPCs, EC2/VMs, auto-scaling groups for global clients.",
+      "Troubleshot complex network and routing issues (load balancers, DNS, TCP/IP bottlenecks).",
       "Introduced IaC practices with Git-managed ARM templates and scripting.",
       "Built Angular front-ends and integrated Azure DevOps CI/CD pipelines for cross-functional Agile teams.",
     ],
@@ -177,7 +177,7 @@ export const focusAreas = [
   { label: "SRE", desc: "Reliability, SLOs, on-call, postmortems" },
   { label: "DevOps", desc: "CI/CD, GitOps, release engineering" },
   { label: "Cloud", desc: "GCP · AWS · Azure platform engineering" },
-  { label: "Open Source", desc: "Ansible, Argo CD, Jenkins — upstream PRs" },
+  { label: "Open Source", desc: "Ansible, Argo CD, Jenkins · upstream PRs" },
 ];
 
 /** Upstream work — mirrored on PDF résumé Open Source section */
