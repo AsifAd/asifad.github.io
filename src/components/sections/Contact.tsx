@@ -89,8 +89,12 @@ export default function Contact() {
               © {new Date().getFullYear()} {profile.name} · Built with Astro, Tailwind, Framer
               Motion
             </div>
-            <div className="font-mono">
-              <span className="text-[var(--color-accent)]">●</span> systems nominal
+            <div className="flex items-center gap-2 font-mono">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-50" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+              </span>
+              <span>systems nominal</span>
             </div>
           </footer>
         </Reveal>

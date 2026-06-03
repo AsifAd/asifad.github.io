@@ -62,7 +62,7 @@ export default function Projects() {
                   {p.tags.map((t) => (
                     <span
                       key={t}
-                      className="inline-flex items-center rounded-md border border-[var(--color-panel-border)] bg-[var(--color-panel)] px-2 py-0.5 font-mono text-[11px] text-[var(--color-fg-muted)]"
+                      className="inline-flex cursor-default items-center rounded-md border border-[var(--color-panel-border)] bg-[var(--color-panel)] px-2 py-0.5 font-mono text-[11px] text-[var(--color-fg-muted)] transition-all hover:-translate-y-0.5 hover:border-[var(--color-accent)]/30 hover:bg-[var(--color-accent-soft)] hover:text-[var(--color-accent)]"
                     >
                       {t}
                     </span>

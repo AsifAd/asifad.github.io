@@ -10,9 +10,10 @@ const statusStyles: Record<
 > = {
   active:
     "border-[var(--color-accent)]/35 bg-[var(--color-accent-soft)] text-[var(--color-accent)]",
-  planned: "border-[var(--color-panel-border)] bg-[var(--color-panel)] text-[var(--color-fg-muted)]",
+  planned: 
+    "border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-400",
   exploring:
-    "border-[var(--color-panel-border)] bg-[var(--color-panel)] text-[var(--color-fg-muted)]",
+    "border-indigo-500/30 bg-indigo-500/10 text-indigo-600 dark:text-indigo-400",
 };
 
 export default function OpenSource() {

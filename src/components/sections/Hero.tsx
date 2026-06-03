@@ -49,10 +49,18 @@ export default function Hero() {
           </div>
           <div className="flex items-center gap-2 rounded-md border border-[var(--color-panel-border)] bg-[var(--color-panel)]/50 px-3 py-1.5 backdrop-blur">
             <span className="text-zinc-500">LATENCY:</span>
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-cyan-500 opacity-50" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-cyan-500" />
+            </span>
             <span className="text-[var(--color-fg)]">42ms</span>
           </div>
           <div className="flex items-center gap-2 rounded-md border border-[var(--color-panel-border)] bg-[var(--color-panel)]/50 px-3 py-1.5 backdrop-blur">
             <span className="text-zinc-500">UPTIME:</span>
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-50" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+            </span>
             <span className="text-[var(--color-fg)]">99.99%</span>
           </div>
           <div className="flex items-center gap-2 rounded-md border border-[var(--color-panel-border)] bg-[var(--color-panel)]/50 px-3 py-1.5 backdrop-blur">
@@ -116,7 +124,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.65, duration: 0.7 }}
-          className="mt-6 max-w-2xl text-balance text-lg text-[var(--color-fg-muted)] sm:text-xl"
+          className="mt-8 max-w-2xl text-balance text-xl font-light leading-relaxed text-[var(--color-fg-muted)] sm:text-2xl"
         >
           I build the platforms that keep production calm at 2 AM — and contribute upstream to{" "}
           <span className="text-[var(--color-fg)]">open source</span> along the way.

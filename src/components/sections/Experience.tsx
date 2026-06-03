@@ -29,16 +29,16 @@ export default function Experience() {
         <div className="relative mt-16">
           <div
             aria-hidden
-            className="absolute left-4 top-0 h-full w-px bg-gradient-to-b from-transparent via-[var(--color-panel-border)] to-transparent md:left-1/2"
+            className="absolute left-4 top-0 h-full w-px bg-gradient-to-b from-transparent via-[var(--color-panel-border)] to-transparent md:left-8"
           />
 
-          <div className="space-y-12 md:space-y-20" data-testid="experience-list">
+          <div className="space-y-16 md:space-y-24" data-testid="experience-list">
             {experience.map((job, i) => (
               <Reveal key={job.company} delay={i * 0.05}>
-                <article className="relative grid md:grid-cols-2 md:gap-12">
+                <article className="relative grid md:grid-cols-[1fr_2.5fr] md:gap-12">
                   <div
                     aria-hidden
-                    className="absolute left-4 top-3 -translate-x-1/2 md:left-1/2"
+                    className="absolute left-4 top-3 -translate-x-1/2 md:left-8"
                   >
                     <span className="relative flex h-3 w-3">
                       <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--color-accent)] opacity-40" />
@@ -46,49 +46,48 @@ export default function Experience() {
                     </span>
                   </div>
 
-                  <div
-                    className={`pl-12 md:pl-0 ${i % 2 === 0 ? "md:text-right md:pr-12" : "md:col-start-2 md:pl-12"}`}
-                  >
+                  <div className="pl-12 md:pl-16">
+                    <div className="sticky top-24">
+                      <h3
+                        className="text-xl font-semibold text-[var(--color-fg)]"
+                        style={{ fontFamily: "var(--font-display)" }}
+                      >
+                        {job.company}
+                      </h3>
+                      <div className="mt-1 font-mono text-sm text-[var(--color-accent)]">
+                        {job.role}
+                      </div>
+                      <div className="mt-2 font-mono text-xs text-[var(--color-fg-muted)]">
+                        {job.period}
+                      </div>
+                      <div className="mt-1 font-mono text-xs text-[var(--color-fg-subtle)]">
+                        {job.location}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="mt-6 pl-12 md:mt-0 md:pl-0">
                     <motion.div
                       whileHover={{ y: -2 }}
-                      className="panel-strong relative overflow-hidden rounded-2xl p-6"
+                      className="panel-strong relative overflow-hidden rounded-2xl p-6 md:p-8"
                     >
-                      <div className="flex flex-wrap items-baseline justify-between gap-2">
-                        <h3
-                          className="text-xl font-semibold text-[var(--color-fg)]"
-                          style={{ fontFamily: "var(--font-display)" }}
-                        >
-                          {job.company}
-                        </h3>
-                        <span className="font-mono text-xs text-[var(--color-fg-muted)]">
-                          {job.period}
-                        </span>
-                      </div>
-                      <div className="mt-1 flex flex-wrap items-baseline justify-between gap-2">
-                        <span className="text-[var(--color-accent)]">{job.role}</span>
-                        <span className="font-mono text-xs text-[var(--color-fg-muted)]">
-                          {job.location}
-                        </span>
-                      </div>
-
-                      <ul className={`mt-5 space-y-2.5 ${i % 2 === 0 ? "md:text-right" : ""}`}>
+                      <ul className="space-y-3">
                         {job.highlights.map((h, hi) => (
                           <li
                             key={hi}
                             className="text-sm leading-relaxed text-[var(--color-fg-muted)]"
                           >
-                            <span className="text-[var(--color-fg-subtle)]">›</span> {h}
+                            <span className="mr-2 text-[var(--color-fg-subtle)]">›</span>
+                            {h}
                           </li>
                         ))}
                       </ul>
 
-                      <div
-                        className={`mt-5 flex flex-wrap gap-1.5 ${i % 2 === 0 ? "md:justify-end" : ""}`}
-                      >
+                      <div className="mt-6 flex flex-wrap gap-2">
                         {job.stack.map((t) => (
                           <span
                             key={t}
-                            className="inline-flex items-center rounded-md border border-[var(--color-panel-border)] bg-[var(--color-panel)] px-2 py-1 font-mono text-[11px] text-[var(--color-fg-muted)]"
+                            className="inline-flex cursor-default items-center rounded-md border border-[var(--color-panel-border)] bg-[var(--color-panel)] px-2.5 py-1 font-mono text-[11px] text-[var(--color-fg-muted)] transition-all hover:-translate-y-0.5 hover:border-[var(--color-accent)]/30 hover:bg-[var(--color-accent-soft)] hover:text-[var(--color-accent)]"
                           >
                             {t}
                           </span>
@@ -96,8 +95,6 @@ export default function Experience() {
                       </div>
                     </motion.div>
                   </div>
-
-                  <div className="hidden md:block" />
                 </article>
               </Reveal>
             ))}

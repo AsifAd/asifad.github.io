@@ -18,9 +18,16 @@ export default function TerminalCopy() {
   return (
     <div className="relative mt-8 overflow-hidden rounded-xl border border-[var(--color-panel-border)] bg-[#0d0d0d] font-mono shadow-2xl">
       <div className="flex items-center justify-between border-b border-white/10 bg-white/[0.02] px-4 py-2 text-xs text-zinc-400">
-        <div className="flex items-center gap-2">
-          <Terminal className="h-4 w-4" />
-          <span>fetch-resume.sh</span>
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-1.5">
+            <div className="h-2.5 w-2.5 rounded-full bg-red-500/80"></div>
+            <div className="h-2.5 w-2.5 rounded-full bg-yellow-500/80"></div>
+            <div className="h-2.5 w-2.5 rounded-full bg-green-500/80"></div>
+          </div>
+          <div className="flex items-center gap-2">
+            <Terminal className="h-3.5 w-3.5" />
+            <span className="font-medium">fetch-resume.sh</span>
+          </div>
         </div>
         <button
           onClick={handleCopy}
