@@ -3,6 +3,7 @@ import "../styles/global.css";
 import Nav from "../components/Nav.astro";
 import Background from "../components/Background.tsx";
 import CommandPalette from "../components/ui/CommandPalette.tsx";
+import ResumeModal from "../components/ui/ResumeModal.tsx";
 import { profile } from "../data/resume";
 
 interface Props {
@@ -164,6 +165,7 @@ const jsonLd = {
     </a>
     <Background client:load />
     <CommandPalette client:load />
+    <ResumeModal client:load />
     <Nav />
     <main id="main-content" class="relative z-10">
       <slot />

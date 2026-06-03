@@ -178,14 +178,16 @@ export default function Hero() {
           >
             <Mail className="h-4 w-4" /> Email
           </a>
-          <a
-            href="/asif-draxi-resume.pdf"
-            download
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              window.dispatchEvent(new CustomEvent("open-resume-modal"));
+            }}
             data-testid="hero-resume-download"
-            className="inline-flex items-center gap-2 rounded-full border border-[var(--color-panel-border)] bg-[var(--color-panel)] px-5 py-2.5 text-sm text-[var(--color-fg)] backdrop-blur transition-colors hover:bg-[var(--color-accent-soft)]"
+            className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-[var(--color-panel-border)] bg-[var(--color-panel)] px-5 py-2.5 text-sm text-[var(--color-fg)] backdrop-blur transition-colors hover:bg-[var(--color-accent-soft)]"
           >
             <Download className="h-4 w-4" /> Résumé
-          </a>
+          </button>
         </motion.div>
 
         <motion.div

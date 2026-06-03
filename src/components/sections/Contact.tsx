@@ -11,9 +11,8 @@ const links = [
   { label: "GitHub", value: "github.com/AsifAd", href: profile.links.github, icon: GitHubIcon },
   {
     label: "Résumé",
-    value: "PDF download",
-    href: "/asif-draxi-resume.pdf",
-    download: true,
+    value: "Preview & Download",
+    onClick: () => window.dispatchEvent(new CustomEvent("open-resume-modal")),
     icon: Download,
   },
   { label: "Location", value: profile.location, icon: MapPin },
@@ -52,16 +51,16 @@ export default function Contact() {
 
         <div className="mt-12 grid gap-3 sm:grid-cols-2" data-testid="contact-links">
           {links.map((l, i) => {
-            const Tag: any = l.href ? motion.a : motion.div;
+            const Tag: any = l.href ? motion.a : motion.button;
             return (
               <Reveal key={l.label} delay={i * 0.05}>
                 <Tag
                   href={l.href}
-                  download={"download" in l && l.download ? true : undefined}
+                  onClick={l.onClick}
                   target={l.href?.startsWith("http") ? "_blank" : undefined}
                   rel={l.href?.startsWith("http") ? "noopener noreferrer" : undefined}
-                  whileHover={l.href ? { y: -2 } : undefined}
-                  className="panel group flex items-center justify-between gap-4 rounded-xl p-5 transition-colors hover:bg-[var(--color-accent-soft)]"
+                  whileHover={{ y: -2 }}
+                  className="panel group flex w-full cursor-pointer items-center justify-between gap-4 rounded-xl p-5 text-left transition-colors hover:bg-[var(--color-accent-soft)]"
                 >
                   <div className="flex items-center gap-4">
                     <span className="grid h-10 w-10 place-items-center rounded-lg bg-[var(--color-panel)] text-[var(--color-accent)]">

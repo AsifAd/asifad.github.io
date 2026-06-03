@@ -102,12 +102,12 @@ export default function CommandPalette() {
               </Command.Item>
               <Command.Item 
                 onSelect={() => {
-                  window.open('/asif-draxi-resume.pdf');
+                  window.dispatchEvent(new CustomEvent('open-resume-modal'));
                   setOpen(false);
                 }}
                 className="flex cursor-pointer items-center rounded-md px-2 py-2.5 aria-selected:bg-[var(--color-accent-soft)] aria-selected:text-[var(--color-accent)]"
               >
-                <FileText className="mr-2 h-4 w-4" /> Download Resume (PDF)
+                <FileText className="mr-2 h-4 w-4" /> View/Download Resume
               </Command.Item>
               <Command.Item 
                 onSelect={() => {
