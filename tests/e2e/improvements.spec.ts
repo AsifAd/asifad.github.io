@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { waitForBootLoaderDone } from "./helpers";
 
 test.describe("site improvements", () => {
   test("skip link targets main content", async ({ page }) => {
@@ -36,11 +37,16 @@ test.describe("site improvements", () => {
     await expect(grid.locator('a[href*="github.com/AsifAd"]')).toHaveCount(2);
   });
 
-  test("contact includes resume download", async ({ page }) => {
+  test("contact includes résumé preview card that opens the modal", async ({ page }) => {
     await page.goto("/");
+    await waitForBootLoaderDone(page);
     await page.getByTestId("section-contact").scrollIntoViewIfNeeded();
-    const resume = page.getByTestId("contact-links").getByRole("link", { name: /résumé/i });
-    await expect(resume).toHaveAttribute("href", "/asif-draxi-resume.pdf");
+    const resumeCard = page
+      .getByTestId("contact-links")
+      .getByRole("button", { name: /preview & download/i });
+    await expect(resumeCard).toBeVisible();
+    await resumeCard.click();
+    await expect(page.locator("object[type='application/pdf']")).toBeVisible();
   });
 
   test("JSON-LD Person schema is present", async ({ page }) => {

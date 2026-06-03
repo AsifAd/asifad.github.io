@@ -11,16 +11,25 @@ test.describe("SEO + assets", () => {
     expect(res.headers()["content-type"]).toMatch(/image\/png/);
   });
 
-  test("resume PDF is downloadable from the hero", async ({ page, request }) => {
+  test("hero résumé control opens modal with PDF embed and download link", async ({ page }) => {
     await page.goto("/");
-    const link = page.getByTestId("hero-resume-download");
-    await expect(link).toBeVisible();
-    await expect(link).toHaveAttribute("href", "/asif-draxi-resume.pdf");
-    await expect(link).toHaveAttribute("download", "");
+    await page.waitForFunction(() => !document.getElementById("boot-loader"), {
+      timeout: 15_000,
+    });
 
-    const res = await request.get("/asif-draxi-resume.pdf");
-    expect(res.status()).toBe(200);
-    expect(res.headers()["content-type"]).toMatch(/pdf/);
+    const trigger = page.getByTestId("hero-resume-download");
+    await expect(trigger).toBeVisible();
+    await expect(trigger).toHaveRole("button");
+    await trigger.click();
+
+    await expect(page.locator("object[type='application/pdf']")).toHaveAttribute(
+      "data",
+      "/asif-draxi-resume.pdf",
+    );
+    await expect(page.getByRole("link", { name: "Download", exact: true })).toHaveAttribute(
+      "href",
+      "/asif-draxi-resume.pdf",
+    );
   });
 
   test("robots.txt advertises the sitemap", async ({ request }) => {

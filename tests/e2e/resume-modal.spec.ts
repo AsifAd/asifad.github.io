@@ -1,0 +1,80 @@
+import { test, expect } from "@playwright/test";
+import {
+  openResumeModalFromHero,
+  resumeModal,
+  resumeModalShell,
+  waitForBootLoaderDone,
+} from "./helpers";
+
+async function expectResumeModalOpen(page: import("@playwright/test").Page) {
+  await expect(resumeModal(page)).toBeVisible();
+  await expect(resumeModal(page)).toHaveAttribute("data", "/asif-draxi-resume.pdf");
+  await expect(
+    resumeModalShell(page).getByText("asif-draxi-resume.pdf", { exact: true }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("link", { name: "Download PDF instead" }),
+  ).toBeAttached();
+}
+
+async function expectResumeModalClosed(page: import("@playwright/test").Page) {
+  await expect(resumeModal(page)).toHaveCount(0);
+}
+
+test.describe("interactive resume modal", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/");
+    await waitForBootLoaderDone(page);
+  });
+
+  test("opens from hero Résumé button", async ({ page }) => {
+    await page.getByTestId("hero-resume-download").click();
+    await expectResumeModalOpen(page);
+  });
+
+  test("opens from contact Preview & Download card", async ({ page }) => {
+    const resumeCard = page
+      .getByTestId("contact-links")
+      .getByRole("button", { name: /preview & download/i });
+    await page.getByTestId("section-contact").scrollIntoViewIfNeeded();
+    await resumeCard.scrollIntoViewIfNeeded();
+    await resumeCard.click();
+    await expectResumeModalOpen(page);
+  });
+
+  test("opens from CMD+K palette (search Resume → Enter)", async ({ page }) => {
+    await page.keyboard.press(process.platform === "darwin" ? "Meta+k" : "Control+k");
+    const paletteInput = page.getByPlaceholder("Type a command or search...");
+    await paletteInput.fill("Resume");
+    await page.getByText("View/Download Resume").click();
+    await expectResumeModalOpen(page);
+  });
+
+  test("closes via X button, Escape key, and backdrop click", async ({ page }) => {
+    await openResumeModalFromHero(page);
+
+    await resumeModalShell(page).getByRole("button").click();
+    await expectResumeModalClosed(page);
+
+    await openResumeModalFromHero(page);
+    await page.keyboard.press("Escape");
+    await expectResumeModalClosed(page);
+
+    await openResumeModalFromHero(page);
+    await page.mouse.click(8, 8);
+    await expectResumeModalClosed(page);
+  });
+
+  test("renders PDF object and fallback download control in the DOM", async ({ page }) => {
+    await openResumeModalFromHero(page);
+
+    const pdfObject = resumeModal(page);
+    await expect(pdfObject).toBeVisible();
+    await expect(pdfObject).toHaveAttribute("type", "application/pdf");
+
+    const fallback = page.getByRole("link", { name: "Download PDF instead" });
+    await expect(fallback).toBeAttached();
+    await expect(fallback).toHaveAttribute("href", "/asif-draxi-resume.pdf");
+    await expect(fallback).toHaveAttribute("download", "");
+  });
+});
