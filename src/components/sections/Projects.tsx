@@ -2,6 +2,11 @@ import { motion } from "framer-motion";
 import { ExternalLink, Star } from "lucide-react";
 import Reveal from "../ui/Reveal";
 import ServiceMapAnimation from "../ui/ServiceMapAnimation";
+import StorageComplianceAnimation from "../ui/StorageComplianceAnimation";
+import GitOpsFleetAnimation from "../ui/GitOpsFleetAnimation";
+import NiFiAnimation from "../ui/NiFiAnimation";
+import K8sLabAnimation from "../ui/K8sLabAnimation";
+import ServerlessAlertingAnimation from "../ui/ServerlessAlertingAnimation";
 import SpotlightCard from "../ui/SpotlightCard";
 import { projects } from "../../data/resume";
 
@@ -54,7 +59,12 @@ export default function Projects() {
                   )}
                 </div>
 
+                {p.name === "Automated Storage Compliance Controller" && <StorageComplianceAnimation />}
+                {p.name === "GitOps Fleet Manager" && <GitOpsFleetAnimation />}
                 {p.name === "Auto-healing remediation loop" && <ServiceMapAnimation />}
+                {p.name === "NiFi multi-region orchestration" && <NiFiAnimation />}
+                {p.name === "Enterprise K8s Automation Lab" && <K8sLabAnimation />}
+                {p.name === "Serverless cloud alerting engine" && <ServerlessAlertingAnimation />}
 
                 <p className="mt-3 text-sm leading-relaxed text-[var(--color-fg-muted)]">{p.blurb}</p>
 
