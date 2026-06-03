@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { Menu, X } from "lucide-react";
 import { profile } from "../data/resume";
 
@@ -46,12 +47,12 @@ export default function MobileNav() {
         {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
       </button>
 
-      {open && (
+      {open && typeof document !== "undefined" && createPortal(
         <>
           <button
             type="button"
             aria-label="Close menu overlay"
-            className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm"
+            className="fixed inset-0 z-[100] bg-black/40 backdrop-blur-sm"
             onClick={() => setOpen(false)}
           />
           <div
@@ -60,7 +61,7 @@ export default function MobileNav() {
             role="dialog"
             aria-modal="true"
             aria-label="Site navigation"
-            className="panel-strong fixed left-4 right-4 top-[4.5rem] z-50 max-h-[min(70vh,32rem)] overflow-y-auto rounded-2xl p-3 shadow-lg"
+            className="panel-strong fixed left-4 right-4 top-20 z-[101] max-h-[min(70vh,32rem)] overflow-y-auto rounded-2xl p-3 shadow-lg"
           >
             <nav className="flex flex-col gap-0.5">
               {items.map((it) => (
@@ -92,7 +93,8 @@ export default function MobileNav() {
               ))}
             </nav>
           </div>
-        </>
+        </>,
+        document.body
       )}
     </div>
   );
