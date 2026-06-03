@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
-import { ArrowUpRight, ExternalLink, GitMerge, GitPullRequest } from "lucide-react";
+import { ArrowUpRight, ExternalLink } from "lucide-react";
 import Reveal from "../ui/Reveal";
 import SpotlightCard from "../ui/SpotlightCard";
-import { openSourceStacks, openSourceContributions, profile } from "../../data/resume";
+import { openSourceStacks, profile } from "../../data/resume";
 
 const statusStyles: Record<
   (typeof openSourceStacks)[number]["status"],
@@ -84,59 +84,7 @@ export default function OpenSource() {
         </Reveal>
 
         <Reveal delay={0.12}>
-          <div className="mt-16">
-            <h3
-              className="text-sm font-semibold uppercase tracking-widest text-[var(--color-fg-muted)]"
-              style={{ fontFamily: "var(--font-display)" }}
-            >
-              Recent Pull Requests
-            </h3>
-            <div className="mt-5 grid gap-3 md:grid-cols-2" data-testid="opensource-prs">
-              {openSourceContributions.map((pr, i) => (
-                <motion.a
-                  key={pr.pr}
-                  href={pr.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  initial={{ opacity: 0, y: 8 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.05, duration: 0.4 }}
-                  whileHover={{ y: -2 }}
-                  className="block h-full"
-                >
-                  <SpotlightCard className="panel group block h-full rounded-xl p-5 transition-colors hover:bg-[var(--color-accent-soft)]/20">
-                    <div className="relative z-20 flex items-start gap-4">
-                      <div className={`mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border ${pr.status === "merged" ? "border-purple-500/30 bg-purple-500/10 text-purple-400" : "border-emerald-500/30 bg-emerald-500/10 text-emerald-400"}`}>
-                        {pr.status === "merged" ? <GitMerge className="h-4 w-4" /> : <GitPullRequest className="h-4 w-4" />}
-                      </div>
-                      <div className="flex-1">
-                        <div className="flex flex-wrap items-center justify-between gap-2">
-                          <span className="font-mono text-[10px] uppercase tracking-widest text-[var(--color-fg-muted)]">
-                            {pr.stack}
-                          </span>
-                          <span className={`rounded px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-wider ${pr.status === "merged" ? "bg-purple-500/10 text-purple-400" : "bg-emerald-500/10 text-emerald-400"}`}>
-                            {pr.status}
-                          </span>
-                        </div>
-                        <h4 className="mt-1 font-medium text-[var(--color-fg)] transition-colors group-hover:text-[var(--color-accent)]">
-                          {pr.title}
-                        </h4>
-                        <div className="mt-2 flex items-center gap-1.5 font-mono text-xs text-[var(--color-fg-subtle)]">
-                          {pr.pr}
-                          <ExternalLink className="h-3 w-3 opacity-0 transition-opacity group-hover:opacity-100" />
-                        </div>
-                      </div>
-                    </div>
-                  </SpotlightCard>
-                </motion.a>
-              ))}
-            </div>
-          </div>
-        </Reveal>
-
-        <Reveal delay={0.16}>
-          <div className="mt-16">
+          <div className="mt-10">
             <h3
               className="text-sm font-semibold uppercase tracking-widest text-[var(--color-fg-muted)]"
               style={{ fontFamily: "var(--font-display)" }}

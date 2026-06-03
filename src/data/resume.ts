@@ -187,34 +187,29 @@ export const openSourceContributions = [
     title: "ini_file comment-line idempotency",
     pr: "community.general#12083",
     link: "https://github.com/ansible-collections/community.general/pull/12083",
-    status: "open"
   },
   {
     stack: "Ansible",
     title: "nmcli bond ARP check-mode fix",
     pr: "community.general#12085",
     link: "https://github.com/ansible-collections/community.general/pull/12085",
-    status: "merged"
   },
   {
     stack: "Argo CD",
     title: "AppSet UI in non-default namespaces",
     pr: "argo-cd#27931",
     link: "https://github.com/argoproj/argo-cd/pull/27931",
-    status: "merged"
   },
   {
     stack: "Argo CD",
     title: "ApplicationSet Refresh button",
     pr: "argo-cd#27932",
     link: "https://github.com/argoproj/argo-cd/pull/27932",
-    status: "open"
   },
   {
     stack: "Jenkins",
     title: "kubernetes-plugin multi-container pod cleanup",
-    pr: "#2835",
-    link: "https://github.com/jenkinsci/kubernetes-plugin/pull/2835",
-    status: "open"
+    pr: "#2809 in progress",
+    link: "https://github.com/jenkinsci/kubernetes-plugin/issues/2809",
   },
 ] as const;
