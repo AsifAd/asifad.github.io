@@ -119,11 +119,24 @@ export type { GeneratedOpenSourceStack as OpenSourceStack } from "./oss-stacks.g
 
 export const projects: Project[] = [
   {
+    name: "Automated Storage Compliance Controller",
+    blurb:
+      "Developed a Python-based automation tool to proactively audit AWS S3 buckets across the organization. Enforced encryption standards, configured intelligent lifecycle policies for cost optimization, and ensured strict IAM access controls for data security.",
+    tags: ["Python", "AWS S3", "Automation", "Security"],
+    highlight: true,
+  },
+  {
+    name: "GitOps Fleet Manager",
+    blurb:
+      "Architected a centralized GitOps deployment workflow using ArgoCD and custom Helm charts to synchronize microservices across multiple Kubernetes clusters, providing automated drift detection and rapid rollback capabilities.",
+    tags: ["ArgoCD", "Helm", "Kubernetes", "GitOps"],
+    highlight: true,
+  },
+  {
     name: "Auto-healing remediation loop",
     blurb:
       "Production system at BlackLine: New Relic alerts trigger PagerDuty events, which fire GitHub Actions workflows running Ansible playbooks against known failure states. Cuts MTTR on common incidents to near-zero.",
     tags: ["New Relic", "PagerDuty", "GitHub Actions", "Ansible"],
-    highlight: true,
   },
   {
     name: "NiFi multi-region orchestration",
