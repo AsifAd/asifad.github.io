@@ -9,9 +9,13 @@ import Projects from "../components/sections/Projects";
 import OpenSource from "../components/sections/OpenSource";
 import Credentials from "../components/sections/Credentials";
 import Contact from "../components/sections/Contact";
+import ResumeFAB from "../components/ui/ResumeFAB";
+import SystemStatusBar from "../components/ui/SystemStatusBar";
+import CustomCursor from "../components/ui/CustomCursor";
 ---
 
 <BaseLayout>
+  <CustomCursor client:load />
   <Hero client:load />
   <Marquee />
   <About client:visible />
@@ -21,4 +25,6 @@ import Contact from "../components/sections/Contact";
   <OpenSource client:visible />
   <Credentials client:visible />
   <Contact client:visible />
+  <ResumeFAB client:load />
+  <SystemStatusBar client:load />
 </BaseLayout>

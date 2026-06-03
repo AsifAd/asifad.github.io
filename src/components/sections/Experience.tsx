@@ -1,8 +1,21 @@
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useSpring } from "framer-motion";
 import Reveal from "../ui/Reveal";
 import { experience } from "../../data/resume";
 
 export default function Experience() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start center", "end center"],
+  });
+  
+  const scaleY = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
   return (
     <section
       id="experience"
@@ -26,10 +39,18 @@ export default function Experience() {
           </h2>
         </Reveal>
 
-        <div className="relative mt-16">
+        <div className="relative mt-16" ref={containerRef}>
+          {/* Background Line */}
           <div
             aria-hidden
-            className="absolute left-4 top-0 h-full w-px bg-gradient-to-b from-transparent via-[var(--color-panel-border)] to-transparent md:left-8"
+            className="absolute left-4 top-0 h-full w-px bg-[var(--color-panel-border)] md:left-8"
+          />
+          
+          {/* Animated Scroll Progress Line */}
+          <motion.div
+            aria-hidden
+            className="absolute left-4 top-0 w-px bg-[var(--color-accent)] origin-top md:left-8 shadow-[0_0_10px_var(--color-accent)]"
+            style={{ scaleY, height: "100%" }}
           />
 
           <div className="space-y-16 md:space-y-24" data-testid="experience-list">

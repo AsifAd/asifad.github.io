@@ -117,43 +117,88 @@ const jsonLd = {
   </head>
   <body class="relative min-h-screen">
     <!-- Boot Sequence Loader -->
-    <div id="boot-loader" class="fixed inset-0 z-[10000] flex flex-col items-start justify-end bg-[var(--color-bg)] p-8 transition-all duration-500 sm:p-12">
-      <div class="flex items-end font-mono text-sm text-[var(--color-accent)] sm:text-base">
-        <div id="boot-text" class="space-y-2"></div>
-        <div class="ml-2 h-[1.2em] w-2 animate-[blink_1s_step-end_infinite] bg-[var(--color-accent)]"></div>
+    <div id="boot-loader" class="fixed inset-0 z-[10000] flex flex-col items-start justify-end bg-[#020604] p-6 transition-all duration-700 sm:p-10 overflow-hidden">
+      <!-- Sci-Fi Grid Background -->
+      <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        <!-- Glowing Orb -->
+        <div class="absolute -top-[20%] left-1/2 h-[50%] w-[80%] -translate-x-1/2 rounded-full bg-emerald-500/10 blur-[120px]"></div>
+        
+        <!-- Perspective Grid -->
+        <div class="absolute bottom-0 left-[-50%] right-[-50%] top-[20%] bg-[linear-gradient(rgba(16,185,129,0.2)_1px,transparent_1px),linear-gradient(90deg,rgba(16,185,129,0.2)_1px,transparent_1px)] bg-[size:50px_50px] [transform:perspective(500px)_rotateX(60deg)] [transform-origin:top_center] opacity-40 [mask-image:linear-gradient(to_bottom,transparent,black)]" style="animation: grid-forward 2s linear infinite;"></div>
+      </div>
+
+      <!-- CRT Scanline Overlay -->
+      <div class="pointer-events-none absolute inset-0 z-10 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_4px,3px_100%] opacity-40"></div>
+      
+      <div class="relative z-20 flex w-full flex-col font-mono text-xs text-emerald-400 sm:text-sm" style="text-shadow: 0 0 6px rgba(52, 211, 153, 0.5);">
+        <div id="boot-text" class="flex flex-col gap-1.5 opacity-90"></div>
+        <div class="mt-2 flex items-center">
+          <span id="boot-prompt" class="hidden text-emerald-300">root@asif-os:~#&nbsp;</span>
+          <div class="h-[1.2em] w-2.5 animate-[blink_1s_step-end_infinite] bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]"></div>
+        </div>
       </div>
     </div>
     <script is:inline>
       window.addEventListener('load', () => {
         const loader = document.getElementById('boot-loader');
         const bootText = document.getElementById('boot-text');
+        const bootPrompt = document.getElementById('boot-prompt');
         if (!loader || !bootText) return;
 
-        const lines = [
-          '> Booting system... [OK]',
-          '> Fetching remote configurations... [OK]',
-          '> Resolving dependencies... [OK]',
-          '> Systems nominal.'
+        const fastLines = [
+          '[  0.000000] Booting AsifOS kernel 6.8.0-sre...',
+          '[  0.012345] Command line: BOOT_IMAGE=/boot/vmlinuz-6.8.0 root=UUID=... ro quiet splash',
+          '[  0.045012] x86/split_lock: CPU 0: isolated',
+          '[  0.082341] Mount-cache hash table entries: 131072',
+          '[  0.150231] Checking SRE protocols... [ OK ]',
+          '[  0.210452] Loading Kubernetes manifests... [ OK ]',
+          '[  0.301234] Establishing GitOps sync... [ OK ]',
+        ];
+        
+        const slowLines = [
+          '[  0.405123] Verifying 99.99% SLA... [ OK ]',
+          '[  0.512345] Starting interactive session...',
+          ' ',
+          'Welcome to Asif Draxi Portfolio.',
+          'Systems nominal.'
         ];
         
         let i = 0;
-        function showNextLine() {
-          if (i < lines.length) {
+        
+        function showFastLines() {
+          if (i < fastLines.length) {
             const line = document.createElement('div');
-            line.textContent = lines[i];
+            line.textContent = fastLines[i];
             bootText.appendChild(line);
             i++;
-            setTimeout(showNextLine, 120 + Math.random() * 150);
+            setTimeout(showFastLines, 30 + Math.random() * 50);
           } else {
+            i = 0;
+            setTimeout(showSlowLines, 150);
+          }
+        }
+
+        function showSlowLines() {
+          if (i < slowLines.length) {
+            const line = document.createElement('div');
+            line.textContent = slowLines[i];
+            bootText.appendChild(line);
+            i++;
+            setTimeout(showSlowLines, 150 + Math.random() * 200);
+          } else {
+            setTimeout(() => {
+              if (bootPrompt) bootPrompt.style.display = 'inline';
+            }, 200);
+            
             setTimeout(() => {
               loader.style.opacity = '0';
               loader.style.visibility = 'hidden';
-              setTimeout(() => loader.remove(), 500);
-            }, 400);
+              setTimeout(() => loader.remove(), 700);
+            }, 900);
           }
         }
         
-        setTimeout(showNextLine, 100);
+        setTimeout(showFastLines, 100);
       });
     </script>
 

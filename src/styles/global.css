@@ -70,6 +70,7 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 100px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     background: var(--color-bg);
@@ -84,6 +85,13 @@
     font-family: var(--font-sans);
     overflow-x: hidden;
     transition: background-color 0.4s ease, color 0.4s ease;
+  }
+
+  /* Custom Terminal Cursor */
+  @media (pointer: fine) {
+    body, a, button, [role="button"], input, select, textarea {
+      cursor: none !important;
+    }
   }
 
   ::selection {
@@ -385,6 +393,11 @@
 }
 
 @keyframes blink { 50% { opacity: 0; } }
+
+@keyframes grid-forward {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 50px; }
+}
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

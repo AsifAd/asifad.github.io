@@ -1,5 +1,6 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowUpRight, Download, Mail, MapPin } from "lucide-react";
+import { ArrowUpRight, Download, Mail, MapPin, Copy, Check } from "lucide-react";
 import Reveal from "../ui/Reveal";
 import TerminalCopy from "../ui/TerminalCopy";
 import { GitHubIcon, LinkedInIcon } from "../ui/BrandIcons";
@@ -19,6 +20,16 @@ const links = [
 ];
 
 export default function Contact() {
+  const [copied, setCopied] = useState<string | null>(null);
+
+  const handleCopy = (e: React.MouseEvent, value: string) => {
+    e.preventDefault();
+    e.stopPropagation();
+    navigator.clipboard.writeText(value);
+    setCopied(value);
+    setTimeout(() => setCopied(null), 2000);
+  };
+
   return (
     <section id="contact" data-testid="section-contact" className="relative w-full px-6 py-32">
       <div className="mx-auto max-w-6xl">
@@ -52,6 +63,7 @@ export default function Contact() {
         <div className="mt-12 grid gap-3 sm:grid-cols-2" data-testid="contact-links">
           {links.map((l, i) => {
             const Tag: any = l.href ? motion.a : motion.button;
+            const isCopyable = l.label === "Email" || l.label === "Location";
             return (
               <Reveal key={l.label} delay={i * 0.05}>
                 <Tag
@@ -73,9 +85,20 @@ export default function Contact() {
                       <div className="mt-0.5 font-medium text-[var(--color-fg)]">{l.value}</div>
                     </div>
                   </div>
-                  {l.href && (
-                    <ArrowUpRight className="h-5 w-5 text-[var(--color-fg-muted)] transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[var(--color-fg)]" />
-                  )}
+                  <div className="flex items-center gap-2">
+                    {isCopyable && (
+                      <button
+                        onClick={(e) => handleCopy(e, l.value)}
+                        className="rounded-md p-2 text-[var(--color-fg-muted)] transition-colors hover:bg-[var(--color-panel-border)] hover:text-[var(--color-fg)]"
+                        aria-label={`Copy ${l.label}`}
+                      >
+                        {copied === l.value ? <Check className="h-4 w-4 text-emerald-500" /> : <Copy className="h-4 w-4" />}
+                      </button>
+                    )}
+                    {l.href && (
+                      <ArrowUpRight className="h-5 w-5 text-[var(--color-fg-muted)] transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[var(--color-fg)]" />
+                    )}
+                  </div>
                 </Tag>
               </Reveal>
             );

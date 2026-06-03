@@ -1,21 +1,41 @@
-/**
- * Subtle paper/ink backdrop:
- *   - flat base color from --color-bg
- *   - soft grid that fades into the page
- *   - faint warm wash in two corners
- *   - paper-grain noise overlay
- *
- * No animation. The grid + grain do the heavy lifting; restraint sells the
- * editorial look.
- */
+import { useState, useEffect } from "react";
+import { motion, useSpring } from "framer-motion";
+
 export default function Background() {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  
+  const springX = useSpring(0, { stiffness: 50, damping: 20 });
+  const springY = useSpring(0, { stiffness: 50, damping: 20 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      springX.set(e.clientX);
+      springY.set(e.clientY);
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, [springX, springY]);
+
   return (
     <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden" aria-hidden>
       <div className="absolute inset-0 bg-[var(--color-bg)]" />
 
+      {/* Mouse-reactive glowing orb */}
+      <motion.div
+        className="absolute h-[40vw] w-[40vw] rounded-full opacity-40 blur-[100px] mix-blend-screen"
+        style={{
+          x: springX,
+          y: springY,
+          translateX: "-50%",
+          translateY: "-50%",
+          background: "radial-gradient(circle, var(--color-accent-soft) 0%, transparent 70%)",
+        }}
+      />
+
       {/* warm corner wash — top left */}
       <div
-        className="absolute -top-[20%] -left-[10%] h-[60vw] w-[60vw] rounded-full opacity-40 blur-[120px]"
+        className="absolute -top-[20%] -left-[10%] h-[60vw] w-[60vw] rounded-full opacity-30 blur-[120px]"
         style={{
           background:
             "radial-gradient(closest-side, var(--color-accent-soft), transparent 70%)",
@@ -23,7 +43,7 @@ export default function Background() {
       />
       {/* warm corner wash — bottom right */}
       <div
-        className="absolute -bottom-[20%] -right-[10%] h-[55vw] w-[55vw] rounded-full opacity-30 blur-[140px]"
+        className="absolute -bottom-[20%] -right-[10%] h-[55vw] w-[55vw] rounded-full opacity-20 blur-[140px]"
         style={{
           background:
             "radial-gradient(closest-side, var(--color-accent-soft), transparent 70%)",
@@ -31,7 +51,7 @@ export default function Background() {
       />
 
       {/* grid */}
-      <div className="grid-bg absolute inset-0 opacity-70 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_80%)]" />
+      <div className="grid-bg absolute inset-0 opacity-50 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_80%)]" />
 
       {/* paper grain */}
       <div
