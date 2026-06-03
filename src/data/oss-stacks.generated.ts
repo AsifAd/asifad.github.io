@@ -20,19 +20,19 @@ export const openSourceStacks: GeneratedOpenSourceStack[] = [
     "status": "active",
     "statusLabel": "Active",
     "focus": "Keycloak #11747 — email_verified idempotency + check mode",
-    "openPRs": 2,
+    "openPRs": 1,
     "hubLink": "https://asifad.github.io/opensource-contributions/#roadmap-ansible",
-    "prNote": " · 2 open PRs"
+    "prNote": " · 1 open PR"
   },
   {
     "tech": "argocd",
     "name": "Argo CD",
     "status": "active",
     "statusLabel": "Active",
-    "focus": "Await review — #27931 namespaced UI, #27932 Refresh",
-    "openPRs": 2,
+    "focus": "Await review — #27932 Refresh",
+    "openPRs": 1,
     "hubLink": "https://asifad.github.io/opensource-contributions/#roadmap-argocd",
-    "prNote": " · 2 open PRs"
+    "prNote": " · 1 open PR"
   },
   {
     "tech": "jenkins",
