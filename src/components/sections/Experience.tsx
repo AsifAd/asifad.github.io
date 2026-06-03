@@ -87,8 +87,9 @@ export default function Experience() {
                         {job.stack.map((t) => (
                           <span
                             key={t}
-                            className="inline-flex cursor-default items-center rounded-md border border-[var(--color-panel-border)] bg-[var(--color-panel)] px-2.5 py-1 font-mono text-[11px] text-[var(--color-fg-muted)] transition-all hover:-translate-y-0.5 hover:border-[var(--color-accent)]/30 hover:bg-[var(--color-accent-soft)] hover:text-[var(--color-accent)]"
+                            className="inline-flex cursor-default items-center gap-1.5 rounded-full border border-[var(--color-panel-border)] bg-[var(--color-panel)] px-2.5 py-1 font-mono text-[11px] text-[var(--color-fg-muted)] transition-all hover:-translate-y-0.5 hover:border-[var(--color-accent)]/30 hover:bg-[var(--color-accent-soft)] hover:text-[var(--color-accent)]"
                           >
+                            <span className="block h-1.5 w-1.5 rounded-full bg-[var(--color-accent)]"></span>
                             {t}
                           </span>
                         ))}

@@ -156,6 +156,8 @@
   100% { transform: scaleX(1); transform-origin: left; }
 }
 
+@keyframes blink { 50% { opacity: 0; } }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.001ms !important;

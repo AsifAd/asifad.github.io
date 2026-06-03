@@ -115,6 +115,47 @@ const jsonLd = {
     <title>{title}</title>
   </head>
   <body class="relative min-h-screen">
+    <!-- Boot Sequence Loader -->
+    <div id="boot-loader" class="fixed inset-0 z-[10000] flex flex-col items-start justify-end bg-[var(--color-bg)] p-8 transition-all duration-500 sm:p-12">
+      <div class="flex items-end font-mono text-sm text-[var(--color-accent)] sm:text-base">
+        <div id="boot-text" class="space-y-2"></div>
+        <div class="ml-2 h-[1.2em] w-2 animate-[blink_1s_step-end_infinite] bg-[var(--color-accent)]"></div>
+      </div>
+    </div>
+    <script is:inline>
+      window.addEventListener('load', () => {
+        const loader = document.getElementById('boot-loader');
+        const bootText = document.getElementById('boot-text');
+        if (!loader || !bootText) return;
+
+        const lines = [
+          '> Booting system... [OK]',
+          '> Fetching remote configurations... [OK]',
+          '> Resolving dependencies... [OK]',
+          '> Systems nominal.'
+        ];
+        
+        let i = 0;
+        function showNextLine() {
+          if (i < lines.length) {
+            const line = document.createElement('div');
+            line.textContent = lines[i];
+            bootText.appendChild(line);
+            i++;
+            setTimeout(showNextLine, 120 + Math.random() * 150);
+          } else {
+            setTimeout(() => {
+              loader.style.opacity = '0';
+              loader.style.visibility = 'hidden';
+              setTimeout(() => loader.remove(), 500);
+            }, 400);
+          }
+        }
+        
+        setTimeout(showNextLine, 100);
+      });
+    </script>
+
     <a
       href="#main-content"
       class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-[var(--color-fg)] focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-[var(--color-bg)]"
