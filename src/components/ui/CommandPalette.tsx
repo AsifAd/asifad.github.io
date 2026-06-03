@@ -164,9 +164,9 @@ export default function CommandPalette() {
                             <Icon className="h-4 w-4" aria-hidden />
                           </span>
                           <span className="min-w-0 flex-1">
-                            <span className="spotlight-row-title">{entry.title}</span>
+                            <span className="spotlight-row-title truncate">{entry.title}</span>
                             {entry.subtitle && (
-                              <span className="spotlight-row-sub">{entry.subtitle}</span>
+                              <span className="spotlight-row-sub truncate">{entry.subtitle}</span>
                             )}
                           </span>
                         </Command.Item>
