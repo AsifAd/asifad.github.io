@@ -34,19 +34,31 @@ export default function Hero() {
     >
       <div className="relative mx-auto w-full max-w-6xl">
         <motion.div
-          data-testid="hero-status"
+          data-testid="hero-telemetry"
           initial={{ opacity: 0, y: -12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="mb-6 inline-flex items-center gap-2.5 rounded-full border border-[var(--color-panel-border)] bg-[var(--color-panel)] px-3 py-1.5 backdrop-blur"
+          className="mb-8 grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:items-center sm:gap-4 font-mono text-xs uppercase tracking-wider text-[var(--color-fg-muted)]"
         >
-          <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--color-accent)] opacity-50" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-[var(--color-accent)]" />
-          </span>
-          <span className="font-mono text-xs uppercase tracking-wider text-[var(--color-fg-muted)]">
-            Open to SRE & platform roles · {profile.location}
-          </span>
+          <div className="flex items-center gap-2.5 rounded-md border border-[var(--color-panel-border)] bg-[var(--color-panel)]/50 px-3 py-1.5 backdrop-blur">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-50" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+            </span>
+            <span className="text-[var(--color-fg)]">Systems Nominal</span>
+          </div>
+          <div className="flex items-center gap-2 rounded-md border border-[var(--color-panel-border)] bg-[var(--color-panel)]/50 px-3 py-1.5 backdrop-blur">
+            <span className="text-zinc-500">LATENCY:</span>
+            <span className="text-[var(--color-fg)]">42ms</span>
+          </div>
+          <div className="flex items-center gap-2 rounded-md border border-[var(--color-panel-border)] bg-[var(--color-panel)]/50 px-3 py-1.5 backdrop-blur">
+            <span className="text-zinc-500">UPTIME:</span>
+            <span className="text-[var(--color-fg)]">99.99%</span>
+          </div>
+          <div className="flex items-center gap-2 rounded-md border border-[var(--color-panel-border)] bg-[var(--color-panel)]/50 px-3 py-1.5 backdrop-blur">
+            <span className="text-zinc-500">CMD:</span>
+            <span className="rounded bg-zinc-800/50 px-1.5 py-0.5 text-[var(--color-fg)]">⌘K</span>
+          </div>
         </motion.div>
 
         <p

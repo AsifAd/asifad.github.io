@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight, Download, Mail, MapPin } from "lucide-react";
 import Reveal from "../ui/Reveal";
+import TerminalCopy from "../ui/TerminalCopy";
 import { GitHubIcon, LinkedInIcon } from "../ui/BrandIcons";
 import { profile } from "../../data/resume";
 
@@ -43,6 +44,10 @@ export default function Contact() {
             I'm open to SRE, platform, and OSS collaboration. Drop a line — the fastest path is
             email or LinkedIn.
           </p>
+        </Reveal>
+
+        <Reveal delay={0.15}>
+          <TerminalCopy />
         </Reveal>
 
         <div className="mt-12 grid gap-3 sm:grid-cols-2" data-testid="contact-links">

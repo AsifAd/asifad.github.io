@@ -106,7 +106,7 @@ describe("Credentials", () => {
     render(<Credentials />);
     const linkedCerts = certifications.filter((c) => c.link);
     for (const c of linkedCerts) {
-      const a = screen.getByRole("link", { name: c.name });
+      const a = screen.getByRole("link", { name: (name) => name.includes(c.name) });
       expect(a).toHaveAttribute("href", c.link);
     }
   });

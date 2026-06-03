@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight, ExternalLink } from "lucide-react";
 import Reveal from "../ui/Reveal";
+import SpotlightCard from "../ui/SpotlightCard";
 import { openSourceStacks, profile } from "../../data/resume";
 
 const statusStyles: Record<
@@ -106,30 +107,34 @@ export default function OpenSource() {
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.04, duration: 0.4 }}
                   whileHover={{ y: -3 }}
-                  className="panel group block rounded-xl p-4 transition-colors hover:bg-[var(--color-accent-soft)]/20"
+                  className="block"
                 >
-                  <div className="flex items-center justify-between gap-2">
-                    <span
-                      className="font-semibold text-[var(--color-fg)] transition-colors group-hover:text-[var(--color-accent)]"
-                      style={{ fontFamily: "var(--font-display)" }}
-                    >
-                      {stack.name}
-                    </span>
-                    <span
-                      className={`shrink-0 rounded-full border px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider ${statusStyles[stack.status]}`}
-                    >
-                      {stack.statusLabel}
-                      {stack.openPRs > 0 ? ` · ${stack.openPRs} PR` : ""}
-                    </span>
-                  </div>
-                  <p className="mt-2 text-sm leading-relaxed text-[var(--color-fg-muted)]">
-                    {stack.focus}
-                  </p>
-                  <span className="mt-3 inline-flex items-center gap-1 font-mono text-[11px] text-[var(--color-accent)]">
-                    View on hub
-                    <ExternalLink className="h-3 w-3" />
-                    <span className="sr-only"> (opens in new tab)</span>
-                  </span>
+                  <SpotlightCard className="panel group block h-full rounded-xl p-4 transition-colors hover:bg-[var(--color-accent-soft)]/20">
+                    <div className="relative z-20">
+                      <div className="flex items-center justify-between gap-2">
+                        <span
+                          className="font-semibold text-[var(--color-fg)] transition-colors group-hover:text-[var(--color-accent)]"
+                          style={{ fontFamily: "var(--font-display)" }}
+                        >
+                          {stack.name}
+                        </span>
+                        <span
+                          className={`shrink-0 rounded-full border px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider ${statusStyles[stack.status]}`}
+                        >
+                          {stack.statusLabel}
+                          {stack.openPRs > 0 ? ` · ${stack.openPRs} PR` : ""}
+                        </span>
+                      </div>
+                      <p className="mt-2 text-sm leading-relaxed text-[var(--color-fg-muted)]">
+                        {stack.focus}
+                      </p>
+                      <span className="mt-3 inline-flex items-center gap-1 font-mono text-[11px] text-[var(--color-accent)]">
+                        View on hub
+                        <ExternalLink className="h-3 w-3" />
+                        <span className="sr-only"> (opens in new tab)</span>
+                      </span>
+                    </div>
+                  </SpotlightCard>
                 </motion.a>
               ))}
             </div>

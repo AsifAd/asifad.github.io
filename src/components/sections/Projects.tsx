@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import { ExternalLink, Star } from "lucide-react";
 import Reveal from "../ui/Reveal";
+import ServiceMapAnimation from "../ui/ServiceMapAnimation";
+import SpotlightCard from "../ui/SpotlightCard";
 import { projects } from "../../data/resume";
 
 function isExternal(link: string) {
@@ -52,6 +54,8 @@ export default function Projects() {
                   )}
                 </div>
 
+                {p.name === "Auto-healing remediation loop" && <ServiceMapAnimation />}
+
                 <p className="mt-3 text-sm leading-relaxed text-[var(--color-fg-muted)]">{p.blurb}</p>
 
                 <div className="mt-5 flex flex-wrap gap-1.5">
@@ -76,17 +80,25 @@ export default function Projects() {
                     rel={isExternal(p.link) ? "noopener noreferrer" : undefined}
                     whileHover={{ y: -4 }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                    className={cardClass}
+                    className="block h-full"
                   >
-                    {inner}
+                    <SpotlightCard className={cardClass}>
+                      <div className="relative z-20">
+                        {inner}
+                      </div>
+                    </SpotlightCard>
                   </motion.a>
                 ) : (
                   <motion.article
                     whileHover={{ y: -4 }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                    className={cardClass}
+                    className="block h-full"
                   >
-                    {inner}
+                    <SpotlightCard className={cardClass}>
+                      <div className="relative z-20">
+                        {inner}
+                      </div>
+                    </SpotlightCard>
                   </motion.article>
                 )}
               </Reveal>

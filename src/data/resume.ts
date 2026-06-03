@@ -122,7 +122,6 @@ export const projects: Project[] = [
     name: "Auto-healing remediation loop",
     blurb:
       "Production system at BlackLine: New Relic alerts trigger PagerDuty events, which fire GitHub Actions workflows running Ansible playbooks against known failure states. Cuts MTTR on common incidents to near-zero.",
-    link: "#opensource",
     tags: ["New Relic", "PagerDuty", "GitHub Actions", "Ansible"],
     highlight: true,
   },

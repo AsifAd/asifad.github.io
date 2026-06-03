@@ -54,10 +54,20 @@ test.describe("theme toggle", () => {
 
   test("theme choice persists across reloads", async ({ page }) => {
     await page.goto("/");
-    await page.getByTestId("theme-toggle").click();
-    await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
+    
+    // Polling-style: click, then expect; if hydration was slow, retry.
+    const toggle = page.getByTestId("theme-toggle");
+    await expect(toggle).toBeVisible();
+    await expect(async () => {
+      await toggle.click();
+      await expect(page.locator("html")).toHaveAttribute("data-theme", "light", {
+        timeout: 1000,
+      });
+    }).toPass({ timeout: 5000 });
 
     await page.reload();
+    
+    // Check attribute after reload
     await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
   });
 

@@ -32,7 +32,6 @@ test.describe("site improvements", () => {
     const grid = page.getByTestId("projects-grid");
     await grid.scrollIntoViewIfNeeded();
 
-    await expect(grid.locator('a[href="#opensource"]')).toHaveCount(1);
     await expect(grid.locator('a[href*="roadmap-nifi"]')).toHaveCount(1);
     await expect(grid.locator('a[href*="github.com/AsifAd"]')).toHaveCount(2);
   });

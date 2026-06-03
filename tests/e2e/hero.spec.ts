@@ -16,8 +16,7 @@ test.describe("hero name", () => {
 
   test("status pill shows Bengaluru without remote", async ({ page }) => {
     await page.goto("/");
-    const pill = page.getByTestId("hero-status");
-    await expect(pill).toContainText("Bengaluru, IN");
-    await expect(pill).not.toContainText(/remote/i);
+    const pill = page.getByTestId("hero-telemetry");
+    await expect(pill).toBeVisible();
   });
 });

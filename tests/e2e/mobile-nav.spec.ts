@@ -9,9 +9,12 @@ test.describe("mobile navigation", () => {
     const toggle = page.getByTestId("mobile-nav-toggle");
     await expect(toggle).toBeVisible();
 
-    await toggle.click();
+    await expect(async () => {
+      await toggle.click();
+      await expect(page.getByTestId("mobile-nav-panel")).toBeVisible({ timeout: 1000 });
+    }).toPass({ timeout: 5000 });
+
     const panel = page.getByTestId("mobile-nav-panel");
-    await expect(panel).toBeVisible();
     await expect(panel.getByRole("link", { name: "Projects" })).toBeVisible();
     await expect(panel.getByRole("link", { name: "Open Source" })).toBeVisible();
 

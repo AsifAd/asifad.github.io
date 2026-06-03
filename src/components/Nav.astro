@@ -2,6 +2,7 @@
 import ThemeToggle from "./ThemeToggle.tsx";
 import MobileNav from "./MobileNav.tsx";
 import NavScrollSpy from "./NavScrollSpy.tsx";
+import CommandTrigger from "./ui/CommandTrigger.tsx";
 
 const items = [
   { label: "About", href: "#about", id: "about" },
@@ -42,7 +43,9 @@ const externalIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height=
         ))
       }
     </div>
-    <div class="ml-auto flex shrink-0 items-center gap-1">
+    <div class="ml-auto flex shrink-0 items-center gap-2">
+      <CommandTrigger client:load />
+      <div class="hidden h-4 w-px ink-rule sm:block"></div>
       <ThemeToggle client:load />
       <MobileNav client:load />
       <a
