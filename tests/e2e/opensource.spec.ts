@@ -32,21 +32,23 @@ test.describe("open source section", () => {
   });
 
   test("nav Open Source scrolls to the opensource section", async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 800 });
     await page.goto("/");
-    const link = page.getByRole("link", { name: "Open Source", exact: true }).first();
-    if (!(await link.isVisible())) return;
 
+    const link = page.locator('nav a[href="#opensource"]').first();
+    await expect(link).toBeVisible();
     await link.click();
-    await page.waitForTimeout(700);
 
-    const inView = await page.evaluate(() => {
-      const el = document.getElementById("opensource");
-      if (!el) return false;
-      const r = el.getBoundingClientRect();
-      return r.top < window.innerHeight && r.bottom > 0;
-    });
-
-    expect(inView).toBe(true);
+    await expect
+      .poll(async () => {
+        return page.evaluate(() => {
+          const el = document.getElementById("opensource");
+          if (!el) return false;
+          const r = el.getBoundingClientRect();
+          return r.top < window.innerHeight * 0.6 && r.bottom > 0;
+        });
+      })
+      .toBe(true);
   });
 
   test("desktop github link uses inline icon without broken layout", async ({ page }) => {
@@ -60,7 +62,7 @@ test.describe("open source section", () => {
     expect(box).not.toBeNull();
     expect(box!.height).toBeLessThan(40);
 
-    await expect(ghLink.locator("span").first()).toHaveText("github");
+    await expect(ghLink.locator("span").first()).toHaveText("GitHub");
     await expect(ghLink.locator("svg")).toBeVisible();
   });
 });

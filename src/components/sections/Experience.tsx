@@ -49,7 +49,7 @@ export default function Experience() {
           {/* Animated Scroll Progress Line */}
           <motion.div
             aria-hidden
-            className="absolute left-4 top-0 w-px bg-[var(--color-accent)] origin-top md:left-8 shadow-[0_0_10px_var(--color-accent)]"
+            className="absolute left-4 top-0 w-px origin-top bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.6)] md:left-8"
             style={{ scaleY, height: "100%" }}
           />
 

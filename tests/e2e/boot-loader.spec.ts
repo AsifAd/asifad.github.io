@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { BOOT_LINES, waitForBootLoaderDone } from "./helpers";
+import { BOOT_LINES, BOOT_PROMPT, waitForBootLoaderDone } from "./helpers";
 
 test.describe("terminal boot sequence loader", () => {
   test("shows loader, prints lines sequentially, then fades out and is removed", async ({
@@ -20,6 +20,8 @@ test.describe("terminal boot sequence loader", () => {
       await expect(bootText).toContainText(line);
       previousCount += 1;
     }
+
+    await expect(page.locator("#boot-prompt")).toContainText(BOOT_PROMPT);
 
     await page.waitForFunction(() => {
       const el = document.getElementById("boot-loader");

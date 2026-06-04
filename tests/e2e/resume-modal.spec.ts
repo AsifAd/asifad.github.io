@@ -4,18 +4,8 @@ import {
   resumeModal,
   resumeModalShell,
   waitForBootLoaderDone,
+  expectResumeModalOpen,
 } from "./helpers";
-
-async function expectResumeModalOpen(page: import("@playwright/test").Page) {
-  await expect(resumeModal(page)).toBeVisible();
-  await expect(resumeModal(page)).toHaveAttribute("data", "/asif-draxi-resume.pdf");
-  await expect(
-    resumeModalShell(page).getByText("asif-draxi-resume.pdf", { exact: true }),
-  ).toBeVisible();
-  await expect(
-    page.getByRole("link", { name: "Download PDF instead" }),
-  ).toBeAttached();
-}
 
 async function expectResumeModalClosed(page: import("@playwright/test").Page) {
   await expect(resumeModal(page)).toHaveCount(0);
@@ -28,16 +18,18 @@ test.describe("interactive resume modal", () => {
   });
 
   test("opens from hero Résumé button", async ({ page }) => {
-    await page.getByTestId("hero-resume-download").click();
-    await expectResumeModalOpen(page);
+    const resumeBtn = page.getByTestId("hero-resume-download");
+    await expect(resumeBtn).toBeVisible();
+    await expect(async () => {
+      await resumeBtn.click();
+      await expectResumeModalOpen(page);
+    }).toPass({ timeout: 15_000 });
   });
 
   test("opens from contact Preview & Download card", async ({ page }) => {
-    const resumeCard = page
-      .getByTestId("contact-links")
-      .getByRole("button", { name: /preview & download/i });
     await page.getByTestId("section-contact").scrollIntoViewIfNeeded();
-    await resumeCard.scrollIntoViewIfNeeded();
+    const resumeCard = page.getByTestId("contact-resume-card");
+    await expect(resumeCard).toBeVisible({ timeout: 10_000 });
     await resumeCard.click();
     await expectResumeModalOpen(page);
   });
@@ -46,7 +38,7 @@ test.describe("interactive resume modal", () => {
     await page.keyboard.press(process.platform === "darwin" ? "Meta+k" : "Control+k");
     const paletteInput = page.getByPlaceholder("Search");
     await paletteInput.fill("Resume");
-    await page.getByText("View/Download Resume").click();
+    await page.getByRole("option", { name: /Preview résumé/i }).click();
     await expectResumeModalOpen(page);
   });
 

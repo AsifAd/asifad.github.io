@@ -15,16 +15,39 @@ const links = [
     value: "Preview & Download",
     onClick: () => window.dispatchEvent(new CustomEvent("open-resume-modal")),
     icon: Download,
+    testId: "contact-resume-card",
   },
   { label: "Location", value: profile.location, icon: MapPin },
 ];
 
+function ContactCardBody({
+  label,
+  value,
+  icon: Icon,
+}: {
+  label: string;
+  value: string;
+  icon: React.ComponentType<{ className?: string }>;
+}) {
+  return (
+    <>
+      <span className="grid h-10 w-10 place-items-center rounded-lg bg-[var(--color-panel)] text-[var(--color-accent)]">
+        <Icon className="h-4 w-4" />
+      </span>
+      <div className="min-w-0">
+        <div className="font-mono text-[10px] uppercase tracking-widest text-[var(--color-fg-muted)]">
+          {label}
+        </div>
+        <div className="mt-0.5 font-medium text-[var(--color-fg)]">{value}</div>
+      </div>
+    </>
+  );
+}
+
 export default function Contact() {
   const [copied, setCopied] = useState<string | null>(null);
 
-  const handleCopy = (e: React.MouseEvent, value: string) => {
-    e.preventDefault();
-    e.stopPropagation();
+  const handleCopy = (value: string) => {
     navigator.clipboard.writeText(value);
     setCopied(value);
     setTimeout(() => setCopied(null), 2000);
@@ -62,44 +85,60 @@ export default function Contact() {
 
         <div className="mt-12 grid gap-3 sm:grid-cols-2" data-testid="contact-links">
           {links.map((l, i) => {
-            const Tag: any = l.href ? motion.a : motion.button;
             const isCopyable = l.label === "Email" || l.label === "Location";
+            const bodyClass =
+              "flex min-w-0 flex-1 items-center gap-4 text-left transition-colors group-hover:text-[var(--color-fg)]";
+
             return (
               <Reveal key={l.label} delay={i * 0.05}>
-                <Tag
-                  href={l.href}
-                  onClick={l.onClick}
-                  target={l.href?.startsWith("http") ? "_blank" : undefined}
-                  rel={l.href?.startsWith("http") ? "noopener noreferrer" : undefined}
+                <motion.div
                   whileHover={{ y: -2 }}
-                  className="panel group flex w-full cursor-pointer items-center justify-between gap-4 rounded-xl p-5 text-left transition-colors hover:bg-[var(--color-accent-soft)]"
+                  className="panel group flex w-full items-center justify-between gap-4 rounded-xl p-5 transition-colors hover:bg-[var(--color-accent-soft)]"
                 >
-                  <div className="flex items-center gap-4">
-                    <span className="grid h-10 w-10 place-items-center rounded-lg bg-[var(--color-panel)] text-[var(--color-accent)]">
-                      <l.icon className="h-4 w-4" />
-                    </span>
-                    <div>
-                      <div className="font-mono text-[10px] uppercase tracking-widest text-[var(--color-fg-muted)]">
-                        {l.label}
-                      </div>
-                      <div className="mt-0.5 font-medium text-[var(--color-fg)]">{l.value}</div>
+                  {l.href ? (
+                    <a
+                      href={l.href}
+                      target={l.href.startsWith("http") ? "_blank" : undefined}
+                      rel={l.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                      className={bodyClass}
+                    >
+                      <ContactCardBody label={l.label} value={l.value} icon={l.icon} />
+                    </a>
+                  ) : l.onClick ? (
+                    <button
+                      type="button"
+                      data-testid={l.testId}
+                      onClick={l.onClick}
+                      className={bodyClass}
+                    >
+                      <ContactCardBody label={l.label} value={l.value} icon={l.icon} />
+                    </button>
+                  ) : (
+                    <div className={bodyClass}>
+                      <ContactCardBody label={l.label} value={l.value} icon={l.icon} />
                     </div>
-                  </div>
-                  <div className="flex items-center gap-2">
+                  )}
+
+                  <div className="flex shrink-0 items-center gap-2">
                     {isCopyable && (
                       <button
-                        onClick={(e) => handleCopy(e, l.value)}
+                        type="button"
+                        onClick={() => handleCopy(l.value)}
                         className="rounded-md p-2 text-[var(--color-fg-muted)] transition-colors hover:bg-[var(--color-panel-border)] hover:text-[var(--color-fg)]"
                         aria-label={`Copy ${l.label}`}
                       >
-                        {copied === l.value ? <Check className="h-4 w-4 text-emerald-500" /> : <Copy className="h-4 w-4" />}
+                        {copied === l.value ? (
+                          <Check className="h-4 w-4 text-emerald-500" />
+                        ) : (
+                          <Copy className="h-4 w-4" />
+                        )}
                       </button>
                     )}
                     {l.href && (
                       <ArrowUpRight className="h-5 w-5 text-[var(--color-fg-muted)] transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[var(--color-fg)]" />
                     )}
                   </div>
-                </Tag>
+                </motion.div>
               </Reveal>
             );
           })}

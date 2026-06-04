@@ -23,13 +23,12 @@ export default function Background() {
 
       {/* Mouse-reactive glowing orb */}
       <motion.div
-        className="absolute h-[40vw] w-[40vw] rounded-full opacity-40 blur-[100px] mix-blend-screen"
+        className="absolute h-[40vw] w-[40vw] rounded-full bg-emerald-500/20 opacity-40 blur-[100px] mix-blend-screen"
         style={{
           x: springX,
           y: springY,
           translateX: "-50%",
           translateY: "-50%",
-          background: "radial-gradient(circle, var(--color-accent-soft) 0%, transparent 70%)",
         }}
       />
 

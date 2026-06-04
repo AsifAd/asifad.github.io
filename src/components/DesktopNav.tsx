@@ -38,6 +38,7 @@ export default function DesktopNav() {
         return (
           <a
             key={it.id}
+            data-nav-link={it.id}
             href={`#${it.id}`}
             className={`relative rounded-full px-3.5 py-1.5 text-sm font-medium transition-colors ${
               isActive ? "text-[var(--color-accent)]" : "text-[var(--color-fg-muted)] hover:text-[var(--color-fg)]"
