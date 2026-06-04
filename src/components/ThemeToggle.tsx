@@ -33,7 +33,7 @@ export default function ThemeToggle() {
       aria-label={label}
       title={label}
       data-testid="theme-toggle"
-      className="grid h-9 w-9 place-items-center rounded-full border border-[var(--color-panel-border)] bg-[var(--color-panel)] text-[var(--color-fg)] transition-colors hover:bg-[var(--color-accent-soft)]"
+      className="grid h-9 w-9 place-items-center rounded-full border border-[var(--color-panel-border)] bg-[var(--color-panel)] text-[var(--color-fg)] transition-all hover:bg-[var(--color-accent-soft)] hover:text-[var(--color-accent)] hover:border-[var(--color-accent)]/30"
     >
       {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
     </button>
