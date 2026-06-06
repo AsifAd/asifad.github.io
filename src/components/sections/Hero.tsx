@@ -136,17 +136,17 @@ export default function Hero() {
         </h1>
 
         <motion.p
+          data-testid="hero-paragraph"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.65, duration: 0.7 }}
           className="mt-8 max-w-2xl text-balance text-xl font-light leading-relaxed text-[var(--color-fg-muted)] sm:text-2xl"
         >
-          I build the platforms that keep production calm at 2 AM, and contribute upstream to{" "}
-          <span className="text-[var(--color-fg)]">open source</span> along the way.
-          5+ years across <span className="text-[var(--color-fg)]">SRE</span>,{" "}
-          <span className="text-[var(--color-fg)]">DevOps</span>,{" "}
-          <span className="text-[var(--color-fg)]">Cloud</span>, and{" "}
-          <span className="text-[var(--color-fg)]">open source</span> on GCP, AWS, and Azure.
+          I build platforms that keep production calm at 2 AM, and{" "}
+          <span className="text-[var(--color-fg)]">AI agents</span> handle the first response.{" "}
+          6+ years across <span className="text-[var(--color-fg)]">SRE</span>,{" "}
+          <span className="text-[var(--color-fg)]">cloud infrastructure</span>, and{" "}
+          <span className="text-[var(--color-fg)]">agentic automation</span> on GCP, AWS, and Azure.
         </motion.p>
 
         <motion.div
@@ -209,26 +209,26 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1, duration: 1 }}
-          className="mt-16 grid grid-cols-2 gap-3 sm:grid-cols-4"
+          className="mt-16 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5"
           data-testid="hero-focus-areas"
         >
           {focusAreas.map((f, i) => (
-            <motion.div
-              key={f.label}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1 + i * 0.1, duration: 0.6 }}
-              className="panel group relative overflow-hidden rounded-xl p-4 transition-transform hover:-translate-y-0.5"
-            >
-              <div
-                data-focus-label={f.label}
-                className="text-2xl font-bold tracking-tight text-[var(--color-fg)]"
-                style={{ fontFamily: "var(--font-display)" }}
+              <motion.div
+                key={f.label}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1 + i * 0.1, duration: 0.6 }}
+                className="panel group relative overflow-hidden rounded-xl p-4 transition-transform hover:-translate-y-0.5"
               >
-                {f.label}
-              </div>
-              <div className="mt-1 text-xs text-[var(--color-fg-muted)]">{f.desc}</div>
-            </motion.div>
+                <div
+                  data-focus-label={f.label}
+                  className="text-2xl font-bold tracking-tight text-[var(--color-fg)]"
+                  style={{ fontFamily: "var(--font-display)" }}
+                >
+                  {f.label}
+                </div>
+                <div className="mt-1 text-xs text-[var(--color-fg-muted)]">{f.desc}</div>
+              </motion.div>
           ))}
         </motion.div>
 

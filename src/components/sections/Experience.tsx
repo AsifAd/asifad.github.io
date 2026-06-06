@@ -56,7 +56,7 @@ export default function Experience() {
           <div className="space-y-16 md:space-y-24" data-testid="experience-list">
             {experience.map((job, i) => (
               <Reveal key={job.company} delay={i * 0.05}>
-                <article className="relative grid md:grid-cols-[1fr_2.5fr] md:gap-12">
+                <article data-company={job.company} className="relative grid md:grid-cols-[1fr_2.5fr] md:gap-12">
                   <div
                     aria-hidden
                     className="absolute left-4 top-3 -translate-x-1/2 md:left-8"
@@ -108,6 +108,7 @@ export default function Experience() {
                         {job.stack.map((t) => (
                           <span
                             key={t}
+                            data-stack-tag={t}
                             className="inline-flex cursor-default items-center gap-1.5 rounded-full border border-[var(--color-panel-border)] bg-[var(--color-panel)] px-2.5 py-1 font-mono text-[11px] text-[var(--color-fg-muted)] transition-all hover:-translate-y-0.5 hover:border-[var(--color-accent)]/30 hover:bg-[var(--color-accent-soft)] hover:text-[var(--color-accent)]"
                           >
                             <span className="block h-1.5 w-1.5 rounded-full bg-[var(--color-accent)]"></span>

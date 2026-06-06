@@ -47,6 +47,7 @@ export default function Skills() {
               <motion.div
                 whileHover={{ y: -4 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                data-skill-group={group.label}
                 className="panel group relative h-full overflow-hidden rounded-2xl p-6"
               >
                 <div className="font-mono text-[10px] uppercase tracking-widest text-[var(--color-fg-muted)]">

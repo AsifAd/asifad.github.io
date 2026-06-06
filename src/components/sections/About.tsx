@@ -1,14 +1,14 @@
 import { motion } from "framer-motion";
-import { Activity, Cloud, GitBranch, Zap } from "lucide-react";
+import { Activity, Bot, Cloud, Zap } from "lucide-react";
 import Reveal from "../ui/Reveal";
 import HeroTerminal from "../ui/HeroTerminal";
 import { aboutNote, summary } from "../../data/resume";
 
 const stats = [
-  { label: "Years in SRE", value: "5+", icon: Activity },
-  { label: "Uptime SLA", value: "99.9%", icon: Zap },
-  { label: "Quarterly savings", value: "$250K+", icon: Cloud },
-  { label: "Release toil reduced", value: "40%", icon: GitBranch },
+  { label: "Years in SRE",   value: "6+",     icon: Activity },
+  { label: "Uptime SLA",     value: "99.9%",  icon: Zap      },
+  { label: "Cloud savings",  value: "$300K+", icon: Cloud    },
+  { label: "MTTR via AI",    value: "↓ 20%",  icon: Bot      },
 ];
 
 export default function About() {
@@ -28,9 +28,27 @@ export default function About() {
               className="text-4xl font-bold tracking-tight text-[var(--color-fg)] sm:text-5xl"
               style={{ fontFamily: "var(--font-display)" }}
             >
-              Reliability is a <span className="italic text-[var(--color-accent)]">design discipline</span>, not a hope.
+              Reliability is a <span className="italic text-[var(--color-accent)]">design discipline</span>,{" "}
+              not a hope.
             </h2>
-            <p className="mt-6 text-balance text-lg leading-relaxed text-[var(--color-fg-muted)]">
+
+            <motion.div
+              initial={{ opacity: 0, x: -8 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.15, duration: 0.6 }}
+              className="mt-6 flex items-start gap-3 rounded-xl border border-[var(--color-accent)]/20 bg-[var(--color-accent-soft)] px-4 py-3"
+            >
+              <Bot className="mt-0.5 h-4 w-4 shrink-0 text-[var(--color-accent)]" />
+              <p className="text-sm leading-relaxed text-[var(--color-fg-muted)]">
+                Building{" "}
+                <span className="font-medium text-[var(--color-fg)]">MCP-based on-call agents</span>{" "}
+                that classify incidents, execute playbooks, and escalate only what needs human judgment.{" "}
+                <span className="text-[var(--color-fg)]">~20% MTTR reduction</span>, 15% less alert noise.
+              </p>
+            </motion.div>
+
+            <p className="mt-5 text-balance text-lg leading-relaxed text-[var(--color-fg-muted)]">
               {summary}
             </p>
             <p className="mt-4 text-balance text-lg leading-relaxed text-[var(--color-fg-muted)]">

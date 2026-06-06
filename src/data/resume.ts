@@ -14,7 +14,7 @@ export const profile = {
   },
 };
 
-export const summary = `Site Reliability Engineer and open source contributor with 5+ years on GCP, AWS, and Azure. I build Kubernetes platforms, Infrastructure as Code (Terraform, Ansible), and observability loops that turn 2 AM pages into self-healing systems, plus upstream PRs to Ansible, Argo CD, and Jenkins. Track record: 99.9% uptime SLAs, $250K+ quarterly GCP savings, and 40% less release toil.`;
+export const summary = `Site Reliability Engineer with 6+ years building and operating resilient, large-scale cloud platforms across GCP, AWS, and Azure. Deep practitioner of Kubernetes (GKE), GitOps (ArgoCD), and Infrastructure as Code (Terraform, Ansible), with a track record of sustaining 99.9%+ uptime SLAs and delivering $300K+ in annualized cloud savings. Pioneered AI-driven operational models using MCP-based agentic workflows, cutting MTTR by ~20% and alert fatigue by 15%. Active open source contributor to Ansible, Argo CD, and Jenkins.`;
 
 export const aboutNote = `The work I care most about lives at the boundary: where infrastructure becomes a product for engineers, where alerts become actions, and where upstream open source fixes make the next on-call shift quieter.`;
 
@@ -27,33 +27,38 @@ export const skills: SkillGroup[] = [
     items: ["GCP", "AWS", "Azure"],
   },
   {
-    label: "Containers & Orchestration",
+    label: "AI & Agentic Operations",
     accent: "violet",
+    items: ["MCP", "AIOps", "Agentic Automation", "Vertex AI", "LLM-Assisted Incident Response"],
+  },
+  {
+    label: "Containers & Orchestration",
+    accent: "emerald",
     items: ["Kubernetes", "GKE", "EKS", "Docker", "Helm"],
   },
   {
     label: "IaC & GitOps",
-    accent: "emerald",
+    accent: "cyan",
     items: ["Terraform", "Ansible", "ArgoCD", "Chef"],
   },
   {
     label: "CI/CD & Automation",
-    accent: "cyan",
+    accent: "violet",
     items: ["Jenkins", "GitHub Actions", "Azure DevOps", "Git"],
   },
   {
     label: "Observability & Incident",
-    accent: "violet",
+    accent: "emerald",
     items: ["Prometheus", "Grafana", "Dynatrace", "New Relic", "PagerDuty"],
   },
   {
     label: "Systems & Networking",
-    accent: "emerald",
+    accent: "cyan",
     items: ["Linux", "Nginx", "TCP/IP", "DNS", "Load Balancing"],
   },
   {
     label: "Programming & Scripting",
-    accent: "cyan",
+    accent: "violet",
     items: ["Python", "Bash", "Golang", "JavaScript", "Angular"],
   },
 ];
@@ -73,14 +78,15 @@ export const experience: Experience[] = [
     role: "Site Reliability Engineer",
     location: "Bengaluru, KA",
     period: "Jun 2024 - Present",
-    stack: ["GCP", "AWS", "Kubernetes", "ArgoCD", "Terraform", "Ansible", "New Relic", "PagerDuty"],
+    stack: ["GCP", "AWS", "Kubernetes", "ArgoCD", "Terraform", "Ansible", "New Relic", "PagerDuty", "Vertex AI", "MCP"],
     highlights: [
-      "Engineered and maintained high-availability production infrastructure, consistently achieving and exceeding 99.9% uptime SLAs while executing robust on-call incident management protocols and blameless post-mortems.",
-      "Architected petabyte-scale object storage management across GCP (GCS) and AWS (S3), implementing S3 Intelligent-Tiering, cross-region replication (CRR), and strict IAM/bucket policies to ensure SOC 2/GDPR compliance and reduce storage footprint.",
-      "Spearheaded a massive cloud cost-optimization initiative, involving instance right-sizing, storage tiering, and database upgrades, generating over $250,000 in operational savings within a single quarter.",
-      "Managed Kubernetes workloads utilizing GitOps principles with ArgoCD and Helm, streamlining deployment processes, enabling automated drift detection, and reducing manual release intervention by 40%.",
-      "Invented and deployed an intelligent auto-healing system that seamlessly integrates New Relic telemetry, PagerDuty alerts, and Python/Bash automation tools to instantly remediate known failure states, drastically reducing operational toil and MTTR.",
-      "Led the zero-downtime structural migration of Apache NiFi clusters from Chef-based configuration management to Ansible, subsequently orchestrating automated multi-region NiFi deployments.",
+      "Served as primary on-call and incident commander on a bi-weekly rotation for tier-1 services; resolved major outages, conducted blameless RCAs, and led the strategic onboarding of a NOC team as an L1 first line of defense, drastically reducing engineering escalations.",
+      "Built an AI-powered New Relic MCP server that audits alert coverage and dashboard gaps across microservices using Golden Signals (latency, traffic, errors, saturation), improving observability quality and reducing non-actionable alert noise by 15%.",
+      "Designed and deployed an On-Call Agent integrating PagerDuty, New Relic, and automated runbooks to classify incidents, execute safe remediations, and escalate only complex cases with context-rich summaries, reducing MTTR by ~20%.",
+      "Led foundational platform enablement by provisioning greenfield GCP projects end-to-end: IAM guardrails, networking baselines, CI/CD onboarding, and Vertex AI setup, reducing team onboarding time by 25%.",
+      "Spearheaded a cloud cost-optimization initiative involving instance right-sizing, storage tiering, and database upgrades, generating over $300,000 in annualized operational savings.",
+      "Managed Kubernetes workloads via GitOps with ArgoCD and Helm, enabling automated drift detection and reducing manual release intervention by 20%.",
+      "Established an agentic reliability engineering operating model combining observability intelligence, incident context enrichment, and automated remediation, reducing alert fatigue by 15% and improving on-call efficiency.",
     ],
   },
   {
@@ -107,9 +113,9 @@ export const experience: Experience[] = [
     highlights: [
       "Provisioned, secured, and scaled enterprise-grade AWS and Azure cloud infrastructures leveraging VPCs, EC2/VMs, and auto-scaling groups for global client deployments.",
       "Troubleshot and resolved complex network and routing issues, including Load Balancer algorithms, DNS resolution, and TCP/IP bottlenecks, ensuring uncompromised connectivity and low latency.",
-      "Introduced and standardized Infrastructure as Code practices using Git-managed ARM templates and robust scripting resources to version-control primary infrastructure components.",
-      "Collaborated within cross-functional Agile teams to design and develop robust front-end user interaction portals using Angular (6+), JavaScript, HTML5, and CSS3, bridging user experience gaps with backend systems.",
-      "Integrated seamless code delivery utilizing Azure DevOps CI/CD pipelines, minimizing integration code-conflicts.",
+      "Drove foundational IaC adoption by developing version-controlled ARM templates and Bash deployment scripts, standardizing cloud environments and reducing manual provisioning errors.",
+      "Engineered Python and shell automation suites to govern cloud resource lifecycles, automating snapshot cleanup, instance tracking, and IAM access audits, reducing weekly operational toil across engineering teams.",
+      "Delivered CI/CD pipelines via Azure DevOps for multi-environment deployments, enforcing gated release stages and automated rollback triggers to reduce failed deployments.",
     ],
   },
 ];
@@ -127,18 +133,30 @@ export type { GeneratedOpenSourceStack as OpenSourceStack } from "./oss-stacks.g
 
 export const projects: Project[] = [
   {
+    name: "Engineering Intelligence Platform",
+    blurb:
+      "Hackathon 2nd Place. Built a unified internal platform that centralizes multi-team documentation, service dependency mapping, and live service health into a single pane of glass. Reduced cross-team troubleshooting time by 35% and improved incident handoff quality.",
+    tags: ["AI", "Python", "Observability", "Internal Tooling"],
+    highlight: true,
+  },
+  {
+    name: "MCP On-Call Automation Suite",
+    blurb:
+      "Engineered MCP-based operational tools (TypeScript + Python) for alert analysis, contextual troubleshooting, and runbook-driven remediation. Integrates New Relic and PagerDuty to accelerate incident handling and improve escalation precision, reducing MTTR by ~20%.",
+    tags: ["MCP", "TypeScript", "Python", "New Relic", "PagerDuty"],
+    highlight: true,
+  },
+  {
     name: "Automated Storage Compliance Controller",
     blurb:
-      "Developed a Python-based automation tool to proactively audit AWS S3 buckets across the organization. Enforced encryption standards, configured intelligent lifecycle policies for cost optimization, and ensured strict IAM access controls for data security.",
+      "Python-based automation tool that proactively audits AWS S3 buckets across the organization. Enforces encryption standards, configures intelligent lifecycle policies for cost optimization, and ensures strict IAM access controls for data security.",
     tags: ["Python", "AWS S3", "Automation", "Security"],
-    highlight: true,
   },
   {
     name: "GitOps Fleet Manager",
     blurb:
-      "Architected a centralized GitOps deployment workflow using ArgoCD and custom Helm charts to synchronize microservices across multiple Kubernetes clusters, providing automated drift detection and rapid rollback capabilities.",
+      "Centralized GitOps deployment workflow using ArgoCD and custom Helm charts to synchronize microservices across multiple Kubernetes clusters, providing automated drift detection and rapid rollback capabilities.",
     tags: ["ArgoCD", "Helm", "Kubernetes", "GitOps"],
-    highlight: true,
   },
   {
     name: "Auto-healing remediation loop",
@@ -194,10 +212,29 @@ export const education = [
   },
 ];
 
+export const awards = [
+  {
+    title: "Star of the Month",
+    org: "BlackLine",
+    desc: "Recognized for outstanding contributions to AI-driven SRE automation and incident management.",
+  },
+  {
+    title: "Company-Wide Hackathon: 2nd Place",
+    org: "BlackLine",
+    desc: "Built an AI-enabled engineering intelligence platform for documentation discovery, dependency visibility, and real-time service health insights.",
+  },
+  {
+    title: "Best Performer Award",
+    org: "Capgemini",
+    desc: "Recognized as a top-performing engineer for rapid upskilling, high project impact, and proactively achieving cloud certifications.",
+  },
+];
+
 export const focusAreas = [
   { label: "SRE", desc: "Reliability, SLOs, on-call, postmortems" },
-  { label: "DevOps", desc: "CI/CD, GitOps, release engineering" },
+  { label: "AI Ops", desc: "MCP agents, AIOps, agentic automation" },
   { label: "Cloud", desc: "GCP · AWS · Azure platform engineering" },
+  { label: "DevOps", desc: "CI/CD, GitOps, release engineering" },
   { label: "Open Source", desc: "Ansible, Argo CD, Jenkins · upstream PRs" },
 ];
 

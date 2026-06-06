@@ -12,10 +12,13 @@ export default function HeroTerminal() {
 
     const sequence = [
       "> systemctl status engineer",
-      "● Asif Draxi - Site Reliability Engineer",
+      "● Asif Draxi - SRE · AI-Augmented Ops",
       "   Active: active (running) since 2019",
       "   Tasks: 42 (limit: 4096)",
-      "   Memory: 100% optimized",
+      "   AI Agent: on-call · MCP · agentic",
+      "> oncall-agent --status",
+      "  ✓ Incidents classified  ✓ Runbooks armed",
+      "  ✓ MTTR ↓ 20%            ✓ Noise ↓ 15%",
       "> echo 'Systems Nominal.'",
       "Systems Nominal."
     ];
@@ -27,7 +30,8 @@ export default function HeroTerminal() {
       if (currentLine < sequence.length) {
         setLines(prev => [...prev, sequence[currentLine]]);
         currentLine++;
-        timeout = setTimeout(nextLine, currentLine === 1 || currentLine === 5 ? 800 : 300);
+        const delay = [1, 6, 9].includes(currentLine) ? 750 : 280;
+        timeout = setTimeout(nextLine, delay);
       }
     };
 
@@ -41,7 +45,7 @@ export default function HeroTerminal() {
   }, []);
 
   return (
-    <div ref={ref} className="w-full overflow-hidden rounded-xl border border-zinc-800 bg-[#0d0d0d] shadow-[0_0_30px_rgba(16,185,129,0.15)]">
+    <div ref={ref} data-testid="about-terminal" className="w-full overflow-hidden rounded-xl border border-zinc-800 bg-[#0d0d0d] shadow-[0_0_30px_rgba(16,185,129,0.15)]">
       <div className="flex items-center justify-between border-b border-zinc-800 bg-zinc-900/80 px-4 py-2">
         <div className="flex items-center gap-2">
           <div className="h-3 w-3 rounded-full bg-rose-500/80" />

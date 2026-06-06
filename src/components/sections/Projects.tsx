@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ExternalLink, Star } from "lucide-react";
+import { ExternalLink, Star, Trophy } from "lucide-react";
 import Reveal from "../ui/Reveal";
 import ServiceMapAnimation from "../ui/ServiceMapAnimation";
 import StorageComplianceAnimation from "../ui/StorageComplianceAnimation";
@@ -7,6 +7,8 @@ import GitOpsFleetAnimation from "../ui/GitOpsFleetAnimation";
 import NiFiAnimation from "../ui/NiFiAnimation";
 import K8sLabAnimation from "../ui/K8sLabAnimation";
 import ServerlessAlertingAnimation from "../ui/ServerlessAlertingAnimation";
+import EngineeringIntelligenceAnimation from "../ui/EngineeringIntelligenceAnimation";
+import MCPAgentAnimation from "../ui/MCPAgentAnimation";
 import SpotlightCard from "../ui/SpotlightCard";
 import { projects } from "../../data/resume";
 
@@ -42,8 +44,20 @@ export default function Projects() {
             const inner = (
               <>
                 {p.highlight && (
-                  <div className="mb-4 inline-flex items-center gap-1.5 rounded-full border border-[var(--color-accent)]/30 bg-[var(--color-accent-soft)] px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-[var(--color-accent)]">
-                    <Star className="h-3 w-3" /> Featured
+                  <div className="mb-4 flex flex-wrap items-center gap-2">
+                    <div className="inline-flex items-center gap-1.5 rounded-full border border-[var(--color-accent)]/30 bg-[var(--color-accent-soft)] px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-[var(--color-accent)]">
+                      <Star className="h-3 w-3" /> Featured
+                    </div>
+                    {p.name === "Engineering Intelligence Platform" && (
+                      <div className="inline-flex items-center gap-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-amber-400">
+                        <Trophy className="h-3 w-3" /> Hackathon 2nd Place
+                      </div>
+                    )}
+                    {p.name === "MCP On-Call Automation Suite" && (
+                      <div className="inline-flex items-center gap-1.5 rounded-full border border-violet-500/30 bg-violet-500/10 px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-violet-400">
+                        <Star className="h-3 w-3" /> AI · MCP
+                      </div>
+                    )}
                   </div>
                 )}
 
@@ -59,6 +73,8 @@ export default function Projects() {
                   )}
                 </div>
 
+                {p.name === "Engineering Intelligence Platform" && <EngineeringIntelligenceAnimation />}
+                {p.name === "MCP On-Call Automation Suite" && <MCPAgentAnimation />}
                 {p.name === "Automated Storage Compliance Controller" && <StorageComplianceAnimation />}
                 {p.name === "GitOps Fleet Manager" && <GitOpsFleetAnimation />}
                 {p.name === "Auto-healing remediation loop" && <ServiceMapAnimation />}
@@ -92,6 +108,7 @@ export default function Projects() {
                     whileHover={{ y: -4 }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
                     className="block h-full"
+                    data-project-title={p.name}
                   >
                     <SpotlightCard className={cardClass}>
                       <div className="relative z-20">
@@ -104,6 +121,7 @@ export default function Projects() {
                     whileHover={{ y: -4 }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
                     className="block h-full"
+                    data-project-title={p.name}
                   >
                     <SpotlightCard className={cardClass}>
                       <div className="relative z-20">
