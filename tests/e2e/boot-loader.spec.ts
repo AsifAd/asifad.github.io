@@ -5,22 +5,34 @@ test.describe("terminal boot sequence loader", () => {
   test("shows loader, prints lines sequentially, then fades out and is removed", async ({
     page,
   }) => {
+    // The loader prints 12 lines in ~2.5s and then deletes itself, so polling
+    // the DOM for each line races its own teardown. Record the transcript as
+    // it is written and assert on that instead.
+    await page.addInitScript(() => {
+      (window as unknown as { __bootLines: string[] }).__bootLines = [];
+      const attach = () => {
+        const target = document.getElementById("boot-text");
+        if (!target) return false;
+        new MutationObserver((records) => {
+          for (const record of records) {
+            for (const node of Array.from(record.addedNodes)) {
+              (window as unknown as { __bootLines: string[] }).__bootLines.push(
+                (node.textContent ?? "").trim(),
+              );
+            }
+          }
+        }).observe(target, { childList: true });
+        return true;
+      };
+      if (!attach()) {
+        document.addEventListener("DOMContentLoaded", attach, { once: true });
+      }
+    });
+
     await page.goto("/");
 
     const loader = page.locator("#boot-loader");
     await expect(loader).toBeVisible();
-
-    const bootText = page.locator("#boot-text");
-    let previousCount = 0;
-
-    for (const line of BOOT_LINES) {
-      await expect
-        .poll(async () => bootText.locator("div").count(), { timeout: 8_000 })
-        .toBeGreaterThan(previousCount);
-      await expect(bootText).toContainText(line);
-      previousCount += 1;
-    }
-
     await expect(page.locator("#boot-prompt")).toContainText(BOOT_PROMPT);
 
     await page.waitForFunction(() => {
@@ -30,6 +42,15 @@ test.describe("terminal boot sequence loader", () => {
 
     await waitForBootLoaderDone(page);
     await expect(loader).toHaveCount(0);
+
+    const printed = await page.evaluate(
+      () => (window as unknown as { __bootLines: string[] }).__bootLines,
+    );
+    const positions = BOOT_LINES.map((line) => printed.findIndex((p) => p.includes(line)));
+
+    expect(positions.every((i) => i >= 0), `printed lines: ${JSON.stringify(printed)}`).toBe(true);
+    // Sequential: each representative line lands after the previous one.
+    expect(positions).toEqual([...positions].sort((a, b) => a - b));
   });
 
   test("does not block hero interactions after boot completes", async ({ page }) => {

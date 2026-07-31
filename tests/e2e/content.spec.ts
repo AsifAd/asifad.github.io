@@ -8,12 +8,10 @@ test.describe("content integrity", () => {
     }
   });
 
-  test("renders the four focus areas", async ({ page }) => {
+  test("renders every skill group from the resume", async ({ page }) => {
     await page.goto("/");
-    for (const label of ["SRE", "DevOps", "Cloud", "Open Source"]) {
-      await expect(
-        page.locator(`[data-focus-label="${label}"]`),
-      ).toBeVisible();
+    for (const label of ["Cloud Platforms", "AI & Agentic Operations", "IaC & GitOps"]) {
+      await expect(page.getByText(label, { exact: true })).toBeVisible();
     }
   });
 
