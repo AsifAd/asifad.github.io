@@ -9,6 +9,9 @@ export default function ResumeFAB() {
     const handleScroll = () => {
       setVisible(window.scrollY > 600);
     };
+    // Sync once on mount: hydration can happen after the page is already
+    // scrolled (deep link, refresh, restored position) and no event will fire.
+    handleScroll();
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);

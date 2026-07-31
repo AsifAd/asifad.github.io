@@ -1,12 +1,11 @@
 import { test, expect } from "@playwright/test";
-import { waitForBootLoaderDone } from "./helpers";
+import { openCommandPalette, waitForBootLoaderDone } from "./helpers";
 
 test.describe("spotlight search", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/");
     await waitForBootLoaderDone(page);
-    await page.keyboard.press(process.platform === "darwin" ? "Meta+k" : "Control+k");
-    await expect(page.getByTestId("spotlight-panel")).toBeVisible();
+    await openCommandPalette(page);
   });
 
   test("finds experience by company name", async ({ page }) => {

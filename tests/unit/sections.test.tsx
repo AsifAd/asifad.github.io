@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
-import About from "../../src/components/sections/About";
+import About, { stats } from "../../src/components/sections/About";
 import Skills from "../../src/components/sections/Skills";
 import Experience from "../../src/components/sections/Experience";
 import Projects from "../../src/components/sections/Projects";
@@ -16,13 +16,14 @@ import {
 } from "../../src/data/resume";
 
 describe("About", () => {
-  it("renders the four stats", () => {
+  it("renders every stat with its label and value", () => {
     render(<About />);
-    const stats = screen.getByTestId("about-stats");
-    expect(stats.textContent).toMatch(/5\+/);
-    expect(stats.textContent).toMatch(/99\.9%/);
-    expect(stats.textContent).toMatch(/\$250K\+/);
-    expect(stats.textContent).toMatch(/40%/);
+    const grid = screen.getByTestId("about-stats");
+    expect(stats.length).toBeGreaterThan(0);
+    for (const s of stats) {
+      expect(grid.textContent).toContain(s.label);
+      expect(grid.textContent).toContain(s.value);
+    }
   });
 });
 

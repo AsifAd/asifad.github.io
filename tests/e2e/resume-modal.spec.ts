@@ -1,6 +1,8 @@
 import { test, expect } from "@playwright/test";
 import {
+  openCommandPalette,
   openResumeModalFromHero,
+  openResumeModalVia,
   resumeModal,
   resumeModalShell,
   waitForBootLoaderDone,
@@ -18,24 +20,18 @@ test.describe("interactive resume modal", () => {
   });
 
   test("opens from hero Résumé button", async ({ page }) => {
-    const resumeBtn = page.getByTestId("hero-resume-download");
-    await expect(resumeBtn).toBeVisible();
-    await expect(async () => {
-      await resumeBtn.click();
-      await expectResumeModalOpen(page);
-    }).toPass({ timeout: 15_000 });
+    await openResumeModalVia(page, page.getByTestId("hero-resume-download"));
+    await expectResumeModalOpen(page);
   });
 
   test("opens from contact Preview & Download card", async ({ page }) => {
     await page.getByTestId("section-contact").scrollIntoViewIfNeeded();
-    const resumeCard = page.getByTestId("contact-resume-card");
-    await expect(resumeCard).toBeVisible({ timeout: 10_000 });
-    await resumeCard.click();
+    await openResumeModalVia(page, page.getByTestId("contact-resume-card"));
     await expectResumeModalOpen(page);
   });
 
   test("opens from CMD+K palette (search Resume → Enter)", async ({ page }) => {
-    await page.keyboard.press(process.platform === "darwin" ? "Meta+k" : "Control+k");
+    await openCommandPalette(page);
     const paletteInput = page.getByPlaceholder("Search");
     await paletteInput.fill("Resume");
     await page.getByRole("option", { name: /Preview résumé/i }).click();
