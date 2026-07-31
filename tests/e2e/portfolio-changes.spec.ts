@@ -129,15 +129,12 @@ test.describe("Hero content", () => {
   });
 
   // 11
-  test('focus areas grid contains "AI Ops" card', async ({ page }) => {
-    await expect(page.locator('[data-focus-label="AI Ops"]')).toBeVisible();
-  });
-
-  // 12
-  test("focus areas grid contains all 5 cards", async ({ page }) => {
-    for (const label of ["SRE", "AI Ops", "Cloud", "DevOps", "Open Source"]) {
-      await expect(page.locator(`[data-focus-label="${label}"]`)).toBeVisible();
-    }
+  test("hero CTA row leads with a single primary action", async ({ page }) => {
+    const primary = page.getByTestId("hero-cta-projects");
+    await expect(primary).toBeVisible();
+    await expect(primary).toHaveAttribute("href", "#projects");
+    await expect(page.getByTestId("hero-resume-download")).toBeVisible();
+    await expect(page.getByTestId("hero-cta-opensource")).toBeVisible();
   });
 
   // 13

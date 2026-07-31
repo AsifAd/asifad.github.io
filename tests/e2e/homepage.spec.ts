@@ -48,11 +48,12 @@ test.describe("homepage", () => {
     expect(ogDesc?.length || 0).toBeGreaterThan(40);
   });
 
-  test("hero surfaces open source as a focus area", async ({ page }) => {
+  test("hero social links stay reachable as icon-only buttons", async ({ page }) => {
     await page.goto("/");
-    const focus = page.getByTestId("hero-focus-areas");
-    await expect(focus).toBeVisible();
-    await expect(focus.locator('[data-focus-label="Open Source"]')).toBeVisible();
+    const hero = page.locator("#top");
+    for (const name of ["GitHub", "LinkedIn", "Email"]) {
+      await expect(hero.getByRole("link", { name, exact: true })).toBeVisible();
+    }
   });
 
   test("open source section lists technology stacks", async ({ page }) => {

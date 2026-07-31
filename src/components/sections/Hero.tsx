@@ -2,7 +2,13 @@ import { motion, useReducedMotion } from "framer-motion";
 import { ArrowDown, Download, Mail, Search } from "lucide-react";
 import { openCommandPalette } from "../ui/CommandTrigger";
 import { GitHubIcon, LinkedInIcon } from "../ui/BrandIcons";
-import { profile, focusAreas, yearsExperience } from "../../data/resume";
+import { profile, yearsExperience } from "../../data/resume";
+
+const socials = [
+  { label: "GitHub", href: profile.links.github, icon: GitHubIcon, external: true },
+  { label: "LinkedIn", href: profile.links.linkedin, icon: LinkedInIcon, external: true },
+  { label: "Email", href: profile.links.email, icon: Mail, external: false },
+];
 
 const wordReveal = {
   hidden: { y: "110%", opacity: 0 },
@@ -158,40 +164,10 @@ export default function Hero() {
           <a
             href="#projects"
             data-testid="hero-cta-projects"
-            className="group inline-flex items-center gap-2 rounded-full bg-[var(--color-fg)] px-5 py-2.5 text-sm font-medium text-[var(--color-bg)] transition-all hover:scale-[1.02]"
+            className="group inline-flex items-center gap-2 rounded-full bg-[var(--color-fg)] px-6 py-3 text-sm font-semibold text-[var(--color-bg)] shadow-lg transition-all hover:scale-[1.02]"
           >
             Production work
             <ArrowDown className="h-4 w-4 transition-transform group-hover:translate-y-0.5" />
-          </a>
-          <a
-            href="#opensource"
-            data-testid="hero-cta-opensource"
-            className="inline-flex items-center gap-2 rounded-full border border-[var(--color-accent)]/40 bg-[var(--color-accent-soft)] px-5 py-2.5 text-sm font-medium text-[var(--color-fg)] transition-colors hover:bg-[var(--color-accent-soft)]"
-          >
-            Open source
-            <ArrowDown className="h-4 w-4" />
-          </a>
-          <a
-            href={profile.links.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full border border-[var(--color-panel-border)] bg-[var(--color-panel)] px-5 py-2.5 text-sm text-[var(--color-fg)] backdrop-blur transition-colors hover:bg-[var(--color-accent-soft)]"
-          >
-            <GitHubIcon className="h-4 w-4" /> GitHub
-          </a>
-          <a
-            href={profile.links.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full border border-[var(--color-panel-border)] bg-[var(--color-panel)] px-5 py-2.5 text-sm text-[var(--color-fg)] backdrop-blur transition-colors hover:bg-[var(--color-accent-soft)]"
-          >
-            <LinkedInIcon className="h-4 w-4" /> LinkedIn
-          </a>
-          <a
-            href={profile.links.email}
-            className="inline-flex items-center gap-2 rounded-full border border-[var(--color-panel-border)] bg-[var(--color-panel)] px-5 py-2.5 text-sm text-[var(--color-fg)] backdrop-blur transition-colors hover:bg-[var(--color-accent-soft)]"
-          >
-            <Mail className="h-4 w-4" /> Email
           </a>
           <button
             onClick={(e) => {
@@ -199,37 +175,35 @@ export default function Hero() {
               window.dispatchEvent(new CustomEvent("open-resume-modal"));
             }}
             data-testid="hero-resume-download"
-            className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-[var(--color-panel-border)] bg-[var(--color-panel)] px-5 py-2.5 text-sm text-[var(--color-fg)] backdrop-blur transition-colors hover:bg-[var(--color-accent-soft)]"
+            className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-[var(--color-accent)]/50 px-5 py-3 text-sm font-medium text-[var(--color-fg)] transition-colors hover:bg-[var(--color-accent-soft)]"
           >
             <Download className="h-4 w-4" /> Résumé
           </button>
-        </motion.div>
+          <a
+            href="#opensource"
+            data-testid="hero-cta-opensource"
+            className="group inline-flex items-center gap-1.5 px-1 py-3 text-sm text-[var(--color-fg-muted)] underline decoration-[var(--color-rule)] decoration-1 underline-offset-4 transition-colors hover:text-[var(--color-accent)] hover:decoration-[var(--color-accent)]"
+          >
+            Open source
+            <ArrowDown className="h-3.5 w-3.5 transition-transform group-hover:translate-y-0.5" />
+          </a>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 1 }}
-          className="mt-16 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5"
-          data-testid="hero-focus-areas"
-        >
-          {focusAreas.map((f, i) => (
-              <motion.div
-                key={f.label}
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1 + i * 0.1, duration: 0.6 }}
-                className="panel group relative overflow-hidden rounded-xl p-4 transition-transform hover:-translate-y-0.5"
+          {/* Grouped by whitespace rather than a rule: the design system's
+              border tokens sit at 8–10% opacity and read as invisible at 1px. */}
+          <div className="flex items-center gap-2 sm:ml-4">
+            {socials.map((s) => (
+              <a
+                key={s.label}
+                href={s.href}
+                aria-label={s.label}
+                target={s.external ? "_blank" : undefined}
+                rel={s.external ? "noopener noreferrer" : undefined}
+                className="grid h-10 w-10 place-items-center rounded-full border border-[var(--color-panel-border)] bg-[var(--color-panel)] text-[var(--color-fg-muted)] backdrop-blur transition-colors hover:border-[var(--color-accent)]/40 hover:text-[var(--color-fg)]"
               >
-                <div
-                  data-focus-label={f.label}
-                  className="text-2xl font-bold tracking-tight text-[var(--color-fg)]"
-                  style={{ fontFamily: "var(--font-display)" }}
-                >
-                  {f.label}
-                </div>
-                <div className="mt-1 text-xs text-[var(--color-fg-muted)]">{f.desc}</div>
-              </motion.div>
-          ))}
+                <s.icon className="h-4 w-4" />
+              </a>
+            ))}
+          </div>
         </motion.div>
 
         <motion.div

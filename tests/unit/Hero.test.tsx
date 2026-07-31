@@ -40,13 +40,18 @@ describe("Hero section", () => {
     expect(pitch.textContent).toContain(`${yearsExperience} years`);
   });
 
-  it("renders all four focus areas (SRE / DevOps / Cloud / Open Source)", () => {
+  it("keeps accessible names on the icon-only social links", () => {
     render(<Hero />);
-    const focus = screen.getByTestId("hero-focus-areas");
-    // Match via the dedicated focus-area heading nodes, not concatenated textContent.
-    expect(focus.querySelector('[data-focus-label="SRE"]')).toBeTruthy();
-    expect(focus.querySelector('[data-focus-label="DevOps"]')).toBeTruthy();
-    expect(focus.querySelector('[data-focus-label="Cloud"]')).toBeTruthy();
-    expect(focus.querySelector('[data-focus-label="Open Source"]')).toBeTruthy();
+    // These carry no visible text, so the aria-label is the only affordance.
+    for (const name of ["GitHub", "LinkedIn", "Email"]) {
+      expect(screen.getByRole("link", { name })).toBeInTheDocument();
+    }
+  });
+
+  it("offers one primary CTA alongside the résumé and open source actions", () => {
+    render(<Hero />);
+    expect(screen.getByTestId("hero-cta-projects")).toHaveAttribute("href", "#projects");
+    expect(screen.getByTestId("hero-cta-opensource")).toHaveAttribute("href", "#opensource");
+    expect(screen.getByTestId("hero-resume-download")).toBeInTheDocument();
   });
 });
