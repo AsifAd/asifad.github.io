@@ -2,7 +2,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { ArrowDown, Download, Mail, Search } from "lucide-react";
 import { openCommandPalette } from "../ui/CommandTrigger";
 import { GitHubIcon, LinkedInIcon } from "../ui/BrandIcons";
-import { profile, focusAreas } from "../../data/resume";
+import { profile, focusAreas, yearsExperience } from "../../data/resume";
 
 const wordReveal = {
   hidden: { y: "110%", opacity: 0 },
@@ -144,7 +144,7 @@ export default function Hero() {
         >
           I build platforms that keep production calm at 2 AM, and{" "}
           <span className="text-[var(--color-fg)]">AI agents</span> handle the first response.{" "}
-          6+ years across <span className="text-[var(--color-fg)]">SRE</span>,{" "}
+          {yearsExperience} years across <span className="text-[var(--color-fg)]">SRE</span>,{" "}
           <span className="text-[var(--color-fg)]">cloud infrastructure</span>, and{" "}
           <span className="text-[var(--color-fg)]">agentic automation</span> on GCP, AWS, and Azure.
         </motion.p>

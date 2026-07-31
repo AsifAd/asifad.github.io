@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import Hero from "../../src/components/sections/Hero";
-import { profile } from "../../src/data/resume";
+import { profile, yearsExperience } from "../../src/data/resume";
 
 describe("Hero section", () => {
   it("renders the name prominently", () => {
@@ -34,10 +34,10 @@ describe("Hero section", () => {
     expect(li).toHaveAttribute("target", "_blank");
   });
 
-  it("mentions open source in the tagline", () => {
+  it("quotes the same years of experience as the rest of the site", () => {
     render(<Hero />);
-    const tagline = screen.getByText(/contribute upstream to/i).closest("p");
-    expect(tagline?.textContent).toMatch(/open source/i);
+    const pitch = screen.getByTestId("hero-paragraph");
+    expect(pitch.textContent).toContain(`${yearsExperience} years`);
   });
 
   it("renders all four focus areas (SRE / DevOps / Cloud / Open Source)", () => {

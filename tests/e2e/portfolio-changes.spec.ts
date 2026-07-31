@@ -2,6 +2,7 @@ import { test, expect } from "@playwright/test";
 import {
   waitForBootLoaderDone,
   openResumeModalFromHero,
+  openResumeModalVia,
   resumeModal,
   resumeModalShell,
   expectResumeModalOpen,
@@ -17,8 +18,7 @@ async function scrollTo(page: import("@playwright/test").Page, selector: string)
 
 async function openModalFromNav(page: import("@playwright/test").Page) {
   await waitForBootLoaderDone(page);
-  const navBtn = page.getByRole("button", { name: /resume/i }).first();
-  await navBtn.click();
+  await openResumeModalVia(page, page.getByRole("button", { name: /resume/i }).first());
 }
 
 // ---------------------------------------------------------------------------
@@ -32,7 +32,9 @@ test.describe("Resume modal — entry points", () => {
   });
 
   // 1
-  test("nav Resume button opens modal (not a new tab)", async ({ page }) => {
+  test("nav Resume button opens modal (not a new tab)", async ({ page, isMobile }) => {
+    test.skip(!!isMobile, "Mobile nav collapses to a hamburger with no Resume entry");
+
     const navBtn = page
       .locator("nav")
       .getByRole("button", { name: /resume/i })
@@ -41,7 +43,7 @@ test.describe("Resume modal — entry points", () => {
 
     const [newPage] = await Promise.all([
       page.context().waitForEvent("page", { timeout: 2_000 }).catch(() => null),
-      navBtn.click(),
+      openResumeModalVia(page, navBtn),
     ]);
     expect(newPage).toBeNull();
     await expectResumeModalOpen(page);
@@ -56,9 +58,7 @@ test.describe("Resume modal — entry points", () => {
   // 3
   test("contact Résumé card opens modal", async ({ page }) => {
     await page.getByTestId("section-contact").scrollIntoViewIfNeeded();
-    const card = page.getByTestId("contact-resume-card");
-    await expect(card).toBeVisible({ timeout: 10_000 });
-    await card.click();
+    await openResumeModalVia(page, page.getByTestId("contact-resume-card"));
     await expectResumeModalOpen(page);
   });
 

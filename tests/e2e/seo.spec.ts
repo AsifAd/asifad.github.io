@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { openResumeModalVia } from "./helpers";
 
 test.describe("SEO + assets", () => {
   test("og:image meta points to og.png and the asset is reachable", async ({ page, request }) => {
@@ -20,7 +21,7 @@ test.describe("SEO + assets", () => {
     const trigger = page.getByTestId("hero-resume-download");
     await expect(trigger).toBeVisible();
     await expect(trigger).toHaveRole("button");
-    await trigger.click();
+    await openResumeModalVia(page, trigger);
 
     await expect(page.locator("object[type='application/pdf']")).toHaveAttribute(
       "data",

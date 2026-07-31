@@ -64,3 +64,13 @@ if (!window.IntersectionObserver) {
   // @ts-expect-error — minimal stub for tests
   window.IntersectionObserver = IO;
 }
+
+if (!window.ResizeObserver) {
+  class RO {
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+  }
+  // @ts-expect-error — minimal stub for tests
+  window.ResizeObserver = RO;
+}

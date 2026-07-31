@@ -56,12 +56,23 @@ test.describe("theme toggle", () => {
       });
     }).toPass({ timeout: 10_000 });
 
-    // Body has a 0.4s background-color transition; wait for it to land.
-    await page.waitForTimeout(600);
+    // The body has a background-color transition, and getComputedStyle reports
+    // interpolated values while it runs. Poll until the colour stops changing
+    // instead of betting on a fixed wait.
+    const readBg = () =>
+      page.evaluate(() => getComputedStyle(document.body).backgroundColor);
 
-    const bg = await page.evaluate(
-      () => getComputedStyle(document.body).backgroundColor,
-    );
+    await expect
+      .poll(
+        async () => {
+          const m = (await readBg()).match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/);
+          return m ? Math.min(Number(m[1]), Number(m[2]), Number(m[3])) : -1;
+        },
+        { timeout: 5_000, message: "body background should settle on the paper colour" },
+      )
+      .toBeGreaterThan(220);
+
+    const bg = await readBg();
     // Paper bg #faf7f2 → rgb values all > 230. Catches accidental dark bg leak.
     const m = bg.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/);
     expect(m, `expected rgb() but got ${bg}`).not.toBeNull();

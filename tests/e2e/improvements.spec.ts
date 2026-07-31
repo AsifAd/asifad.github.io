@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { waitForBootLoaderDone, expectResumeModalOpen } from "./helpers";
+import { waitForBootLoaderDone, expectResumeModalOpen, openResumeModalVia } from "./helpers";
 
 test.describe("site improvements", () => {
   test("skip link targets main content", async ({ page }) => {
@@ -41,13 +41,8 @@ test.describe("site improvements", () => {
     await page.goto("/");
     await waitForBootLoaderDone(page);
     await page.getByTestId("section-contact").scrollIntoViewIfNeeded();
-    const resumeCard = page.getByTestId("contact-resume-card");
-    await expect(resumeCard).toBeVisible({ timeout: 10_000 });
-
-    await expect(async () => {
-      await resumeCard.click();
-      await expectResumeModalOpen(page);
-    }).toPass({ timeout: 15_000 });
+    await openResumeModalVia(page, page.getByTestId("contact-resume-card"));
+    await expectResumeModalOpen(page);
   });
 
   test("JSON-LD Person schema is present", async ({ page }) => {

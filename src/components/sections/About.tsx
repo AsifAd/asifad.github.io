@@ -2,13 +2,13 @@ import { motion } from "framer-motion";
 import { Activity, Bot, Cloud, Zap } from "lucide-react";
 import Reveal from "../ui/Reveal";
 import HeroTerminal from "../ui/HeroTerminal";
-import { aboutNote, summary } from "../../data/resume";
+import { aboutNote, summary, yearsExperience } from "../../data/resume";
 
-const stats = [
-  { label: "Years in SRE",   value: "6+",     icon: Activity },
-  { label: "Uptime SLA",     value: "99.9%",  icon: Zap      },
-  { label: "Cloud savings",  value: "$300K+", icon: Cloud    },
-  { label: "MTTR via AI",    value: "↓ 20%",  icon: Bot      },
+export const stats = [
+  { label: "Years in SRE",   value: yearsExperience, icon: Activity },
+  { label: "Uptime SLA",     value: "99.9%",         icon: Zap      },
+  { label: "Cloud savings",  value: "$300K+",        icon: Cloud    },
+  { label: "MTTR via AI",    value: "↓ 20%",         icon: Bot      },
 ];
 
 export default function About() {

@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { waitForBootLoaderDone } from "./helpers";
+import { clickUntilVisible, waitForBootLoaderDone } from "./helpers";
 
 test.describe("responsive search trigger", () => {
   test.beforeEach(async ({ page }) => {
@@ -19,15 +19,16 @@ test.describe("responsive search trigger", () => {
   test("mobile search buttons open the palette", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
 
-    await page.getByTestId("hero-search-trigger").click();
-    await expect(page.getByPlaceholder("Search")).toBeVisible();
+    const palette = page.getByPlaceholder("Search");
+
+    await clickUntilVisible(page.getByTestId("hero-search-trigger"), palette);
 
     await page.keyboard.press("Escape");
-    await expect(page.getByPlaceholder("Search")).toHaveCount(0);
+    await expect(palette).toHaveCount(0);
+
     const navSearch = page.getByTestId("command-trigger");
     await navSearch.scrollIntoViewIfNeeded();
-    await navSearch.click();
-    await expect(page.getByPlaceholder("Search")).toBeVisible();
+    await clickUntilVisible(navSearch, palette);
   });
 
   test("desktop shows ⌘K hint in nav and hero", async ({ page }) => {

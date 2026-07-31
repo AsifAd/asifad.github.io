@@ -14,7 +14,11 @@ export const profile = {
   },
 };
 
-export const summary = `Site Reliability Engineer with 6+ years building and operating resilient, large-scale cloud platforms across GCP, AWS, and Azure. Deep practitioner of Kubernetes (GKE), GitOps (ArgoCD), and Infrastructure as Code (Terraform, Ansible), with a track record of sustaining 99.9%+ uptime SLAs and delivering $300K+ in annualized cloud savings. Pioneered AI-driven operational models using MCP-based agentic workflows, cutting MTTR by ~20% and alert fatigue by 15%. Active open source contributor to Ansible, Argo CD, and Jenkins.`;
+// Single source of truth: this figure also appears in the hero pitch and the
+// About stat card, which silently drifted apart the last time it was bumped.
+export const yearsExperience = "6+";
+
+export const summary = `Site Reliability Engineer with ${yearsExperience} years building and operating resilient, large-scale cloud platforms across GCP, AWS, and Azure. Deep practitioner of Kubernetes (GKE), GitOps (ArgoCD), and Infrastructure as Code (Terraform, Ansible), with a track record of sustaining 99.9%+ uptime SLAs and delivering $300K+ in annualized cloud savings. Pioneered AI-driven operational models using MCP-based agentic workflows, cutting MTTR by ~20% and alert fatigue by 15%. Active open source contributor to Ansible, Argo CD, and Jenkins.`;
 
 export const aboutNote = `The work I care most about lives at the boundary: where infrastructure becomes a product for engineers, where alerts become actions, and where upstream open source fixes make the next on-call shift quieter.`;
 

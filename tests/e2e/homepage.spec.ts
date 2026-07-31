@@ -48,11 +48,11 @@ test.describe("homepage", () => {
     expect(ogDesc?.length || 0).toBeGreaterThan(40);
   });
 
-  test("hero tagline mentions open source contributions", async ({ page }) => {
+  test("hero surfaces open source as a focus area", async ({ page }) => {
     await page.goto("/");
-    const tagline = page.locator("#top p").filter({ hasText: /contribute upstream to/i });
-    await expect(tagline).toBeVisible();
-    await expect(tagline).toContainText(/open source/i);
+    const focus = page.getByTestId("hero-focus-areas");
+    await expect(focus).toBeVisible();
+    await expect(focus.locator('[data-focus-label="Open Source"]')).toBeVisible();
   });
 
   test("open source section lists technology stacks", async ({ page }) => {
